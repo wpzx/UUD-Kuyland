@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <title>Undang-Undang</title>
     <style>
         body {
@@ -21,6 +22,18 @@
             max-width: 1200px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
+
+        .container button {
+            background-color: #3600ca;
+            color: #fff;
+            font-size: 12px;
+            padding: 10px 45px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 10px;
+            cursor: pointer;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -36,8 +49,8 @@
             color: #333;
         }
         .ringan {
-            background-color: #d4edda;
-            color: #155724;
+            background-color: #00ff3c;
+            color: #00f83a;
         }
         .sedang {
             background-color: #fff3cd;
@@ -69,11 +82,36 @@
             font-size: 14px;
             cursor: pointer;
         }
-        #searchInput {
-            margin-bottom: 20px;
-            padding: 8px;
+        .search-container {
+            position: relative;
             width: 100%;
-            box-sizing: border-box;
+            max-width: 400px; /* Bisa disesuaikan */
+            margin: 0 auto;
+        }
+
+        #searchInput {
+            width: 96%;
+            padding: 12px 20px; /* Ruang lebih untuk ikon */
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #searchInput:focus {
+            border-color: #007bff;
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 18px;
         }
         .checkbox {
             transform: scale(2.0); /* Skala 1.5 untuk memperbesar ukuran */
@@ -648,6 +686,9 @@
 
         <button id="submit" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Submit</button>
         <button id="reset" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Reset</button>
+        <button id="sop" style="margin: 20px; padding: 10px 20px; font-size: 16px;">SOP (Prosedur Operasi Standar)</button>
+        <button id="logout" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Log out</button>
+        
         <div id="summary-container">
             <h2>Ringkasan</h2>
             <table id="summary-table" style="display: none; width: 100%; border-collapse: collapse;">
@@ -674,8 +715,8 @@
                 <button class="copy-button" id="copy-denda">Salin Denda</button>
                 <button class="copy-button" id="copy-penjara">Salin Penjara</button>
             </div>
-        </div>
-    </div>
+        </div>        
+
 
     <script>
         // Handle search filtering
@@ -699,6 +740,13 @@
                     rows[i].style.display = (i === 0 || rowContainsKeyword) ? "" : "none";
                 }
             });
+        });
+
+        document.getElementById("sop").addEventListener("click", function () {
+            window.location.href = "sop.html";
+        });
+        document.getElementById("logout").addEventListener("click", function () {
+            window.location.href = "index.html";
         });
 
         // Handle submit button action
