@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginButton = document.querySelector(".form-container.sign-in button");
 
     // Password yang benar
-    const correctPassword = "wapi";
+    const correctPassword = "polku123";
 
     // Event listener untuk tombol login
     loginButton.addEventListener("click", (event) => {
@@ -12,18 +12,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Validasi password
         if (inputPassword.value === correctPassword) {
-            showNotification("Kamu telah berhasil login!");
-            setTimeout(() => {
-                // Arahkan ke tampilan baru (misalnya ke "undang.html")
-                window.location.href = "undang.html";
-            }, 2000); // Tunggu 2 detik sebelum mengarahkan
+            showNotification("Kamu telah berhasil login!", false, () => {
+                showOptionsPopup();
+            });
         } else {
             showNotification("Password salah. Coba lagi!", true);
         }
     });
 
     // Fungsi untuk menampilkan notifikasi
-    function showNotification(message, isError = false) {
+    function showNotification(message, isError = false, callback = null) {
         // Cek apakah elemen notifikasi sudah ada
         let notification = document.querySelector(".notification");
         if (!notification) {
@@ -42,8 +40,39 @@ document.addEventListener("DOMContentLoaded", () => {
             notification.style.animation = "fadeOut 0.5s forwards"; // Tambahkan animasi keluar
             setTimeout(() => {
                 notification.remove(); // Hapus notifikasi setelah animasi selesai
+                if (callback) callback(); // Panggil callback jika ada
             }, 500);
         }, 3000); // Hilangkan setelah 3 detik
+    }
+
+    // Fungsi untuk menampilkan pop-up pilihan
+    function showOptionsPopup() {
+        // Cek apakah elemen pop-up sudah ada
+        let popup = document.querySelector(".options-popup");
+        if (!popup) {
+            // Buat elemen pop-up baru
+            popup = document.createElement("div");
+            popup.className = "options-popup";
+            popup.innerHTML = `
+                <div class="popup-content">
+                    <h2>Pilih Halaman</h2>
+                    <div class="popup-buttons">
+                        <button id="uudButton">Ke UUD</button>
+                        <button id="sopButton">Ke SOP</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(popup);
+    
+            // Tambahkan event listener ke tombol
+            document.getElementById("uudButton").addEventListener("click", () => {
+                window.location.href = "undang.html";
+            });
+    
+            document.getElementById("sopButton").addEventListener("click", () => {
+                window.location.href = "sop.html";
+            });
+        }
     }
 });
 
