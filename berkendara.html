@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Undang-Undang</title>
+    <style>
+        body {
+            background-image: url('home.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 1200px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .container button {
+            background-color: #3600ca;
+            color: #fff;
+            font-size: 12px;
+            padding: 10px 45px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .ringan {
+            background-color: #00ff3c;
+            color: #00f83a;
+        }
+        .sedang {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .berat {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        #summary-container {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        #summary-table th, #summary-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        #summary-table th {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .copy-button {
+            margin-top: 5px;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px; /* Bisa disesuaikan */
+            margin: 0 auto;
+        }
+
+        #searchInput {
+            width: 96%;
+            padding: 12px 20px; /* Ruang lebih untuk ikon */
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #searchInput:focus {
+            border-color: #007bff;
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 18px;
+        }
+        .checkbox {
+            transform: scale(2.0); /* Skala 1.5 untuk memperbesar ukuran */
+            -webkit-transform: scale(2.0); /* Safari */
+            -moz-transform: scale(2.0); /* Firefox */
+            cursor: pointer; /* Menambahkan cursor pointer agar mudah di klik */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center;">UUD Berkendara Polisi Kuyland 2025</h1>
+
+        <input type="text" id="searchInput" placeholder="Cari kata kunci...">
+
+        <table>
+            <thead class="ringan">
+                <tr>
+                    <th colspan="5">PIDANA RINGAN</th>
+                </tr>
+                <tr>
+                    <th>UU</th>
+                    <th>CEKLIS</th>
+                    <th>JENIS PELANGGARAN</th>
+                    <th>DENDA</th>
+                    <th>HUKUMAN</th>
+                </tr>
+            </thead>
+            <tbody id="ringanTable">
+                <tr>
+                    <tr>
+                        <tr>
+                            <td>1:6</td>
+                            <td><input type="checkbox" class="checkbox" data-uu="1:6" data-tindak="Mengemudi Motor Tanpa Helm"></td>
+                            <td style="text-align: left;">Mengemudi Motor Tanpa Helm</td>
+                            <td>3000</td>
+                            <td>Kunci Ban + Impound</td>
+                        </tr>
+                        <tr>
+                            <td>1:7</td>
+                            <td><input type="checkbox" class="checkbox" data-uu="1:7" data-tindak="Kendaraan Tanpa Plate"></td>
+                            <td style="text-align: left;">Kendaraan Tanpa Plate</td>
+                            <td>4000</td>
+                            <td>Kunci Ban + Impound</td>
+                        </tr>
+                        <tr>
+                            <td>1:8</td>
+                            <td><input type="checkbox" class="checkbox" data-uu="1:8" data-tindak="Mengemudi di Kendaraan Tanpa Sim"></td>
+                            <td style="text-align: left;">Mengemudi di Kendaraan Tanpa Sim</td>
+                            <td>4000</td>
+                            <td>Kunci Ban + Impound</td>
+                        </tr>
+                        <tr>
+                            <td>1:9</td>
+                            <td><input type="checkbox" class="checkbox" data-uu="1:9" data-tindak="Melawan Arus Jalan"></td>
+                            <td style="text-align: left;">Melawan Arus Jalan</td>
+                            <td>4000</td>
+                            <td>Kunci Ban + Impound</td>
+                        </tr>
+                        <tr>
+                            <td>1:10</td>
+                            <td><input type="checkbox" class="checkbox" data-uu="1:10" data-tindak="Parkir Liar"></td>
+                            <td style="text-align: left;">Parkir Liar</td>
+                            <td>5000</td>
+                            <td>Kunci Ban + Impound</td>
+                        </tr>
+                        <tr>
+                            <td>1:11</td>
+                            <td><input type="checkbox" class="checkbox" data-uu="1:11" data-tindak="Parkir Liar [Totalled]"></td>
+                            <td style="text-align: left;">Parkir Liar [Totalled]</td>
+                            <td>4000</td>
+                            <td>Kunci Ban + Impound</td>
+                        </tr>
+                        <tr>
+                            <td>1:12</td>
+                            <td><input type="checkbox" class="checkbox" data-uu="1:12" data-tindak="Kecepatan Lebih Dari 70KM/Jam"></td>
+                            <td style="text-align: left;">Kecepatan Lebih Dari 70KM/Jam</td>
+                            <td>5000</td>
+                            <td>Kunci Ban + Impound</td>
+                        </tr>
+                        <tr>
+                            <td>1:13</td>
+                            <td><input type="checkbox" class="checkbox" data-uu="1:13" data-tindak="Tidak Membayar TOL"></td>
+                            <td style="text-align: left;">Tidak Membayar TOL</td>
+                            <td>4000</td>
+                            <td>Kunci Ban + Impound</td>
+                        </tr>
+                        <tr>
+                            <td>1:14</td>
+                            <td><input type="checkbox" class="checkbox" data-uu="1:14" data-tindak="Tidak Mematuhi Rambu Rambu Jalan"></td>
+                            <td style="text-align: left;">Tidak Mematuhi Rambu Rambu Jalan</td>
+                            <td>3000</td>
+                            <td>Kunci Ban + Impound</td>
+                        </tr>
+                        <tr>
+                            <td>1:15</td>
+                            <td><input type="checkbox" class="checkbox" data-uu="1:15" data-tindak="Memotong Jalan Tanpa Ada Rambu"></td>
+                            <td style="text-align: left;">Memotong Jalan Tanpa Ada Rambu</td>
+                            <td>3000</td>
+                            <td>Kunci Ban + Impound</td>
+                        </tr>
+            </tbody>
+        </table>
+
+        <table>
+            <thead class="sedang">
+                <tr>
+                    <th colspan="5">PIDANA SEDANG</th>
+                </tr>
+                <tr>
+                    <th>UU</th>
+                    <th>CEKLIS</th>
+                    <th>JENIS PELANGGARAN</th>
+                    <th>DENDA</th>
+                    <th>HUKUMAN</th>
+                </tr>
+            </thead>
+            <tbody id="sedangTable">
+                <tr>
+                    <td>1:16</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="1:16" data-tindak="Balapan Liar"></td>
+                    <td style="text-align: left;">Balapan Liar</td>
+                    <td>5000</td>
+                    <td>Kunci Ban + Impound</td>
+                </tr>
+                <tr>
+                    <td>1:17</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="1:17" data-tindak="Tabrak Lari"></td>
+                    <td style="text-align: left;">Tabrak Lari</td>
+                    <td>4000</td>
+                    <td>Kunci Ban + Impound</td>
+                </tr>
+                <tr>
+                    <td>1:18</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="1:18" data-tindak="Kendaraan Berada di Zona Ilegal (ladang, crafting, dll)"></td>
+                    <td style="text-align: left;">Kendaraan Berada di Zona Ilegal (ladang, crafting, dll)</td>
+                    <td>10000</td>
+                    <td>Kunci Ban + Impound</td>
+                </tr>
+                <tr>
+                    <td>1:19</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="1:19" data-tindak="Berkendara Ugal-ugalan"></td>
+                    <td style="text-align: left;">Berkendara Ugal-ugalan</td>
+                    <td>3000</td>
+                    <td>Kunci Ban + Impound</td>
+                </tr>
+                <tr>
+                    <td>1:20</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="1:20" data-tindak="Trucker Hauling Memasuki Kota"></td>
+                    <td style="text-align: left;">Trucker Hauling Memasuki Kota</td>
+                    <td>3000</td>
+                    <td>Kunci Ban + Impound</td>
+                </tr>
+                <tr>
+                    <td>1:21</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="1:21" data-tindak="Trucker Benson Memasuki Kota"></td>
+                    <td style="text-align: left;">Trucker Benson Memasuki Kota</td>
+                    <td>3000</td>
+                    <td>Kunci Ban + Impound</td>
+                </tr>
+                <tr>
+                    <td>1:22</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="1:22" data-tindak="Melarikan Diri dari Perberhentian"></td>
+                    <td style="text-align: left;">Melarikan Diri dari Perberhentian</td>
+                    <td>4000</td>
+                    <td>Kunci Ban + Impound</td>
+                </tr>          
+            </tbody>
+        </table>
+
+        <table>
+            <thead class="berat">
+                <tr>
+                    <th colspan="5">PIDANA BERAT</th>
+                </tr>
+                <tr>
+                    <th>UU</th>
+                    <th>CEKLIS</th>
+                    <th>JENIS PELANGGARAN</th>
+                    <th>DENDA</th>
+                    <th>HUKUMAN</th>
+                </tr>
+            </thead>
+            <tbody id="beratTable">
+                <tr>
+                    <td>1:23</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="1:23" data-tindak="Memodifikasi Knalpot"></td>
+                    <td style="text-align: left;">Memodifikasi Knalpot</td>
+                    <td>7000</td>
+                    <td>Tarik Sim + Impound + Kunci Ban</td>
+                </tr>
+                <tr>
+                    <td>1:24</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="1:24" data-tindak="Memakai Atribut Ilegal & Nitro"></td>
+                    <td style="text-align: left;">Memakai Atribut Ilegal & Nitro</td>
+                    <td>8000</td>
+                    <td>Tarik Sim + Impound + Kunci Ban</td>
+                </tr>
+                <tr>
+                    <td>1:25</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="1:25" data-tindak="Melarikan Diri Dari Razia"></td>
+                    <td style="text-align: left;">Melarikan Diri Dari Razia</td>
+                    <td>9000</td>
+                    <td>Tarik Sim + Impound + Kunci Ban</td>
+                </tr>
+                <tr>
+                    <td>1:26</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="1:26" data-tindak="Kendaraan Berada di Area Peperangan"></td>
+                    <td style="text-align: left;">Kendaraan Berada di Area Peperangan</td>
+                    <td>11000</td>
+                    <td>Tarik Sim + Impound + Kunci Ban</td>
+                </tr>
+                <tr>
+                    <td>1:27</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="1:27" data-tindak="Kendaraan Membawa Barang Ilegal"></td>
+                    <td style="text-align: left;">Kendaraan Membawa Barang Ilegal</td>
+                    <td>13000</td>
+                    <td>Tarik Sim + Impound + Kunci Ban</td>
+                </tr>
+                <tr>
+                    <td>1:28</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="1:28" data-tindak="Kendaraan Membawa Senjata Api"></td>
+                    <td style="text-align: left;">Kendaraan Membawa Senjata Api</td>
+                    <td>15000</td>
+                    <td>Tarik Sim + Impound + Kunci Ban</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button id="submit" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Submit</button>
+        <button id="reset" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Reset</button>
+        <button id="kembali" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Kembali</button>
+        <button id="sop" style="margin: 20px; padding: 10px 20px; font-size: 16px;">SOP (Prosedur Operasi Standar)</button>
+        <button id="logout" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Log out</button>
+        
+        <div id="summary-container">
+            <h2>Ringkasan</h2>
+            <table id="summary-table" style="display: none; width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th>UU</th>
+                        <th>Tindak Pidana</th>
+                        <th>Denda</th>
+                        <th>Hukuman</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="uu-summary"></td>
+                        <td id="tindak-summary"></td>
+                        <td id="denda-summary"></td>
+                        <td id="hukuman-summary"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="button-container">
+                <button class="copy-button" id="copy-uu">Salin UU</button>
+                <button class="copy-button" id="copy-tindak">Salin Tindak Pidana</button>
+                <button class="copy-button" id="copy-denda">Salin Denda</button>
+                <button class="copy-button" id="copy-hukuman">Salin Hukuman</button>
+            </div>
+        </div>        
+
+
+    <script>
+        // Handle search filtering
+        document.getElementById("searchInput").addEventListener("keyup", function() {
+            const filter = this.value.toLowerCase();
+            const tables = ['ringanTable', 'sedangTable', 'beratTable'];
+
+            tables.forEach(tableId => {
+                const table = document.getElementById(tableId);
+                const rows = table.getElementsByTagName("tr");
+                for (let i = 0; i < rows.length; i++) {
+                    const cells = rows[i].getElementsByTagName("td");
+                    let rowContainsKeyword = false;
+                    for (let j = 0; j < cells.length; j++) {
+                        const cellText = cells[j].textContent.toLowerCase();
+                        if (cellText.includes(filter)) {
+                            rowContainsKeyword = true;
+                            break;
+                        }
+                    }
+                    rows[i].style.display = (i === 0 || rowContainsKeyword) ? "" : "none";
+                }
+            });
+        });
+
+        document.getElementById("sop").addEventListener("click", function () {
+            window.location.href = "sop.html";
+        });
+        document.getElementById("logout").addEventListener("click", function () {
+            window.location.href = "index.html";
+        });
+        document.getElementById("kembali").addEventListener("click", function () {
+            window.location.href = "undang.html";
+        });
+
+        // Handle submit button action
+        document.getElementById("submit").addEventListener("click", () => {
+        const checkboxes = document.querySelectorAll(".checkbox:checked");
+        let totalDenda = 0;
+        let totalHukuman = 0;
+        const uuSummary = [];
+        const tindakSummary = [];
+        let hukumanTextGlobal = ''; // To store the global hukuman value
+        const uniquePenalties = new Set(); // To store unique penalties (avoid duplicates)
+
+        checkboxes.forEach((checkbox) => {
+            uuSummary.push(checkbox.dataset.uu);
+            tindakSummary.push(checkbox.dataset.tindak);
+
+            // Denda
+            const denda = parseInt(checkbox.closest('tr').cells[3].textContent);
+            totalDenda += denda;
+
+            // Hukuman
+            const hukumanText = checkbox.closest('tr').cells[4].textContent;
+
+            // Handle specific cases for penalty text
+            if (hukumanText === "HUKUMAN MATI") {
+                hukumanTextGlobal = "HUKUMAN MATI"; // Set the global variable to "HUKUMAN MATI"
+                totalHukuman = "HUKUMAN MATI"; // We don't sum anything, just mark it
+            } else if (hukumanText === "HUKUMAN SOSIAL" || hukumanText === "TIDAK ADA" || hukumanText === "PERINGATAN PERTAMA") {
+                // Set to 0 for these cases
+                totalHukuman += 0;
+            } else {
+                // For other valid numeric values, add it as a number
+                const hukuman = parseInt(hukumanText);
+                totalHukuman += hukuman;
+            }
+
+            // Check for specific combined penalties and add them uniquely
+            const hukumanActions = hukumanText.split(' + '); // Split combined penalties like "Kunci Ban + Impound"
+            hukumanActions.forEach((action) => {
+                uniquePenalties.add(action.trim()); // Add each unique action to the set
+            });
+        });
+
+        // Display summary
+        if (checkboxes.length > 0) {
+            document.getElementById("summary-table").style.display = 'table';
+            document.getElementById("uu-summary").textContent = uuSummary.join(", ");
+            document.getElementById("tindak-summary").textContent = tindakSummary.join(", ");
+            document.getElementById("denda-summary").textContent = totalDenda;
+
+            // If "HUKUMAN MATI" exists, we display it, otherwise show the total penalty
+            document.getElementById("hukuman-summary").textContent = hukumanTextGlobal || Array.from(uniquePenalties).join(", ");
+        }
+    });
+
+            // Handle salin button actions
+            document.getElementById("copy-uu").addEventListener("click", () => {
+                const uuText = document.getElementById("uu-summary").textContent;
+                if (uuText) {
+                    navigator.clipboard.writeText(uuText).catch(err => {
+                        console.error("Gagal menyalin UU: " + err);
+                    });
+                }
+            });
+
+            document.getElementById("copy-tindak").addEventListener("click", () => {
+                const tindakText = document.getElementById("tindak-summary").textContent;
+                if (tindakText) {
+                    navigator.clipboard.writeText(tindakText).catch(err => {
+                        console.error("Gagal menyalin Tindak Pidana: " + err);
+                    });
+                }
+            });
+
+            document.getElementById("copy-denda").addEventListener("click", () => {
+                const dendaText = document.getElementById("denda-summary").textContent;
+                if (dendaText) {
+                    navigator.clipboard.writeText(dendaText).catch(err => {
+                        console.error("Gagal menyalin Denda: " + err);
+                    });
+                }
+            });
+
+            document.getElementById("copy-hukuman").addEventListener("click", () => {
+                const hukumanText = document.getElementById("hukuman-summary").textContent;
+                if (hukumanText) {
+                    navigator.clipboard.writeText(hukumanText).catch(err => {
+                        console.error("Gagal menyalin Hukuman: " + err);
+                    });
+                }
+            });
+
+        // Handle reset button action
+        document.getElementById("reset").addEventListener("click", () => {
+            // Uncheck all checkboxes
+            const checkboxes = document.querySelectorAll(".checkbox");
+            checkboxes.forEach((checkbox) => {
+                checkbox.checked = false;
+            });
+
+            // Clear the summary table
+            document.getElementById("summary-table").style.display = 'none';
+            document.getElementById("uu-summary").textContent = '';
+            document.getElementById("tindak-summary").textContent = '';
+            document.getElementById("denda-summary").textContent = '';
+            document.getElementById("hukuman-summary").textContent = '';
+        });
+    </script>
+</body>
+</html>
