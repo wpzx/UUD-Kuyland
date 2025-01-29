@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Undang-Undang</title>
+    <style>
+        body {
+            background-image: url('home.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 1200px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .container button {
+            background-color: #3600ca;
+            color: #fff;
+            font-size: 12px;
+            padding: 10px 45px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .radio {
+            background-color: #00ff3c;
+            color: #00f83a;
+        }
+        .sedang {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .berat {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        #summary-container {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        #summary-table th, #summary-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        #summary-table th {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .copy-button {
+            margin-top: 5px;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px; /* Bisa disesuaikan */
+            margin: 0 auto;
+        }
+
+        #searchInput {
+            width: 96%;
+            padding: 12px 20px; /* Ruang lebih untuk ikon */
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #searchInput:focus {
+            border-color: #007bff;
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 18px;
+        }
+        .checkbox {
+            transform: scale(2.0); /* Skala 1.5 untuk memperbesar ukuran */
+            -webkit-transform: scale(2.0); /* Safari */
+            -moz-transform: scale(2.0); /* Firefox */
+            cursor: pointer; /* Menambahkan cursor pointer agar mudah di klik */
+        }
+
+        #radioTable td {
+            text-align: left;
+            padding: 8px; /* Biar lebih rapi */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center;">SOP Polisi Kuyland 2025</h1>
+
+        <input type="text" id="searchInput" placeholder="Cari kata kunci...">
+
+        <table>
+            <thead class="radio">
+                <tr>
+                    <th colspan="2">SOP RADIO</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">KODE</th>
+                    <th style="text-align: center;">ARTI</th>
+                </tr>
+            </thead>
+            <tbody id="radioTable">
+                <tr>
+                    <td style="text-align: center;">8-1-0</td>
+                    <td style="text-align: left;">Izin berhenti bertugas (Off-duty)</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-1-1</td>
+                    <td style="text-align: left;">Izin mulai bertugas (On-duty)</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-1-2</td>
+                    <td style="text-align: left;">Izin Istirahat</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-1-3</td>
+                    <td style="text-align: left;">Izin Patroli</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-1</td>
+                    <td style="text-align: left;">Semua Unit Berkumpul Di Suatu Tempat (Wajib)</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-2</td>
+                    <td style="text-align: left;">Melaporkan Lokasi Atau Meminta Lokasi</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-3</td>
+                    <td style="text-align: left;">Berhenti Transmisi/Hapus Radio</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-6</td>
+                    <td style="text-align: left;">Dimengerti/Dipahami</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-8</td>
+                    <td style="text-align: left;">Menuju ke lokasi</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-9</td>
+                    <td style="text-align: left;">Pesan kurang jelas, Harap Diulangi Transmisi Radio</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-11</td>
+                    <td style="text-align: left;">Laporan Situasi (Melaporkan mengenai situasi yang terjadi)</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-14</td>
+                    <td style="text-align: left;">Butuh Jemputan / Transportasi</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-20</td>
+                    <td style="text-align: left;">Kembali ke kantor polisi</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-32</td>
+                    <td style="text-align: left;">Orang bersenjata</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-34</td>
+                    <td style="text-align: left;">Terjadi Kerusuhan</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-40</td>
+                    <td style="text-align: left;">Banyak Orang Di Area Tersebut</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-41</td>
+                    <td style="text-align: left;">Kemungkinan Aktivitas Ilegal sedang terjadi</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-47</td>
+                    <td style="text-align: left;">Lost Visual, Kehilangan Target / Suspect pengejaran</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-55</td>
+                    <td style="text-align: left;">Melakukan Penilangan</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-56</td>
+                    <td style="text-align: left;">Sedang terjadi Penembakan</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-57</td>
+                    <td style="text-align: left;">Melakukan pengejaran terhadap Tersangka</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-59</td>
+                    <td style="text-align: left;">Sedang terjadi Perampokan</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-60</td>
+                    <td style="text-align: left;">Ciri-ciri Kendaraan Tersangka (Terangkan Secara Detail)</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-61</td>
+                    <td style="text-align: left;">Ciri-ciri Tersangka (Terangkan Secara Detail)</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-70</td>
+                    <td style="text-align: left;">Meminta Bantuan Backup</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">8-99</td>
+                    <td style="text-align: left;">Situasi Selesai</td>
+                </tr>        
+            </tbody>
+        </table>
+        
+
+        <button id="undang" style="margin: 20px; padding: 10px 20px; font-size: 16px;">UUD Kuyland</button>   
+        <button id="logout" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Log out</button>     
+
+
+    <script>
+        // Handle search filtering
+        document.getElementById("searchInput").addEventListener("keyup", function() {
+            const filter = this.value.toLowerCase();
+            const tables = ['radioTable'];  
+
+            tables.forEach(tableId => {
+                const table = document.getElementById(tableId);
+                const rows = table.getElementsByTagName("tr");
+                for (let i = 0; i < rows.length; i++) {
+                    const cells = rows[i].getElementsByTagName("td");
+                    let rowContainsKeyword = false;
+                    for (let j = 0; j < cells.length; j++) {
+                        const cellText = cells[j].textContent.toLowerCase();
+                        if (cellText.includes(filter)) {
+                            rowContainsKeyword = true;
+                            break;
+                        }
+                    }
+                    rows[i].style.display = (i === 0 || rowContainsKeyword) ? "" : "none";
+                }
+            });
+        });
+
+        document.getElementById("undang").addEventListener("click", function () {
+            window.location.href = "undang.html";
+        });
+
+        document.getElementById("logout").addEventListener("click", function () {
+            window.location.href = "index.html";
+        });
+    </script>
+</body>
+</html>
