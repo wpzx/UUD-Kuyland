@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Undang-Undang</title>
     <style>
         body {
@@ -122,6 +123,8 @@
     </style>
 </head>
 <body>
+    <script src="undang.js"></script>
+        
     <div class="container">
         <h1 style="text-align: center;">UUD Polisi Kuyland 2025</h1>
 
@@ -680,7 +683,7 @@
                         <td><input type="checkbox" class="checkbox" data-uu="4.16" data-tindak="MENGCRAFTING SENJATA"></td>
                         <td style="text-align: left;">MENGCRAFTING SENJATA</td>
                         <td>90000</td>
-                        <td>100000</td>
+                        <td>100</td>
                     </tr>
                     <tr>
                         <td>4.17</td>
@@ -707,35 +710,35 @@
             </thead>
             <tbody id="terorisTable">
                 <tr>
-                    <td>RINGAN</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="RINGAN" data-tindak="MELAKUKAN PENEMBAKAN DIAREA-AREA YANG DILINDUNGI OLEH HUKUM"></td>
+                    <td>TERORISME RINGAN</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="TERORISME RINGAN" data-tindak="MELAKUKAN PENEMBAKAN DIAREA-AREA YANG DILINDUNGI OLEH HUKUM"></td>
                     <td style="text-align: left;">MELAKUKAN PENEMBAKAN DIAREA-AREA YANG DILINDUNGI OLEH HUKUM</td>
                     <td>50000</td>
                     <td>60</td>
                 </tr>
                 <tr>
-                    <td>SEDANG</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="SEDANG" data-tindak="TINDAKAN YANG MENGAKIBATKAN KOTA KEADAAN SIAGA 2"></td>
+                    <td>TERORISME SEDANG</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="TERORISME SEDANG" data-tindak="TINDAKAN YANG MENGAKIBATKAN KOTA KEADAAN SIAGA 2"></td>
                     <td style="text-align: left;">TINDAKAN YANG MENGAKIBATKAN KOTA KEADAAN SIAGA 2</td>
                     <td>60000</td>
                     <td>120</td>
                 </tr>
-                    <td>BERAT A</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="BERAT A" data-tindak="TINDAKAN YANG MENGAKIBATKAN KOTA KEADAAN SIAGA 3"></td>
+                    <td>TERORISME BERAT A</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="TERORISME BERAT A" data-tindak="TINDAKAN YANG MENGAKIBATKAN KOTA KEADAAN SIAGA 3"></td>
                     <td style="text-align: left;">TINDAKAN YANG MENGAKIBATKAN KOTA KEADAAN SIAGA 3</td>
                     <td>100000</td>
                     <td>180</td>
                 </tr>
                 </tr>
-                    <td>BERAT B</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="BERAT B" data-tindak="UPAYA PENCULIKAN DAN PENYANDRAAN YANG BERUJUNG PEMBUNUHAN"></td>
+                    <td>TERORISME BERAT B</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="TERORISME BERAT B" data-tindak="UPAYA PENCULIKAN DAN PENYANDRAAN YANG BERUJUNG PEMBUNUHAN"></td>
                     <td style="text-align: left;">UPAYA PENCULIKAN DAN PENYANDRAAN YANG BERUJUNG PEMBUNUHAN</td>
                     <td>90000</td>
                     <td>140</td>
                 </tr>
                 </tr>
-                    <td>BERAT C</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="BERAT C" data-tindak="UPAYA MENGGANGGU PROSES JALANNYA PELEBURAN"></td>
+                    <td>TERORISME BERAT C</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="TERORISME BERAT C" data-tindak="UPAYA MENGGANGGU PROSES JALANNYA PELEBURAN"></td>
                     <td style="text-align: left;">UPAYA MENGGANGGU PROSES JALANNYA PELEBURAN</td>
                     <td>90000</td>
                     <td>160</td>
@@ -744,6 +747,7 @@
         </table>
 
         <button id="submit" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Submit</button>
+        <button id="kirim-discord" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Kirimkan Ke Discord</button>
         <button id="reset" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Reset</button>
         <button id="berkendara" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Undang-Undang Berkendara</button>
         <button id="sop" style="margin: 20px; padding: 10px 20px; font-size: 16px;">SOP (Prosedur Operasi Standar)</button>
@@ -758,6 +762,7 @@
                         <th>Tindak Pidana</th>
                         <th>Denda</th>
                         <th>Penjara</th>
+                        <th>Lokasi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -766,6 +771,7 @@
                         <td id="tindak-summary"></td>
                         <td id="denda-summary"></td>
                         <td id="penjara-summary"></td>
+                        <td id="lokasi-summary"></td>
                     </tr>
                 </tbody>
             </table>
@@ -774,11 +780,13 @@
                 <button class="copy-button" id="copy-tindak">Salin Tindak Pidana</button>
                 <button class="copy-button" id="copy-denda">Salin Denda</button>
                 <button class="copy-button" id="copy-penjara">Salin Penjara</button>
+                <button class="copy-button" id="copy-lokasi">Salin Lokasi</button>
             </div>
         </div>        
 
 
     <script>
+
         // Handle search filtering
         document.getElementById("searchInput").addEventListener("keyup", function() {
             const filter = this.value.toLowerCase();
@@ -812,88 +820,110 @@
             window.location.href = "berkendara.html";
         });
 
-        // Handle submit button action
-        document.getElementById("submit").addEventListener("click", () => {
-            const checkboxes = document.querySelectorAll(".checkbox:checked");
-            let totalDenda = 0;
-            let totalPenjara = 0;
-            const uuSummary = [];
-            const tindakSummary = [];
-            let penjaraTextGlobal = ''; // To store the global penjara value
+// Handle submit button action 
+document.getElementById("submit").addEventListener("click", () => {
+        const checkboxes = document.querySelectorAll(".checkbox:checked");
+        let totalDenda = 0;
+        let totalPenjara = 0;
+        const uuSummary = [];
+        const tindakSummary = [];
+        let penjaraTextGlobal = ''; // To store the global penjara value
+        let lokasi = ''; // Variable for location (Lokasi)
 
-            checkboxes.forEach((checkbox) => {
-                uuSummary.push(checkbox.dataset.uu);
-                tindakSummary.push(checkbox.dataset.tindak);
+        checkboxes.forEach((checkbox) => {
+            uuSummary.push(checkbox.dataset.uu);
+            tindakSummary.push(checkbox.dataset.tindak);
 
-                // Denda
-                const denda = parseInt(checkbox.closest('tr').cells[3].textContent);
-                totalDenda += denda;
+            // Denda
+            const denda = parseInt(checkbox.closest('tr').cells[3].textContent);
+            totalDenda += denda;
 
-                // Penjara
-                const penjaraText = checkbox.closest('tr').cells[4].textContent;
+            // Penjara
+            const penjaraText = checkbox.closest('tr').cells[4].textContent;
 
-                // Handle specific cases for penalty text
-                if (penjaraText === "HUKUMAN MATI") {
-                    penjaraTextGlobal = "HUKUMAN MATI"; // Set the global variable to "HUKUMAN MATI"
-                    totalPenjara = "HUKUMAN MATI"; // We don't sum anything, just mark it
-                } else if (penjaraText === "HUKUMAN SOSIAL" || penjaraText === "TIDAK ADA" || penjaraText === "PERINGATAN PERTAMA") {
-                    // Set to 0 for these cases
-                    totalPenjara += 0;
-                } else {
-                    // For other valid numeric values, add it as a number
-                    const penjara = parseInt(penjaraText);
-                    totalPenjara += penjara;
-                }
-            });
-
-            // Display summary
-            if (checkboxes.length > 0) {
-                document.getElementById("summary-table").style.display = 'table';
-                document.getElementById("uu-summary").textContent = uuSummary.join(", ");
-                document.getElementById("tindak-summary").textContent = tindakSummary.join(", ");
-                document.getElementById("denda-summary").textContent = totalDenda;
-
-                // If "HUKUMAN MATI" exists, we display it, otherwise show the total penalty
-                document.getElementById("penjara-summary").textContent = penjaraTextGlobal || totalPenjara;
+            // Handle specific cases for penalty text
+            if (penjaraText === "HUKUMAN MATI") {
+                penjaraTextGlobal = "HUKUMAN MATI"; // Set the global variable to "HUKUMAN MATI"
+                totalPenjara = "HUKUMAN MATI"; // We don't sum anything, just mark it
+            } else if (penjaraText === "HUKUMAN SOSIAL" || penjaraText === "TIDAK ADA" || penjaraText === "PERINGATAN PERTAMA") {
+                // Set to 0 for these cases
+                totalPenjara += 0;
+            } else {
+                // For other valid numeric values, add it as a number
+                const penjara = parseInt(penjaraText);
+                totalPenjara += penjara;
             }
-
-            // Handle salin button actions
-            document.getElementById("copy-uu").addEventListener("click", () => {
-                const uuText = document.getElementById("uu-summary").textContent;
-                if (uuText) {
-                    navigator.clipboard.writeText(uuText).catch(err => {
-                        console.error("Gagal menyalin UU: " + err);
-                    });
-                }
-            });
-
-            document.getElementById("copy-tindak").addEventListener("click", () => {
-                const tindakText = document.getElementById("tindak-summary").textContent;
-                if (tindakText) {
-                    navigator.clipboard.writeText(tindakText).catch(err => {
-                        console.error("Gagal menyalin Tindak Pidana: " + err);
-                    });
-                }
-            });
-
-            document.getElementById("copy-denda").addEventListener("click", () => {
-                const dendaText = document.getElementById("denda-summary").textContent;
-                if (dendaText) {
-                    navigator.clipboard.writeText(dendaText).catch(err => {
-                        console.error("Gagal menyalin Denda: " + err);
-                    });
-                }
-            });
-
-            document.getElementById("copy-penjara").addEventListener("click", () => {
-                const penjaraText = document.getElementById("penjara-summary").textContent;
-                if (penjaraText) {
-                    navigator.clipboard.writeText(penjaraText).catch(err => {
-                        console.error("Gagal menyalin Penjara: " + err);
-                    });
-                }
-            });
         });
+
+        // Determine Lokasi based on totalPenjara
+        if (totalPenjara === "HUKUMAN MATI") {
+            lokasi = "Federal"; // For "HUKUMAN MATI", location is Federal
+        } else if (totalPenjara <= 60) {
+            lokasi = "Kantor Pusat"; // If totalPenjara is less than or equal to 60, location is Kantor Pusat
+        } else {
+            lokasi = "Federal"; // If totalPenjara is greater than 60, location is Federal
+        }
+
+        // Display summary
+        if (checkboxes.length > 0) {
+            document.getElementById("summary-table").style.display = 'table';
+            document.getElementById("uu-summary").textContent = uuSummary.join(", ");
+            document.getElementById("tindak-summary").textContent = tindakSummary.join(", ");
+            document.getElementById("denda-summary").textContent = totalDenda;
+
+            // If "HUKUMAN MATI" exists, we display it, otherwise show the total penalty
+            document.getElementById("penjara-summary").textContent = penjaraTextGlobal || totalPenjara;
+
+            // Display Lokasi
+            document.getElementById("lokasi-summary").textContent = lokasi;
+        }
+
+        // Handle salin button actions
+        document.getElementById("copy-uu").addEventListener("click", () => {
+            const uuText = document.getElementById("uu-summary").textContent;
+            if (uuText) {
+                navigator.clipboard.writeText(uuText).catch(err => {
+                    console.error("Gagal menyalin UU: " + err);
+                });
+            }
+        });
+
+        document.getElementById("copy-tindak").addEventListener("click", () => {
+            const tindakText = document.getElementById("tindak-summary").textContent;
+            if (tindakText) {
+                navigator.clipboard.writeText(tindakText).catch(err => {
+                    console.error("Gagal menyalin Tindak Pidana: " + err);
+                });
+            }
+        });
+
+        document.getElementById("copy-denda").addEventListener("click", () => {
+            const dendaText = document.getElementById("denda-summary").textContent;
+            if (dendaText) {
+                navigator.clipboard.writeText(dendaText).catch(err => {
+                    console.error("Gagal menyalin Denda: " + err);
+                });
+            }
+        });
+
+        document.getElementById("copy-penjara").addEventListener("click", () => {
+            const penjaraText = document.getElementById("penjara-summary").textContent;
+            if (penjaraText) {
+                navigator.clipboard.writeText(penjaraText).catch(err => {
+                    console.error("Gagal menyalin Penjara: " + err);
+                });
+            }
+        });
+
+        document.getElementById("copy-lokasi").addEventListener("click", () => {
+            const lokasiText = document.getElementById("lokasi-summary").textContent;
+            if (lokasiText) {
+                navigator.clipboard.writeText(lokasiText).catch(err => {
+                    console.error("Gagal menyalin Lokasi: " + err);
+                });
+            }
+        });
+    });
 
         // Handle reset button action
         document.getElementById("reset").addEventListener("click", () => {
@@ -910,6 +940,230 @@
             document.getElementById("denda-summary").textContent = '';
             document.getElementById("penjara-summary").textContent = '';
         });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const welcomeMessage = document.getElementById("welcomeMessage");
+            const storedName = localStorage.getItem("username");
+            const storedRank = localStorage.getItem("rank");
+            const storedDivision = localStorage.getItem("division");
+
+            if (storedName && storedRank && storedDivision) {
+                // Menampilkan data user di dalam pop-up modern (SweetAlert)
+                Swal.fire({
+                    title: `Halo, ${storedName}!`,
+                    text: `Pangkat: ${storedRank},\nDivisi: ${storedDivision}`,
+                    icon: "success",
+                    confirmButtonText: "Lanjut"
+                });
+            } else {
+                welcomeMessage.innerHTML = "<h1>Halo, Pengguna! Silakan login terlebih dahulu.</h1>";
+            }
+        });
+
+// Fungsi untuk mengirim pesan ke Discord
+function sendToDiscord(username) {
+    const webhookURL = "https://discord.com/api/webhooks/1334878460652421160/1bzMmbjZz23gdeeERvtC39lLeE9z8sf8jowAqUwEEFdd69gvqeJkFOD6OBBULwDGGsQO";
+
+    const payload = {
+        username: "Undang Bot",
+        avatar_url: "https://i.imgur.com/6M1FHDK.png",
+        content: `🚀 **${username}** baru saja masuk ke halaman undang!`
+    };
+
+    fetch(webhookURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    }).then(response => {
+        if (response.ok) {
+            console.log("Pesan berhasil dikirim ke Discord!");
+        } else {
+            console.error("Gagal mengirim pesan ke Discord.");
+        }
+    }).catch(error => {
+        console.error("Error:", error);
+    });
+}
+
+// Fungsi untuk mengirim ke webhook yang sesuai berdasarkan lokasi penahanan
+function sendToDiscordWebhook(laporan, lokasiPenahanan) {
+    const webhookURLs = {
+        "Federal": "https://discord.com/api/webhooks/1334878460652421160/1bzMmbjZz23gdeeERvtC39lLeE9z8sf8jowAqUwEEFdd69gvqeJkFOD6OBBULwDGGsQO",
+        "Kantor Pusat": "https://discord.com/api/webhooks/1334878658246217788/1yxfh0G4_35BIyy5YOxWzQ5EamtmxNcjf6Pmrse7kiYx7cK3FxrVEvpov4uj25asQIgj"
+    };
+
+    fetch(webhookURLs[lokasiPenahanan], {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(laporan)
+    }).then(response => {
+        if (response.ok) {
+            Swal.fire({
+                title: 'Berhasil!',
+                text: 'Laporan penahanan berhasil dikirim!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        } else {
+            Swal.fire({
+                title: 'Gagal!',
+                text: 'Laporan gagal dikirim, coba lagi nanti.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    }).catch(error => {
+        console.error("Error:", error);
+        Swal.fire({
+            title: 'Gagal!',
+            text: 'Terjadi kesalahan, coba lagi nanti.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    });
+}
+
+document.getElementById("kirim-discord").addEventListener("click", () => {
+    const totalDenda = parseInt(document.getElementById("denda-summary").textContent);
+    const totalPenjara = document.getElementById("penjara-summary").textContent;
+    const tindakSummary = document.getElementById("tindak-summary").textContent;
+    const uuSummary = document.getElementById("uu-summary").textContent;
+
+    // Ambil data yang dimasukkan melalui pop-up
+    Swal.fire({
+        title: 'Masukkan Nama Tersangka:',
+        input: 'text',
+        inputPlaceholder: 'Nama Tersangka',
+        showCancelButton: true,
+        cancelButtonText: 'Kembali'
+    }).then(result => {
+        if (result.isDismissed) return;
+
+        const namaTersangka = result.value.trim();
+        if (!namaTersangka) {
+            Swal.fire({
+                title: 'Gagal!',
+                text: 'Nama Tersangka tidak boleh kosong!',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
+
+        Swal.fire({
+            title: 'Masukkan Nomor Handphone Tersangka:',
+            input: 'text',
+            inputPlaceholder: 'Nomor Handphone',
+            showCancelButton: true,
+            cancelButtonText: 'Kembali'
+        }).then(result => {
+            if (result.isDismissed) return;
+
+            const noHpTersangka = result.value.trim();
+            if (!noHpTersangka) {
+                Swal.fire({
+                    title: 'Gagal!',
+                    text: 'Nomor Handphone Tersangka tidak boleh kosong!',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: 'Apakah Ada Foto KTP?',
+                input: 'select',
+                inputOptions: {
+                    'Ada': 'Ada',
+                    'Tidak': 'Tidak'
+                },
+                showCancelButton: true,
+                cancelButtonText: 'Kembali'
+            }).then(result => {
+                if (result.isDismissed) return;
+
+                const fotoKtp = result.value;
+                Swal.fire({
+                    title: 'Masukkan Deskripsi Barang Bukti:',
+                    input: 'text',
+                    inputPlaceholder: 'Deskripsi Barang Bukti',
+                    showCancelButton: true,
+                    cancelButtonText: 'Kembali'
+                }).then(result => {
+                    if (result.isDismissed) return;
+
+                    const deskripsiBarangBukti = result.value.trim();
+                    if (!deskripsiBarangBukti) {
+                        Swal.fire({
+                            title: 'Gagal!',
+                            text: 'Deskripsi Barang Bukti tidak boleh kosong!',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                        return;
+                    }
+
+                    Swal.fire({
+                        title: 'Masukkan Jumlah Barang Bukti:',
+                        input: 'number',
+                        inputPlaceholder: 'Jumlah Barang Bukti',
+                        showCancelButton: true,
+                        cancelButtonText: 'Kembali'
+                    }).then(result => {
+                        if (result.isDismissed) return;
+
+                        const jumlahBarangBukti = result.value;
+
+                        // Tentukan lokasi penahanan berdasarkan total penjara
+                        const lokasiPenahanan = totalPenjara === "HUKUMAN MATI" ? "Federal" : (totalPenjara > 60 ? "Federal" : "Kantor Pusat");
+
+                        // Ambil data login petugas
+                        const petugasNama = localStorage.getItem("username");
+                        const petugasDivisi = localStorage.getItem("division");
+                        const petugasJabatan = localStorage.getItem("rank");
+
+                        // Cek jika nama, divisi, atau jabatan petugas kosong (null)
+                        if (!petugasNama || !petugasDivisi || !petugasJabatan) {
+                            Swal.fire({
+                                title: 'Gagal!',
+                                text: 'Data petugas tidak lengkap! Pastikan nama, divisi, dan jabatan petugas sudah terisi.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                            return;
+                        }
+
+                        // Format total penjara (hilangkan 'bulan' jika angka bulat)
+                        const formattedPenjara = totalPenjara.includes("bulan") ?
+                            (parseInt(totalPenjara) ? `${parseInt(totalPenjara)}` : totalPenjara) :
+                            totalPenjara;
+
+                        // Format denda dengan titik
+                        const formattedDenda = totalDenda.toLocaleString();
+                        
+                        const hukumanMasaTahanan = [
+                            "HUKUMAN MATI", 
+                            "HUKUMAN SOSIAL", 
+                            "TIDAK ADA", 
+                            "PERINGATAN PERTAMA"
+                        ].includes(totalPenjara) ? totalPenjara : `${totalPenjara} bulan`;
+                        // Siapkan data laporan untuk dikirim ke Discord
+                        const laporan = {
+                            content: `**LAPORAN PENAHANAN**\n\n**I. Informasi Penahanan:**\n- Nomor Laporan Penahanan: ${Math.floor(Math.random() * 10000)}\n- Tanggal dan Waktu Penahanan: ${new Date().toLocaleString()}\n- Lokasi Penahanan: ${lokasiPenahanan}\n- Deskripsi Pelanggaran: ${tindakSummary}\n\n**II. Informasi Tersangka:**\n- Nama Tersangka: ${namaTersangka}\n- Nomor Handphone: ${noHpTersangka}\n- Hukuman/Masa Tahanan: ${hukumanMasaTahanan}\n- Pasal: ${uuSummary}\n- Denda: $${totalDenda.toLocaleString()}\n- Foto KTP: ${fotoKtp}\n\n**III. Identitas Petugas yang Menahan:**\n- Nama Petugas: ${petugasNama}\n- Divisi: ${petugasDivisi}\n- Jabatan: ${petugasJabatan}\n- Rekan: Semua Anggota yang Membantu\n\n**IV. Barang Bukti yang Disita:**\n- Deskripsi Barang Bukti: ${deskripsiBarangBukti}\n- Jumlah Barang Bukti: ${jumlahBarangBukti}`
+                        };
+
+
+                        // Kirim laporan ke webhook sesuai lokasi penahanan
+                        sendToDiscordWebhook(laporan, lokasiPenahanan);
+                    });
+                });
+            });
+        });
+    });
+});
+
     </script>
 </body>
 </html>
