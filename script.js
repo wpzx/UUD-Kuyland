@@ -1,24 +1,105 @@
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector(".form-container.sign-in form");
+    const inputName = document.querySelector(".form-container.sign-in input[type='name']");
     const inputPassword = document.querySelector(".form-container.sign-in input[type='password']");
     const loginButton = document.querySelector(".form-container.sign-in button");
 
-    // Password yang benar
-    const correctPassword = "polku123";
+    // Database user (simulasi)
+    const userData = [
+        { name: "Iyan Antasari", rank: "Jenderal Polisi", division: "All" },
+        { name: "Mariono Senopati", rank: "Komisaris Jenderal Polisi", division: "Brigade Mobil" },
+        { name: "Mario Santa", rank: "Komisaris Jenderal Polisi", division: "Badan Reserse Kriminal" },
+        { name: "Marcio Zelensky", rank: "Inspektur Jenderal Polisi", division: "Satuan Lalu Lintas" },
+        { name: "Vincentzo Lacozta", rank: "Brigadir Jenderal Polisi", division: "Satuan Lalu Lintas" },
+        { name: "Kora Syahputra", rank: "Sekretaris Jenderal Polisi", division: "Samapta Bhayangkara" },
+        { name: "Bagas Ravendra", rank: "Ajun Komisaris Besar Polisi", division: "Samapta Bhayangkara" },
+        { name: "Bonar Sitorus", rank: "Komisaris Polisi", division: "Samapta Bhayangkara" },
+        { name: "Bahar Kamarudin", rank: "Ajun Komisaris Polisi", division: "Samapta Bhayangkara" },
+        { name: "Ardana Angkasa", rank: "Inspektur Polisi Satu", division: "Samapta Bhayangkara" },
+        { name: "Allya Rebelions", rank: "Brigadir Polisi Dua", division: "Satuan Lalu Lintas" },
+        { name: "Depvano Ravendra", rank: "Brigadir Polisi Dua", division: "Samapta Bhayangkara" },
+        { name: "Ahsan Norseth", rank: "Brigadir Polisi", division: "Samapta Bhayangkara" },
+        { name: "Binn Hook", rank: "Brigadir Polisi", division: "Satuan Lalu Lintas" },
+        { name: "Oktoy Deadly", rank: "Brigadir Polisi", division: "Samapta Bhayangkara" },
+        { name: "Tengku Khasyim", rank: "Brigadir Polisi Dua", division: "Samapta Bhayangkara" },
+        { name: "Yanz Karl", rank: "Brigadir Polisi Dua", division: "Satuan Lalu Lintas" },
+        { name: "Jeki Norseth", rank: "Anggota Brigadir Polisi", division: "Samapta Bhayangkara" },
+        { name: "Emilio Vargas", rank: "Anggota Brigadir Polisi", division: "Satuan Lalu Lintas" },
+        { name: "Jennie Cathlyn", rank: "Anggota Brigadir Polisi", division: "Samapta Bhayangkara" },
+        { name: "Jater Bambang", rank: "Anggota Brigadir Polisi", division: "Satuan Lalu Lintas" },
+        { name: "Chiro Ignatius", rank: "Anggota Brigadir Polisi", division: "Satuan Lalu Lintas" },
+        { name: "Argan Rebellions", rank: "Anggota Brigadir Polisi", division: "Satuan Lalu Lintas" },
+        { name: "Twyne Brown", rank: "Anggota Brigadir Polisi", division: "Satuan Lalu Lintas" },
+        { name: "Goteng Warsed", rank: "Anggota Brigadir Polisi", division: "Samapta Bhayangkara" },
+        { name: "Ubeed Ignacio", rank: "Anggota Brigadir Polisi", division: "Samapta Bhayangkara" },
+        { name: "Shiro Vasquez", rank: "Anggota Brigadir Polisi", division: "Satuan Lalu Lintas" },
+        { name: "Luther Einsberg", rank: "Ajun Brigadir Polisi", division: "Samapta Bhayangkara" },
+    ];
 
-    // Event listener untuk tombol login
     loginButton.addEventListener("click", (event) => {
         event.preventDefault(); // Mencegah submit form default
 
-        // Validasi password
-        if (inputPassword.value === correctPassword) {
-            showNotification("Kamu telah berhasil login!", false, () => {
-                showOptionsPopup();
+        const username = inputName.value.trim(); // Hapus spasi awal/akhir
+        const password = inputPassword.value.trim();
+
+        if (!username) {
+            showNotification("Masukkan nama!", true);
+            return;
+        }
+
+        // Cek apakah user ada di database
+        const user = userData.find(u => u.name.toLowerCase() === username.toLowerCase());
+
+        if (user) {
+            // Simpan data user ke localStorage
+            localStorage.setItem("username", user.name);
+            localStorage.setItem("rank", user.rank);
+            localStorage.setItem("division", user.division);
+
+            // Tampilkan pop-up modern
+            Swal.fire({
+                title: `Halo, ${user.name}!`,
+                text: `Pangkat: ${user.rank},\nDivisi: ${user.division}`,
+                icon: "success",
+                confirmButtonText: "Lanjut"
+            }).then(() => {
+                showOptionsPopup(); // Tampilkan pop-up pilihan
             });
         } else {
-            showNotification("Password salah. Coba lagi!", true);
+            showNotification("Nama tidak ditemukan!", true);
         }
     });
+});
+
+// Fungsi untuk menampilkan pop-up pilihan
+function showOptionsPopup() {
+    // Cek apakah elemen pop-up sudah ada
+    let popup = document.querySelector(".options-popup");
+    if (!popup) {
+        // Buat elemen pop-up baru
+        popup = document.createElement("div");
+        popup.className = "options-popup";
+        popup.innerHTML = `
+            <div class="popup-content">
+                <h2>Pilih Halaman</h2>
+                <div class="popup-buttons">
+                    <button id="uudButton">ke UUD</button>
+                    <button id="sopButton">ke SOP</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(popup);
+
+        // Tambahkan event listener ke tombol
+        document.getElementById("uudButton").addEventListener("click", () => {
+            window.location.href = "undang.html"; // Ganti ke halaman undang.html
+        });
+
+        document.getElementById("sopButton").addEventListener("click", () => {
+            window.location.href = "sop.html"; // Ganti ke halaman sop.html
+        });
+    }
+}
 
     // Fungsi untuk menampilkan notifikasi
     function showNotification(message, isError = false, callback = null) {
@@ -44,37 +125,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 500);
         }, 3000); // Hilangkan setelah 3 detik
     }
-
-    // Fungsi untuk menampilkan pop-up pilihan
-    function showOptionsPopup() {
-        // Cek apakah elemen pop-up sudah ada
-        let popup = document.querySelector(".options-popup");
-        if (!popup) {
-            // Buat elemen pop-up baru
-            popup = document.createElement("div");
-            popup.className = "options-popup";
-            popup.innerHTML = `
-                <div class="popup-content">
-                    <h2>Pilih Halaman</h2>
-                    <div class="popup-buttons">
-                        <button id="uudButton">Ke UUD</button>
-                        <button id="sopButton">Ke SOP</button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(popup);
-    
-            // Tambahkan event listener ke tombol
-            document.getElementById("uudButton").addEventListener("click", () => {
-                window.location.href = "undang.html";
-            });
-    
-            document.getElementById("sopButton").addEventListener("click", () => {
-                window.location.href = "sop.html";
-            });
-        }
-    }
-});
 
 document.getElementById("submit").addEventListener("click", () => {
     const checkboxes = document.querySelectorAll(".checkbox:checked");
