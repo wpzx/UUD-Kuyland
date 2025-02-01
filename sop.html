@@ -16,7 +16,7 @@
         }
         .container {
             background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
+            padding: 50px;
             border-radius: 10px;
             margin: 20px auto;
             max-width: 1200px;
@@ -52,14 +52,6 @@
             background-color: #00ff3c;
             color: #00f83a;
         }
-        .sedang {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-        .berat {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
         #summary-container {
             margin-top: 20px;
             background: rgba(255, 255, 255, 0.9);
@@ -91,7 +83,7 @@
 
         #searchInput {
             width: 96%;
-            padding: 12px 20px; /* Ruang lebih untuk ikon */
+            padding: 12px 10px; /* Ruang lebih untuk ikon */
             border: 2px solid #ddd;
             border-radius: 25px;
             font-size: 16px;
@@ -128,6 +120,7 @@
     </style>
 </head>
 <body>
+    <div id="sidebar-container"></div>
     <div class="container">
         <h1 style="text-align: center;">SOP Polisi Kuyland 2025</h1>
 
@@ -251,11 +244,6 @@
             </tbody>
         </table>
         
-
-        <button id="undang" style="margin: 20px; padding: 10px 20px; font-size: 16px;">UUD Kuyland</button>   
-        <button id="logout" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Log out</button>     
-
-
     <script>
         // Handle search filtering
         document.getElementById("searchInput").addEventListener("keyup", function() {
@@ -279,14 +267,24 @@
                 }
             });
         });
-
-        document.getElementById("undang").addEventListener("click", function () {
-            window.location.href = "undang.html";
+        function loadSidebar() {
+    fetch('sidebar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('sidebar-container').innerHTML = data;
         });
+}
 
-        document.getElementById("logout").addEventListener("click", function () {
-            window.location.href = "index.html";
-        });
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const container = document.querySelector('.container');
+    sidebar.classList.toggle('collapsed');
+    container.classList.toggle('collapsed');
+}
+
+// Load sidebar when page loads
+document.addEventListener('DOMContentLoaded', loadSidebar);
+
     </script>
 </body>
 </html>
