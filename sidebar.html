@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar Kuyland</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            display: flex;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 260px;
+            height: 100%;
+            background: #1f2937;
+            transition: all 0.3s ease-in-out;
+            padding: 20px;
+            z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar.collapsed {
+            width: 80px;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .sidebar.collapsed .logo {
+            width: 40px;
+            height: 40px;
+        }
+
+        .toggle-btn {
+            background: #374151;
+            border: none;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            transition: background 0.3s;
+        }
+
+        .toggle-btn:hover {
+            background: #4b5563;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin-top: 30px;
+            padding: 0;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 15px;
+            color: #e5e7eb;
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .nav-links a:hover {
+            background: #374151;
+            color: white;
+        }
+
+        .sidebar.collapsed .nav-text {
+            display: none;
+        }
+
+        .logout {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .logout a {
+            display: block;
+            padding: 10px;
+            color: #e5e7eb;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .logout a:hover {
+            background: #374151;
+            color: white;
+        }
+
+        .developer-text {
+            color: #e5e7eb;
+            font-size: 12px;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        /* Animasi untuk daftar menu */
+        .sidebar.collapsed .nav-links a,
+        .sidebar.collapsed .logout a {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="logo-container">
+            <img src="logo polisi.png" alt="Logo" class="logo">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="undang.html"><span class="nav-text">UUD Kuyland</span></a></li>
+                <li><a href="berkendara.html"><span class="nav-text">UUD Berkendara Kuyland</span></a></li>
+                <li><a href="sop.html"><span class="nav-text">SOP Kuyland</span></a></li>
+            </ul>
+            <div class="logout">
+                <a href="index.html"><span class="nav-text">Log out</span></a>
+                <p class="developer-text">Developer by Goteng Warsed ( wapi )</p>
+            </div>
+        </nav>
+    </div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const content = document.getElementById("content");
+
+            sidebar.classList.toggle("collapsed");
+            content.classList.toggle("collapsed");
+
+            // Menambahkan delay agar transisi lebih smooth
+            setTimeout(() => {
+                const links = document.querySelectorAll(".nav-links a, .logout a");
+                links.forEach(link => {
+                    if (sidebar.classList.contains("collapsed")) {
+                        link.style.opacity = "0";
+                        link.style.transform = "translateX(-20px)";
+                    } else {
+                        link.style.opacity = "1";
+                        link.style.transform = "translateX(0)";
+                    }
+                });
+            }, 100);
+        }
+    </script>
+</body>
+</html>
