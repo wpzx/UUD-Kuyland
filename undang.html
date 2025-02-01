@@ -124,7 +124,9 @@
 </head>
 <body>
     <script src="undang.js"></script>
-        
+    
+    <div id="sidebar-container"></div>
+
     <div class="container">
         <h1 style="text-align: center;">UUD Polisi Kuyland 2025</h1>
 
@@ -749,9 +751,7 @@
         <button id="submit" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Submit</button>
         <button id="kirim-discord" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Kirimkan Ke Discord</button>
         <button id="reset" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Reset</button>
-        <button id="berkendara" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Undang-Undang Berkendara</button>
-        <button id="sop" style="margin: 20px; padding: 10px 20px; font-size: 16px;">SOP (Prosedur Operasi Standar)</button>
-        <button id="logout" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Log out</button>
+
         
         <div id="summary-container">
             <h2>Ringkasan</h2>
@@ -808,16 +808,6 @@
                     rows[i].style.display = (i === 0 || rowContainsKeyword) ? "" : "none";
                 }
             });
-        });
-
-        document.getElementById("sop").addEventListener("click", function () {
-            window.location.href = "sop.html";
-        });
-        document.getElementById("logout").addEventListener("click", function () {
-            window.location.href = "index.html";
-        });
-        document.getElementById("berkendara").addEventListener("click", function () {
-            window.location.href = "berkendara.html";
         });
 
 // Handle submit button action 
@@ -1085,7 +1075,7 @@ document.getElementById("kirim-discord").addEventListener("click", () => {
                 if (result.isDismissed) return;
 
                 const fotoKtp = result.value;
-                Swal.fire({
+                Swal.fire({ 
                     title: 'Masukkan Deskripsi Barang Bukti:',
                     input: 'text',
                     inputPlaceholder: 'Deskripsi Barang Bukti',
@@ -1163,6 +1153,25 @@ document.getElementById("kirim-discord").addEventListener("click", () => {
         });
     });
 });
+
+function loadSidebar() {
+    fetch('sidebar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('sidebar-container').innerHTML = data;
+        });
+}
+
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const container = document.querySelector('.container');
+    sidebar.classList.toggle('collapsed');
+    container.classList.toggle('collapsed');
+}
+
+// Load sidebar when page loads
+document.addEventListener('DOMContentLoaded', loadSidebar);
+
 
     </script>
 </body>
