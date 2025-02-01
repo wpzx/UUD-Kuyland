@@ -80,12 +80,21 @@
             transition: all 0.3s ease;
             opacity: 1;
             transform: translateX(0);
+            border-radius: 8px;
         }
 
         .nav-links a:hover {
             background: #374151;
             color: white;
         }
+
+        /* Warna untuk halaman aktif */
+        .nav-links a.active {
+        background: #4b5563; /* Warna latar belakang untuk item yang aktif */
+        color: white;
+        font-weight: bold;
+    }
+
 
         .sidebar.collapsed .nav-text {
             display: none;
@@ -106,6 +115,7 @@
             text-decoration: none;
             font-weight: bold;
             transition: background 0.3s, color 0.3s;
+            border-radius: 8px;
         }
 
         .logout a:hover {
@@ -132,14 +142,14 @@
 <body>
     <div class="sidebar" id="sidebar">
         <div class="logo-container">
-            <img src="logo polisi.png" alt="Logo" class="logo">
+            <img src="foto/logo polisi.png" alt="Logo" class="logo">
             <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
         </div>
         <nav>
             <ul class="nav-links">
-                <li><a href="undang.html"><span class="nav-text">UUD Kuyland</span></a></li>
-                <li><a href="berkendara.html"><span class="nav-text">UUD Berkendara Kuyland</span></a></li>
-                <li><a href="sop.html"><span class="nav-text">SOP Kuyland</span></a></li>
+                <li><a href="undang.html" id="uud"><span class="nav-text">UUD Kuyland</span></a></li>
+                <li><a href="berkendara.html" id="berkendara"><span class="nav-text">UUD Berkendara Kuyland</span></a></li>
+                <li><a href="sop.html" id="sop"><span class="nav-text">SOP Kuyland</span></a></li>
             </ul>
             <div class="logout">
                 <a href="index.html"><span class="nav-text">Log out</span></a>
@@ -147,28 +157,25 @@
             </div>
         </nav>
     </div>
+    
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById("sidebar");
-            const content = document.getElementById("content");
-
             sidebar.classList.toggle("collapsed");
-            content.classList.toggle("collapsed");
-
-            // Menambahkan delay agar transisi lebih smooth
-            setTimeout(() => {
-                const links = document.querySelectorAll(".nav-links a, .logout a");
-                links.forEach(link => {
-                    if (sidebar.classList.contains("collapsed")) {
-                        link.style.opacity = "0";
-                        link.style.transform = "translateX(-20px)";
-                    } else {
-                        link.style.opacity = "1";
-                        link.style.transform = "translateX(0)";
-                    }
-                });
-            }, 100);
         }
+
+        function setActiveMenu() {
+            const currentPath = window.location.pathname.split("/").pop(); // Ambil nama file halaman
+            const links = document.querySelectorAll(".nav-links a");
+
+            links.forEach(link => {
+                if (link.getAttribute("href") === currentPath) {
+                    link.classList.add("active");
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", setActiveMenu);
     </script>
 </body>
 </html>
