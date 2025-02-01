@@ -8,7 +8,7 @@
     <title>Undang-Undang</title>
     <style>
         body {
-            background-image: url('home.png');
+            background-image: url('D:/WEBSITE KUYLAND/foto/home.png');
             background-size: cover;
             background-repeat: no-repeat;
             font-family: Arial, sans-serif;
@@ -25,7 +25,7 @@
         }
 
         .container button {
-            background-color: #3600ca;
+            background-color: #1f2937;
             color: #fff;
             font-size: 12px;
             padding: 10px 45px;
@@ -931,25 +931,6 @@ document.getElementById("submit").addEventListener("click", () => {
             document.getElementById("penjara-summary").textContent = '';
         });
 
-        document.addEventListener("DOMContentLoaded", () => {
-            const welcomeMessage = document.getElementById("welcomeMessage");
-            const storedName = localStorage.getItem("username");
-            const storedRank = localStorage.getItem("rank");
-            const storedDivision = localStorage.getItem("division");
-
-            if (storedName && storedRank && storedDivision) {
-                // Menampilkan data user di dalam pop-up modern (SweetAlert)
-                Swal.fire({
-                    title: `Halo, ${storedName}!`,
-                    text: `Pangkat: ${storedRank},\nDivisi: ${storedDivision}`,
-                    icon: "success",
-                    confirmButtonText: "Lanjut"
-                });
-            } else {
-                welcomeMessage.innerHTML = "<h1>Halo, Pengguna! Silakan login terlebih dahulu.</h1>";
-            }
-        });
-
 // Fungsi untuk mengirim pesan ke Discord
 function sendToDiscord(username) {
     const webhookURL = "https://discord.com/api/webhooks/1334878460652421160/1bzMmbjZz23gdeeERvtC39lLeE9z8sf8jowAqUwEEFdd69gvqeJkFOD6OBBULwDGGsQO";
@@ -1017,9 +998,20 @@ function sendToDiscordWebhook(laporan, lokasiPenahanan) {
 
 document.getElementById("kirim-discord").addEventListener("click", () => {
     const totalDenda = parseInt(document.getElementById("denda-summary").textContent);
-    const totalPenjara = document.getElementById("penjara-summary").textContent;
-    const tindakSummary = document.getElementById("tindak-summary").textContent;
-    const uuSummary = document.getElementById("uu-summary").textContent;
+    const totalPenjara = document.getElementById("penjara-summary").textContent.trim();
+    const tindakSummary = document.getElementById("tindak-summary").textContent.trim();
+    const uuSummary = document.getElementById("uu-summary").textContent.trim();
+
+    // Validasi jika Denda, Pasal, Hukuman/Masa Tahanan, atau Deskripsi Pelanggaran kosong
+    if (!totalDenda || !uuSummary || !totalPenjara || !tindakSummary) {
+        Swal.fire({
+            title: 'Gagal!',
+            text: 'Harap lakukan submit terlebih dahulu. Denda, Pasal, Hukuman/Masa Tahanan, dan Deskripsi Pelanggaran wajib diisi sebelum mengirim laporan!',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+        return;
+    }
 
     // Ambil data yang dimasukkan melalui pop-up
     Swal.fire({
@@ -1097,7 +1089,7 @@ document.getElementById("kirim-discord").addEventListener("click", () => {
 
                     Swal.fire({
                         title: 'Masukkan Jumlah Barang Bukti:',
-                        input: 'number',
+                        input: 'text',
                         inputPlaceholder: 'Jumlah Barang Bukti',
                         showCancelButton: true,
                         cancelButtonText: 'Kembali'
@@ -1114,7 +1106,7 @@ document.getElementById("kirim-discord").addEventListener("click", () => {
                         const petugasDivisi = localStorage.getItem("division");
                         const petugasJabatan = localStorage.getItem("rank");
 
-                        // Cek jika nama, divisi, atau jabatan petugas kosong (null)
+                        // Validasi data petugas
                         if (!petugasNama || !petugasDivisi || !petugasJabatan) {
                             Swal.fire({
                                 title: 'Gagal!',
@@ -1139,11 +1131,11 @@ document.getElementById("kirim-discord").addEventListener("click", () => {
                             "TIDAK ADA", 
                             "PERINGATAN PERTAMA"
                         ].includes(totalPenjara) ? totalPenjara : `${totalPenjara} bulan`;
+                        
                         // Siapkan data laporan untuk dikirim ke Discord
                         const laporan = {
                             content: `**LAPORAN PENAHANAN**\n\n**I. Informasi Penahanan:**\n- Nomor Laporan Penahanan: ${Math.floor(Math.random() * 10000)}\n- Tanggal dan Waktu Penahanan: ${new Date().toLocaleString()}\n- Lokasi Penahanan: ${lokasiPenahanan}\n- Deskripsi Pelanggaran: ${tindakSummary}\n\n**II. Informasi Tersangka:**\n- Nama Tersangka: ${namaTersangka}\n- Nomor Handphone: ${noHpTersangka}\n- Hukuman/Masa Tahanan: ${hukumanMasaTahanan}\n- Pasal: ${uuSummary}\n- Denda: $${totalDenda.toLocaleString()}\n- Foto KTP: ${fotoKtp}\n\n**III. Identitas Petugas yang Menahan:**\n- Nama Petugas: ${petugasNama}\n- Divisi: ${petugasDivisi}\n- Jabatan: ${petugasJabatan}\n- Rekan: Semua Anggota yang Membantu\n\n**IV. Barang Bukti yang Disita:**\n- Deskripsi Barang Bukti: ${deskripsiBarangBukti}\n- Jumlah Barang Bukti: ${jumlahBarangBukti}`
                         };
-
 
                         // Kirim laporan ke webhook sesuai lokasi penahanan
                         sendToDiscordWebhook(laporan, lokasiPenahanan);
@@ -1153,6 +1145,7 @@ document.getElementById("kirim-discord").addEventListener("click", () => {
         });
     });
 });
+
 
 function loadSidebar() {
     fetch('sidebar.html')
@@ -1171,7 +1164,6 @@ function toggleSidebar() {
 
 // Load sidebar when page loads
 document.addEventListener('DOMContentLoaded', loadSidebar);
-
 
     </script>
 </body>
