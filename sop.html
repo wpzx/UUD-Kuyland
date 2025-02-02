@@ -16,7 +16,7 @@
         }
         .container {
             background: rgba(255, 255, 255, 0.9);
-            padding: 50px;
+            padding: 20px;
             border-radius: 10px;
             margin: 20px auto;
             max-width: 1200px;
@@ -117,10 +117,293 @@
             padding: 8px; /* Biar lebih rapi */
         }
 
+/*mulai navbar*/
+
+        .navbar {
+            background: #1f2937;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 1.5rem;
+            margin: 0 auto;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+            color: white;
+        }
+
+        .nav-link {
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            color: white;
+        }
+
+        .nav-link a {
+            text-decoration: none;
+            color: currentColor;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: white;
+        }
+
+        .drop-down {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+            background: antiquewhite;
+            color: black;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            font-size: 12px;
+            display: none;
+            min-width: 150px;
+            color: white;
+        }
+
+        .drop-down li {
+            list-style: none;
+        }
+
+        .drop-down a {
+            display: block;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: black;
+            font-weight: 600;
+        }
+
+        .nav-link:hover {
+            background-color: black;
+            color: #fff;
+            border-radius: 0.5rem;
+        }
+
+        .services:hover .drop-down, .profile-menu {
+            display: block;
+        }
+
+        .services .dropdown-icon {
+            font-size: 18px;
+            transform: rotate(0deg);
+            transition: 0.3s ease-in-out all;
+        }
+
+        .services:hover .dropdown-icon {
+            transform: rotate(180deg);
+        }
+
+        .drop-down li:hover {
+            background: black;
+        }
+
+        .drop-down li:hover a {
+            color: #fff;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .logo span {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .user-info span {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .user-info img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        /* Profil Menu */
+        .profile-menu {
+            position: absolute;
+            top: 35px; /* Menurunkan menu agar tepat di bawah foto */
+            left: 0;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            display: none;
+            min-width: 150px;
+            padding: 0;
+            z-index: 10;
+        }
+
+        .profile-menu a {
+            padding: 0.5rem 1rem;
+            display: block;
+            text-decoration: none;
+            color: black;
+            font-weight: 600;
+        }
+
+        .profile-menu a:hover {
+            background: #f1f1f1;
+            color: black;
+        }
+
+        /* Menu "UUD" Dropdown */
+        .services .drop-down {
+            position: absolute;
+            top: 100%; /* Agar berada di bawah UUD */
+            left: 0;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            display: none;
+            padding: 0;
+            min-width: 150px;
+        }
+
+        .services .drop-down a {
+            padding: 0.5rem 1rem;
+            display: block;
+            text-decoration: none;
+            color: black;
+            font-weight: 600;
+        }
+
+        .services .drop-down a:hover {
+            background: #1f2937;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            transform: scale(0.7);
+            animation: popUp 0.4s ease-in-out forwards;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #1f2937;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .profile-name {
+            font-size: 26px;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #1f2937;
+        }
+        .profile-info {
+            font-size: 22px;
+            font-weight: bold;
+            color: #555;
+            margin: 5px 0;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes popUp {
+            from { transform: scale(0.7); }
+            to { transform: scale(1); }
+        }
+
     </style>
 </head>
 <body>
-    <div id="sidebar-container"></div>
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li class="logo">
+                <img src="logo polisi.png" alt="Logo Polisi">
+                <span>Polisi Kuyland</span>
+            </li>
+            <li class="nav-link">
+                <a href="sop.html">SOP</a>
+            </li>
+            <li class="nav-link services">
+                <a href="#">UUD</a>
+                <ul class="drop-down">
+                    <li><a href="undang.html">UUD Kuyland</a></li>
+                    <li><a href="berkendara.html">UUD Berkendara</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="user-info" id="user-info">
+            <span id="user-name">Silahkan Login terlebih dahulu!!</span>
+            <img src="profile.png" alt="User" id="user-img">
+            <div class="profile-menu" id="profile-menu">
+                <a href="#" id="openProfile">Profil</a>
+                <a href="index.html">Logout</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Modal Profil -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeProfile">&times;</span>
+            <div class="profile-container">
+                <img src="profile.png" alt="Profile Picture" class="profile-img">
+                <h2 class="profile-name" id="petugasNama">Nama Polisi</h2>
+                <p class="profile-info"><strong>Pangkat:</strong> <span id="petugasJabatan">-</span></p>
+                <p class="profile-info"><strong>Divisi:</strong> <span id="petugasDivisi">-</span></p>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <h1 style="text-align: center;">SOP Polisi Kuyland 2025</h1>
 
@@ -267,24 +550,51 @@
                 }
             });
         });
-        function loadSidebar() {
-    fetch('sidebar.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('sidebar-container').innerHTML = data;
+
+        // Mengambil username dari localStorage dan menampilkan di navbar
+        const username = localStorage.getItem("username");
+        if (username) {
+            document.getElementById("user-name").textContent = username;
+        }
+
+        // Toggle profile menu saat foto profil diklik
+        const userInfo = document.getElementById("user-info");
+        const profileMenu = document.getElementById("profile-menu");
+
+        userInfo.addEventListener("click", function() {
+            // Toggle menu profile
+            profileMenu.style.display = (profileMenu.style.display === "block") ? "none" : "block";
         });
-}
 
-function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const container = document.querySelector('.container');
-    sidebar.classList.toggle('collapsed');
-    container.classList.toggle('collapsed');
-}
+        // Toggle menu UUD saat diklik
+        const servicesLink = document.querySelector(".services");
+        const servicesDropdown = document.querySelector(".services .drop-down");
 
-// Load sidebar when page loads
-document.addEventListener('DOMContentLoaded', loadSidebar);
+        servicesLink.addEventListener("click", function(event) {
+            // Tidak mencegah default action pada UUD, hanya toggle dropdown
+            servicesDropdown.style.display = (servicesDropdown.style.display === "block") ? "none" : "block";
+        });
 
+        // Menutup menu jika klik di luar area profil
+        document.addEventListener("click", function(event) {
+            if (!userInfo.contains(event.target)) {
+                profileMenu.style.display = "none";
+            }
+            if (!servicesLink.contains(event.target)) {
+                servicesDropdown.style.display = "none";
+            }
+        });
+
+        document.getElementById("openProfile").addEventListener("click", function() {
+            document.getElementById("profileModal").style.display = "flex";
+            document.getElementById("petugasNama").textContent = localStorage.getItem("username") || "Nama Polisi";
+            document.getElementById("petugasDivisi").textContent = localStorage.getItem("division") || "-";
+            document.getElementById("petugasJabatan").textContent = localStorage.getItem("rank") || "-";
+        });
+
+        document.getElementById("closeProfile").addEventListener("click", function() {
+            document.getElementById("profileModal").style.display = "none";
+        });
     </script>
 </body>
 </html>
