@@ -49,15 +49,27 @@
             background-color: #f4f4f4;
             color: #333;
         }
-        .ringan {
-            background-color: #00ff3c;
-            color: #00f83a;
-        }
-        .sedang {
+        .hartabenda {
             background-color: #fff3cd;
             color: #856404;
         }
-        .berat {
+        .senjata {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .keamanan {
+            background-color: #00ff3c;
+            color: #00f83a;
+        }
+        .narkoba {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .aparatur {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .terorisme {
             background-color: #f8d7da;
             color: #721c24;
         }
@@ -372,7 +384,7 @@
     <nav class="navbar">
         <ul class="nav-links">
             <li class="logo">
-                <img src="logo polisi.png" alt="Logo Polisi">
+                <img src="foto/logo polisi.png" alt="Logo Polisi">
                 <span>Polisi Kuyland</span>
             </li>
             <li class="nav-link">
@@ -388,7 +400,7 @@
         </ul>
         <div class="user-info" id="user-info">
             <span id="user-name">Silahkan Login terlebih dahulu!!</span>
-            <img src="profile.png" alt="User" id="user-img">
+            <img src="foto/profile.png" alt="User" id="user-img">
             <div class="profile-menu" id="profile-menu">
                 <a href="#" id="openProfile">Profil</a>
                 <a href="index.html">Logout</a>
@@ -401,7 +413,7 @@
         <div class="modal-content">
             <span class="close" id="closeProfile">&times;</span>
             <div class="profile-container">
-                <img src="profile.png" alt="Profile Picture" class="profile-img">
+                <img src="foto/profile.png" alt="Profile Picture" class="profile-img">
                 <h2 class="profile-name" id="petugasNama">Nama Polisi</h2>
                 <p class="profile-info"><strong>Pangkat:</strong> <span id="petugasJabatan">-</span></p>
                 <p class="profile-info"><strong>Divisi:</strong> <span id="petugasDivisi">-</span></p>
@@ -415,620 +427,487 @@
         <input type="text" id="searchInput" placeholder="Cari kata kunci...">
 
         <table>
-            <thead class="ringan">
+            <thead class="nyawa">
                 <tr>
-                    <th colspan="5">PIDANA RINGAN</th>
+                    <th colspan="5">TINDAK PIDANA TERHADAP NYAWA</th>
                 </tr>
                 <tr>
-                    <th>UU</th>
-                    <th>CEKLIS</th>
-                    <th>TINDAK PIDANA</th>
-                    <th>DENDA</th>
-                    <th>PENJARA</th>
-                </tr>
-            </thead>
-            <tbody id="ringanTable">
-                <tr>
-                    <tr>
-                        <td>2.0</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.0" data-tindak="KEGAGALAN MEMBAYAR TILANG"></td>
-                        <td style="text-align: left;">KEGAGALAN MEMBAYAR TILANG</td>
-                        <td>1000</td>
-                        <td>HUKUMAN SOSIAL</td>
-                    </tr>
-                    <tr>
-                        <td>2.1</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.1" data-tindak="KEGAGALAN MEMBAYAR INVOICE"></td>
-                        <td style="text-align: left;">KEGAGALAN MEMBAYAR INVOICE</td>
-                        <td>4000</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td>2.2</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.2" data-tindak="TIDAK MEMBAWA KTP"></td>
-                        <td style="text-align: left;">TIDAK MEMBAWA KTP</td>
-                        <td>1000</td>
-                        <td>HUKUMAN SOSIAL</td>
-                    </tr>
-                    <tr>
-                        <td>2.3</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.3" data-tindak="TIDAK MEMILIKI KTP"></td>
-                        <td style="text-align: left;">TIDAK MEMILIKI KTP</td>
-                        <td>1500</td>
-                        <td>HUKUMAN SOSIAL</td>
-                    </tr>
-                    <tr>
-                        <td>2.4</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.4" data-tindak="MEMBUANG SAMPAH SEMBARANGAN"></td>
-                        <td style="text-align: left;">MEMBUANG SAMPAH SEMBARANGAN</td> 
-                        <td>300</td>
-                        <td>HUKUMAN SOSIAL</td>
-                    </tr>
-                    <tr>
-                        <td>2.5</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.5" data-tindak="BERKERUMUN DI TEMPAT PUBLIK TANPA IZIN"></td>
-                        <td style="text-align: left;">BERKERUMUN DI TEMPAT PUBLIK TANPA IZIN</td>
-                        <td>0</td>
-                        <td>PERINGATAN PERTAMA</td>
-                    </tr>
-                    <tr>
-                        <td>2.6</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.6" data-tindak="PENGGUNAAN KATA KASAR DI PUBLIK"></td>
-                        <td style="text-align: left;">PENGGUNAAN KATA KASAR DI PUBLIK</td>
-                        <td>0</td>
-                        <td>HUKUMAN SOSIAL</td>
-                    </tr>
-                    <tr>
-                        <td>2.7</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.7" data-tindak="MINUM ALKOHOL DI PUBLIK"></td>
-                        <td style="text-align: left;">MINUM ALKOHOL DI PUBLIK</td>
-                        <td>300</td>
-                        <td>HUKUMAN SOSIAL</td>
-                    </tr>
-                    <tr>
-                        <td>2.8</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.8" data-tindak="MENGGANGGU KETERTIBAN DENGAN MUSIK KERAS"></td>
-                        <td style="text-align: left;">MENGGANGGU KETERTIBAN DENGAN MUSIK KERAS</td>
-                        <td>500</td>
-                        <td>HUKUMAN SOSIAL</td>
-                    </tr>
-                    <tr>
-                        <td>2.9</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.9" data-tindak="KLAKSON BERLEBIHAN"></td>
-                        <td style="text-align: left;">KLAKSON BERLEBIHAN</td>
-                        <td>100</td>
-                        <td>TIDAK ADA</td>
-                    </tr>
-                    <tr>
-                        <td>2.10</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.10" data-tindak="BERPAKAIAN TIDAK SOPAN"></td>
-                        <td style="text-align: left;">BERPAKAIAN TIDAK SOPAN</td>
-                        <td>150</td>
-                        <td>HUKUMAN SOSIAL</td>
-                    </tr>
-                    <tr>
-                        <td>2.11</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.11" data-tindak="MENGGANGGU KEGIATAN RESMI"></td>
-                        <td style="text-align: left;">MENGGANGGU KEGIATAN RESMI</td>
-                        <td>400</td>
-                        <td>HUKUMAN SOSIAL</td>
-                    </tr>
-                    <tr>
-                        <td>2.12</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.12" data-tindak="MENGGANGGU KETERTIBAN DENGAN SUARA BERLEBIHAN"></td>
-                        <td style="text-align: left;">MENGGANGGU KETERTIBAN DENGAN SUARA BERLEBIHAN</td>
-                        <td>250</td>
-                        <td>TIDAK ADA</td>
-                    </tr>
-                    <tr>
-                        <td>2.13</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.13" data-tindak="BERKELAHI DI TEMPAT UMUM"></td>
-                        <td style="text-align: left;">BERKELAHI DI TEMPAT UMUM</td>
-                        <td>1500</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>2.14</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.14" data-tindak="VANDALISME"></td>
-                        <td style="text-align: left;">VANDALISME</td>
-                        <td>500</td>
-                        <td>5</td>
-                    </tr>
-                    <tr>
-                        <td>2.15</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.15" data-tindak="MENGHALANGI AKTIVITAS RESMI"></td>
-                        <td style="text-align: left;">MENGHALANGI AKTIVITAS RESMI</td>
-                        <td>1000</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>2.16</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.16" data-tindak="MENDUDUKI BANGUNAN/TANAH ILLEGAL"></td>
-                        <td style="text-align: left;">MENDUDUKI BANGUNAN/TANAH ILLEGAL</td>
-                        <td>1700</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>2.17</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.17" data-tindak="MERUSAK KENDARAAN UMUM"></td>
-                        <td style="text-align: left;">MERUSAK KENDARAAN UMUM</td>
-                        <td>600</td>
-                        <td>HUKUMAN SOSIAL</td>
-                    </tr>
-                    <tr>
-                        <td>2.18</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.18" data-tindak="MENGGUNAKAN PROPERTI PUBLIK SECARA PRIBADI"></td>
-                        <td style="text-align: left;">MENGGUNAKAN PROPERTI PUBLIK SECARA PRIBADI</td>
-                        <td>500</td>
-                        <td>TIDAK ADA</td>
-                    </tr>
-                    <tr>
-                        <td>2.19</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.19" data-tindak="TIDAK MENGHORMATI PETUGAS"></td>
-                        <td style="text-align: left;">TIDAK MENGHORMATI PETUGAS</td>
-                        <td>800</td>
-                        <td>5</td>
-                    </tr>
-                    <tr>
-                        <td>2.20</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.20" data-tindak="MENGABAIKAN PERINTAH PETUGAS"></td>
-                        <td style="text-align: left;">MENGABAIKAN PERINTAH PETUGAS</td>
-                        <td>600</td>
-                        <td>5</td>
-                    </tr>
-                    <tr>
-                        <td>2.21</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.21" data-tindak="MENINGGALKAN BARANG BERBAHAYA DI PUBLIK"></td>
-                        <td style="text-align: left;">MENINGGALKAN BARANG BERBAHAYA DI PUBLIK</td>
-                        <td>400</td>
-                        <td>HUKUMAN SOSIAL</td>
-                    </tr>
-                    <tr>
-                        <td>2.22</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.22" data-tindak="MASUK KE GEDUNG RESMI TANPA IZIN"></td>
-                        <td style="text-align: left;">MASUK KE GEDUNG RESMI TANPA IZIN</td>
-                        <td>500</td>
-                        <td>5</td>
-                    </tr>
-                    <tr>
-                        <td>2.23</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.23" data-tindak="MENCURI BARANG DARI GEDUNG"></td>
-                        <td style="text-align: left;">MENCURI BARANG DARI GEDUNG</td>
-                        <td>800</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td>2.24</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.24" data-tindak="MENGIKLANKAN BARANG/JASA BERLEBIHAN"></td>
-                        <td style="text-align: left;">MENGIKLANKAN BARANG/JASA BERLEBIHAN</td>
-                        <td>450</td>
-                        <td>TIDAK ADA</td>
-                    </tr>
-                    <tr>
-                        <td>2.25</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.25" data-tindak="MENCURI KENDARAAN BERMOTOR WARGA"></td>
-                        <td style="text-align: left;">MENCURI KENDARAAN BERMOTOR WARGA</td>
-                        <td>1000</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>2.26</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.26" data-tindak="MENYEMBUNYIKAN KENDARAAN CURIAN"></td>
-                        <td style="text-align: left;">MENYEMBUNYIKAN KENDARAAN CURIAN</td>
-                        <td>2500</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>2.27</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.27" data-tindak="MENGGUNAKAN KENDARAAN CURIAN"></td>
-                        <td style="text-align: left;">MENGGUNAKAN KENDARAAN CURIAN</td>
-                        <td>1000</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td>2.28</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.28" data-tindak="MENCURI IDENTITAS WARGA"></td>
-                        <td style="text-align: left;">MENCURI IDENTITAS WARGA</td>
-                        <td>1000</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>2.29</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.29" data-tindak="PEMALSUAAN IDENTITAS"></td>
-                        <td style="text-align: left;">PEMALSUAAN IDENTITAS</td>
-                        <td>5000</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td>2.30</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.30" data-tindak="MENYEBAR IDENTITAS WARGA TANPA IZIN"></td>
-                        <td style="text-align: left;">MENYEBAR IDENTITAS WARGA TANPA IZIN</td>
-                        <td>1000</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td>2.31</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.31" data-tindak="MENGANCAM WARGA"></td>
-                        <td style="text-align: left;">MENGANCAM WARGA</td>
-                        <td>3000</td>
-                        <td>25</td>
-                    </tr>
-                    <tr>
-                        <td>2.32</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.32" data-tindak="MEMBERIKAN INFORMASI PALSU"></td>
-                        <td style="text-align: left;">MEMBERIKAN INFORMASI PALSU</td>
-                        <td>2500</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>2.33</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.33" data-tindak="MENGGANGGU KETERTIBAN UMUM"></td>
-                        <td style="text-align: left;">MENGGANGGU KETERTIBAN UMUM</td>
-                        <td>1500</td>
-                        <td>5</td>
-                    </tr>
-                    <tr>
-                        <td>2.34</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.34" data-tindak="MENGADAKAN KERAMAIAN TANPA IZIN"></td>
-                        <td style="text-align: left;">MENGADAKAN KERAMAIAN TANPA IZIN</td>
-                        <td>3500</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td>2.35</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.35" data-tindak="MENGGANGGU PROSES PENEGAKAN HUKUM"></td>
-                        <td style="text-align: left;">MENGGANGGU PROSES PENEGAKAN HUKUM</td>
-                        <td>1200</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>2.36</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="2.36" data-tindak="MENGHALANGI PROSES PENYIDIKAN"></td>
-                        <td style="text-align: left;">MENGHALANGI PROSES PENYIDIKAN</td>
-                        <td>6500</td>
-                        <td>15</td>
-                    </tr>
-                    
-            </tbody>
-        </table>
-
-        <table>
-            <thead class="sedang">
-                <tr>
-                    <th colspan="5">PIDANA SEDANG</th>
-                </tr>
-                <tr>
-                    <th>UU</th>
-                    <th>CEKLIS</th>
-                    <th>TINDAK PIDANA</th>
-                    <th>DENDA</th>
-                    <th>PENJARA</th>
+                    <th>Pasal (Ayat)</th>
+                    <th>Ceklis</th>
+                    <th>Pelanggaran</th>
+                    <th>Denda</th>
+                    <th>Massa Tahanan</th>
                 </tr>
             </thead>
-            <tbody id="sedangTable">
+            <tbody id="nyawaTable">
                 <tr>
-                    <td>3.0</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="3.0" data-tindak="MEMBAWA BARANG ILEGAL (LINGGIS, LOCKPICK, KEVLAR)"></td>
-                    <td style="text-align: left;">MEMBAWA BARANG ILEGAL (LINGGIS, LOCKPICK, KEVLAR)</td>
-                    <td>5000</td>
-                    <td>15</td>
+                    <td>7(1)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="7(1)" data-tindak="Percobaan Terorisme"></td>
+                    <td style="text-align: left;">Percobaan Terorisme</td>
+                    <td>80000</td>
+                    <td>100</td>
                 </tr>
                 <tr>
-                    <td>3.1</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="3.1" data-tindak="CARSTEALING"></td>
-                    <td style="text-align: left;">CARSTEALING</td>
-                    <td>6000</td>
-                    <td>20</td>
+                    <td>8(1)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="8(1)" data-tindak="Pembunuhan"></td>
+                    <td style="text-align: left;">Pembunuhan</td>
+                    <td>80000</td>
+                    <td>70</td>
                 </tr>
                 <tr>
-                    <td>3.2</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="3.2" data-tindak="MENGELUARKAN SENJATA DI TEMPAT UMUM"></td>
-                    <td style="text-align: left;">MENGELUARKAN SENJATA DI TEMPAT UMUM</td>
-                    <td>4000</td>
-                    <td>15</td>
-                </tr>
-                <tr>
-                    <td>3.3</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="3.3" data-tindak="SENGAJA/TIDAK SENGAJA BERADA DI TKP"></td>
-                    <td style="text-align: left;">SENGAJA/TIDAK SENGAJA BERADA DI TKP</td>
-                    <td>5500</td>
-                    <td>10</td>
-                </tr>
-                <tr>
-                    <td>3.4</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="3.4" data-tindak="TINDAKAN KABUR DARI FEDERAL"></td>
-                    <td style="text-align: left;">TINDAKAN KABUR DARI FEDERAL</td>
-                    <td>4000</td>
-                    <td>15</td>
-                </tr>
-                <tr>
-                    <td>3.5</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="3.5" data-tindak="MENYALAHGUNAKAN ATRIBUT KEPOLISIAN"></td>
-                    <td style="text-align: left;">MENYALAHGUNAKAN ATRIBUT KEPOLISIAN</td>
-                    <td>5000</td>
-                    <td>15</td>
-                </tr>
-                <tr>
-                    <td>3.6</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="3.6" data-tindak="PERAMPOKAN WARUNG"></td>
-                    <td style="text-align: left;">PERAMPOKAN WARUNG</td>
-                    <td>7500</td>
-                    <td>20</td>
-                </tr>
-                <tr>
-                    <td>3.7</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="3.7" data-tindak="PENYANDERAAN WARGA SIPIL"></td>
-                    <td style="text-align: left;">PENYANDERAAN WARGA SIPIL</td>
-                    <td>7000</td>
-                    <td>30</td>
-                </tr>
-                <tr>
-                    <td>3.8</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="3.8" data-tindak="TERLIBAT PERANG ANTAR KELOMPOK"></td>
-                    <td style="text-align: left;">TERLIBAT PERANG ANTAR KELOMPOK</td>
-                    <td>7000</td>
-                    <td>20</td>
-                </tr>
-                <tr>
-                    <td>3.9</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="3.9" data-tindak="UPAYA MENGHILANGKAN BARANG BUKTI"></td>
-                    <td style="text-align: left;">UPAYA MENGHILANGKAN BARANG BUKTI</td>
-                    <td>4500</td>
-                    <td>15</td>
-                </tr>
-                <tr>
-                    <td>3.10</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="3.10" data-tindak="UPAYA PENYOGOKAN PETUGAS"></td>
-                    <td style="text-align: left;">UPAYA PENYOGOKAN PETUGAS</td>
-                    <td>6000</td>
-                    <td>20</td>
-                </tr>
-                <tr>
-                    <td>3.11</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="3.11" data-tindak="PENGEDARAN NARKOBA"></td>
-                    <td style="text-align: left;">PENGEDARAN NARKOBA</td>
-                    <td>6500</td>
-                    <td>20</td>
-                </tr>
-                <tr>
-                    <td>3.12</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="3.12" data-tindak="UPAYA MENCURI KENDARAAN WARGA"></td>
-                    <td style="text-align: left;">UPAYA MENCURI KENDARAAN WARGA</td>
-                    <td>5000</td>
-                    <td>10</td>
-                </tr>
-                <tr>
-                    <td>3.13</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="3.13" data-tindak="UPAYA PEMEGALAN WARGA SIPIL"></td>
-                    <td style="text-align: left;">UPAYA PEMEGALAN WARGA SIPIL</td>
-                    <td>5500</td>
-                    <td>15</td>
-                </tr>
-                <tr>
-                    <td>3.14</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="3.14" data-tindak="KEPEMILIKAN UANG MERAH > 50,000"></td>
-                    <td style="text-align: left;">KEPEMILIKAN UANG MERAH > 50,000</td>
-                    <td>5000</td>
-                    <td>20</td>
-                </tr>
-                <tr>
-                    <td>3.15</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="3.15" data-tindak="KEPEMILIKAN UANG MERAH > 1,000,000"></td>
-                    <td style="text-align: left;">KEPEMILIKAN UANG MERAH > 1,000,000</td>
-                    <td>6500</td>
-                    <td>25</td>
-                </tr>
-                <tr>
-                    <td>3.16</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="3.16" data-tindak="MEMBAWA HEWAN DILINDUNGI (UBUR-UBUR, HIU, DLL)"></td>
-                    <td style="text-align: left;">MEMBAWA HEWAN DILINDUNGI (UBUR-UBUR, HIU, DLL)</td>
-                    <td>5000</td>
-                    <td>15</td>
-                </tr>
-                <tr>
-                    <td>3.17</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="3.17" data-tindak="MEMBAWA NARKOBA / NARKOTIKA"></td>
-                    <td style="text-align: left;">MEMBAWA NARKOBA / NARKOTIKA (MARIJUANA, KANABIS, DLL)</td>
-                    <td>5000</td>
-                    <td>15</td>
-                </tr>                
-            </tbody>
-        </table>
-
-        <table>
-            <thead class="berat">
-                <tr>
-                    <th colspan="5">PIDANA BERAT</th>
-                </tr>
-                <tr>
-                    <th>UU</th>
-                    <th>CEKLIS</th>
-                    <th>TINDAK PIDANA</th>
-                    <th>DENDA</th>
-                    <th>PENJARA</th>
-                </tr>
-            </thead>
-            <tbody id="beratTable">
-                <tr>
-                    <td>4.0</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="4.0" data-tindak="JUAL BELI SENJATA ILLEGAL"></td>
-                    <td style="text-align: left;">JUAL BELI SENJATA ILLEGAL</td>
-                    <td>15000</td>
-                    <td>25</td>
-                </tr>
-                <tr>
-                    <td>4.1</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="4.1" data-tindak="TRANSAKSI JUAL BELI ILLEGAL"></td>
-                    <td style="text-align: left;">TRANSAKSI JUAL BELI ILLEGAL</td>
-                    <td>20000</td>
-                    <td>25</td>
-                </tr>
-                <tr>
-                    <td>4.2</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="4.2" data-tindak="PENYANDERAAN WARGA SIPIL"></td>
-                    <td style="text-align: left;">PENYANDERAAN WARGA SIPIL</td>
-                    <td>30000</td>
-                    <td>35</td>
-                </tr>
-                <tr>
-                    <td>4.3</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="4.3" data-tindak="UPAYA PENYANDERAAN INSTANSI"></td>
-                    <td style="text-align: left;">UPAYA PENYANDERAAN INSTANSI</td>
-                    <td>50000</td>
-                    <td>60</td>
-                </tr>
-                <tr>
-                    <td>4.4</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="4.4" data-tindak="PEMBUNUHAN WARGA/INSTANSI"></td>
-                    <td style="text-align: left;">PEMBUNUHAN WARGA/INSTANSI</td>
+                    <td>8(2)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="8(2)" data-tindak="Percobaan Pembunuhan"></td>
+                    <td style="text-align: left;">Percobaan Pembunuhan</td>
                     <td>40000</td>
                     <td>60</td>
                 </tr>
                 <tr>
-                    <tr>
-                        <td>4.5</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="4.5" data-tindak="KEPEMILIKAN SENJATA LARAS PENDEK"></td>
-                        <td style="text-align: left;">KEPEMILIKAN SENJATA LARAS PENDEK</td>
-                        <td>10000</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>4.6</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="4.6" data-tindak="KEPEMILIKAN SENJATA LARAS MENENGAH"></td>
-                        <td style="text-align: left;">KEPEMILIKAN SENJATA LARAS MENENGAH</td>
-                        <td>15000</td>
-                        <td>23</td>
-                    </tr>
-                    <tr>
-                        <td>4.7</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="4.7" data-tindak="KEPEMILIKAN SENJATA LARAS PANJANG"></td>
-                        <td style="text-align: left;">KEPEMILIKAN SENJATA LARAS PANJANG</td>
-                        <td>20000</td>
-                        <td>25</td>
-                    </tr>
-                    <tr>
-                        <td>4.8</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="4.8" data-tindak="MENYANDRA KEPOLISIAN"></td>
-                        <td style="text-align: left;">MENYANDRA KEPOLISIAN</td>
-                        <td>90000</td>
-                        <td>120</td>
-                    </tr>
-                    <tr>
-                        <td>4.9</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="4.9" data-tindak="MENCOBA KORUPSI INSTANSI"></td>
-                        <td style="text-align: left;">MENCOBA KORUPSI INSTANSI</td>
-                        <td>70000</td>
-                        <td>HUKUMAN MATI</td>
-                    </tr>
-                    <tr>
-                        <td>4.10</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="4.10" data-tindak="KEPEMILIKAN SENJATA POLISI"></td>
-                        <td style="text-align: left;">KEPEMILIKAN SENJATA POLISI</td>
-                        <td>50000</td>
-                        <td>25</td>
-                    </tr>
-                    <tr>
-                        <td>4.11</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="4.11" data-tindak="PERAMPOKAN BANK BESAR"></td>
-                        <td style="text-align: left;">PERAMPOKAN BANK BESAR</td>
-                        <td>95000</td>
-                        <td>75</td>
-                    </tr>
-                    <tr>
-                        <td>4.12</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="4.12" data-tindak="PENODONGAN WARGA/INSTANSI"></td>
-                        <td style="text-align: left;">PENODONGAN WARGA/INSTANSI</td>
-                        <td>25000</td>
-                        <td>25</td>
-                    </tr>
-                    <tr>
-                        <td>4.13</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="4.13" data-tindak="MEMBANTU SUSPECT KRIMINAL"></td>
-                        <td style="text-align: left;">MEMBANTU SUSPECT KRIMINAL</td>
-                        <td>15000</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>4.14</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="4.14" data-tindak="MENCOBA MENJADI POLISI GADUNGAN"></td>
-                        <td style="text-align: left;">MENCOBA MENJADI POLISI GADUNGAN</td>
-                        <td>100000</td>
-                        <td>120</td>
-                    </tr>
-                    <tr>
-                        <td>4.15</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="4.15" data-tindak="MEMBAWA SAJAM DI PUBLIK"></td>
-                        <td style="text-align: left;">MEMBAWA SAJAM DI PUBLIK</td>
-                        <td>25000</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>4.16</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="4.16" data-tindak="MENGCRAFTING SENJATA"></td>
-                        <td style="text-align: left;">MENGCRAFTING SENJATA</td>
-                        <td>90000</td>
-                        <td>100</td>
-                    </tr>
-                    <tr>
-                        <td>4.17</td>
-                        <td><input type="checkbox" class="checkbox" data-uu="4.17" data-tindak="MENGOLAH NARKOBA COCAINE / KANABIS"></td>
-                        <td style="text-align: left;">MENGOLAH NARKOBA COCAINE / KANABIS</td>
-                        <td>70000</td>
-                        <td>80</td>
-                    </tr>
+                    <td>9(1)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="9(1)" data-tindak="Penodongan ke warga"></td>
+                    <td style="text-align: left;">Penodongan ke warga</td>
+                    <td>30000</td>
+                    <td>40</td>
+                </tr>
+                <tr>
+                    <td>9(2)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="9(2)" data-tindak="Penyanderaan"></td>
+                    <td style="text-align: left;">Penyanderaan</td>
+                    <td>30000</td>
+                    <td>35</td>
+                </tr>
+            </tbody>
+        </table>               
+
+        <table> 
+            <thead class="hartabenda">
+                <tr>
+                    <th colspan="5">TINDAK PIDANA TERHADAP HARTA BENDA</th>
+                </tr>
+                <tr>
+                    <th>Pasal (Ayat)</th>
+                    <th>Ceklis</th>
+                    <th>Pelanggaran</th>
+                    <th>Denda</th>
+                    <th>Massa Tahanan</th>
+                </tr>
+            </thead>
+            <tbody id="hartabendaTable">
+                <tr>
+                    <td>10(1)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="10(1)" data-tindak="Memberikan informasi palsu"></td>
+                    <td style="text-align: left;">Memberikan informasi palsu</td>
+                    <td>2500</td>
+                    <td>10</td>
+                </tr>
+                <tr>
+                    <td>10(2)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="10(2)" data-tindak="Melakukan Penipuan"></td>
+                    <td style="text-align: left;">Melakukan Penipuan</td>
+                    <td>5000</td>
+                    <td>15</td>
+                </tr>
+                <tr>
+                    <td>11(1)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="11(1)" data-tindak="Pencurian"></td>
+                    <td style="text-align: left;">Pencurian</td>
+                    <td>5500</td>
+                    <td>15</td>
+                </tr>
+                <tr>
+                    <td>11(2)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="11(2)" data-tindak="Pembegalan"></td>
+                    <td style="text-align: left;">Pembegalan</td>
+                    <td>6000</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>12(1)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="12(1)" data-tindak="Perampokan warung"></td>
+                    <td style="text-align: left;">Perampokan warung</td>
+                    <td>80000</td>
+                    <td>80</td>
+                </tr>
+                <tr>
+                    <td>12(2)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="12(2)" data-tindak="Perampokan bank besar"></td>
+                    <td style="text-align: left;">Perampokan bank besar</td>
+                    <td>100000</td>
+                    <td>150</td>
+                </tr>
+            </tbody>
+        </table>   
+        
+        <table>
+            <thead class="senjata">
+                <tr>
+                    <th colspan="5">TINDAK PIDANA TERHADAP SENJATA</th>
+                </tr>
+                <tr>
+                    <th>Pasal (Ayat)</th>
+                    <th>Ceklis</th>
+                    <th>Pelanggaran</th>
+                    <th>Denda</th>
+                    <th>Massa Tahanan</th>
+                </tr>
+            </thead>
+            <tbody id="senjataTable">
+                <tr>
+                    <td>13(1)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="13(1)" data-tindak="Memiliki senjata tajam untuk kejahatan"></td>
+                    <td style="text-align: left;">Memiliki senjata tajam untuk kejahatan</td>
+                    <td>25000</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>13(2)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="13(2)" data-tindak="Senjata api illegal laras pendek"></td>
+                    <td style="text-align: left;">Senjata api illegal laras pendek</td>
+                    <td>10000</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>13(3)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="13(3)" data-tindak="Senjata api illegal laras menengah"></td>
+                    <td style="text-align: left;">Senjata api illegal laras menengah</td>
+                    <td>15000</td>
+                    <td>25</td>
+                </tr>
+                <tr>
+                    <td>13(4)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="13(4)" data-tindak="Senjata api illegal laras panjang"></td>
+                    <td style="text-align: left;">Senjata api illegal laras panjang</td>
+                    <td>20000</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td>14(1)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="14(1)" data-tindak="Memproduksi senjata illegal"></td>
+                    <td style="text-align: left;">Memproduksi senjata illegal</td>
+                    <td>90000</td>
+                    <td>100</td>
+                </tr>
+                <tr>
+                    <td>14(2)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="14(2)" data-tindak="Memperdagangkan senjata api illegal"></td>
+                    <td style="text-align: left;">Memperdagangkan senjata api illegal</td>
+                    <td>25000</td>
+                    <td>40</td>
+                </tr>
+                <tr>
+                    <td>14(3)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="14(3)" data-tindak="Membuang senjata api"></td>
+                    <td style="text-align: left;">Membuang senjata api</td>
+                    <td>15000</td>
+                    <td>50</td>
+                </tr>
             </tbody>
         </table>
 
         <table>
-            <thead class="teroris">
+            <thead class="keamanan">
                 <tr>
-                    <th colspan="5">PIDANA TERORISME</th>
+                    <th colspan="5">TINDAK PIDANA TERHADAP KEAMANAN DAN KETERTIBAN UMUM</th>
                 </tr>
                 <tr>
-                    <th>UU</th>
-                    <th>CEKLIS</th>
-                    <th>TINDAK PIDANA</th>
-                    <th>DENDA</th>
-                    <th>PENJARA</th>
+                    <th>Pasal (Ayat)</th>
+                    <th>Ceklis</th>
+                    <th>Pelanggaran</th>
+                    <th>Denda</th>
+                    <th>Massa Tahanan</th>
                 </tr>
             </thead>
-            <tbody id="terorisTable">
+            <tbody id="keamananTable">
                 <tr>
-                    <td>TERORISME RINGAN</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="TERORISME RINGAN" data-tindak="MELAKUKAN PENEMBAKAN DIAREA-AREA YANG DILINDUNGI OLEH HUKUM"></td>
-                    <td style="text-align: left;">MELAKUKAN PENEMBAKAN DIAREA-AREA YANG DILINDUNGI OLEH HUKUM</td>
-                    <td>50000</td>
-                    <td>60</td>
+                    <td>15(1)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="15(1)" data-tindak="Tidak membawa kartu identitas"></td>
+                    <td style="text-align: left;">Tidak membawa kartu identitas</td>
+                    <td>1000</td>
+                    <td>Hukuman Sosial</td>
                 </tr>
                 <tr>
-                    <td>TERORISME SEDANG</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="TERORISME SEDANG" data-tindak="TINDAKAN YANG MENGAKIBATKAN KOTA KEADAAN SIAGA 2"></td>
-                    <td style="text-align: left;">TINDAKAN YANG MENGAKIBATKAN KOTA KEADAAN SIAGA 2</td>
-                    <td>60000</td>
-                    <td>120</td>
+                    <td>15(2)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="15(2)" data-tindak="Tidak ada izin di area TKP"></td>
+                    <td style="text-align: left;">Tidak ada izin di area TKP</td>
+                    <td>5500</td>
+                    <td>10</td>
                 </tr>
-                    <td>TERORISME BERAT A</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="TERORISME BERAT A" data-tindak="TINDAKAN YANG MENGAKIBATKAN KOTA KEADAAN SIAGA 3"></td>
-                    <td style="text-align: left;">TINDAKAN YANG MENGAKIBATKAN KOTA KEADAAN SIAGA 3</td>
-                    <td>100000</td>
-                    <td>180</td>
+                <tr>
+                    <td>15(3)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="15(3)" data-tindak="Pencemaran nama baik"></td>
+                    <td style="text-align: left;">Pencemaran nama baik</td>
+                    <td>5000</td>
+                    <td>10</td>
                 </tr>
+                <tr>
+                    <td>15(4)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="15(4)" data-tindak="Perkelahian di tempat umum"></td>
+                    <td style="text-align: left;">Perkelahian di tempat umum</td>
+                    <td>1500</td>
+                    <td>10</td>
                 </tr>
-                    <td>TERORISME BERAT B</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="TERORISME BERAT B" data-tindak="UPAYA PENCULIKAN DAN PENYANDRAAN YANG BERUJUNG PEMBUNUHAN"></td>
-                    <td style="text-align: left;">UPAYA PENCULIKAN DAN PENYANDRAAN YANG BERUJUNG PEMBUNUHAN</td>
-                    <td>90000</td>
-                    <td>140</td>
+                <tr>
+                    <td>15(5)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="15(5)" data-tindak="Melakukan hal tidak senonoh"></td>
+                    <td style="text-align: left;">Melakukan hal tidak senonoh</td>
+                    <td>1500</td>
+                    <td>Hukuman Sosial</td>
                 </tr>
+                <tr>
+                    <td>15(6)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="15(6)" data-tindak="Penganiayaan terhadap warga"></td>
+                    <td style="text-align: left;">Penganiayaan terhadap warga</td>
+                    <td>3000</td>
+                    <td>15</td>
                 </tr>
-                    <td>TERORISME BERAT C</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="TERORISME BERAT C" data-tindak="UPAYA MENGGANGGU PROSES JALANNYA PELEBURAN"></td>
-                    <td style="text-align: left;">UPAYA MENGGANGGU PROSES JALANNYA PELEBURAN</td>
-                    <td>90000</td>
-                    <td>160</td>
+                <tr>
+                    <td>15(7)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="15(7)" data-tindak="Membuat kerusuhan di tempat umum"></td>
+                    <td style="text-align: left;">Membuat kerusuhan di tempat umum</td>
+                    <td>1500</td>
+                    <td>10</td>
+                </tr>
+                <tr>
+                    <td>15(8)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="15(8)" data-tindak="Pembajakan"></td>
+                    <td style="text-align: left;">Pembajakan</td>
+                    <td>1000</td>
+                    <td>10</td>
+                </tr>
+                <tr>
+                    <td>15(9)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="15(9)" data-tindak="Peperangan antar kelompok"></td>
+                    <td style="text-align: left;">Peperangan antar kelompok</td>
+                    <td>7000</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>16(1)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="16(1)" data-tindak="Di zona terlarang"></td>
+                    <td style="text-align: left;">Di zona terlarang</td>
+                    <td>10000</td>
+                    <td>10</td>
+                </tr>
+                <tr>
+                    <td>16(2)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="16(2)" data-tindak="Membawa hewan yang dilindungi"></td>
+                    <td style="text-align: left;">Membawa hewan yang dilindungi</td>
+                    <td>5000</td>
+                    <td>15</td>
+                </tr>
+                <tr>
+                    <td>16(3)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="16(3)" data-tindak="Pemburuan illegal"></td>
+                    <td style="text-align: left;">Pemburuan illegal</td>
+                    <td>5000</td>
+                    <td>15</td>
+                </tr>
+                <tr>
+                    <td>16(4)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="16(4)" data-tindak="Perjudian illegal"></td>
+                    <td style="text-align: left;">Perjudian illegal</td>
+                    <td>4000</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>16(5)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="16(5)" data-tindak="Mabuk di tempat umum"></td>
+                    <td style="text-align: left;">Mabuk di tempat umum</td>
+                    <td>300</td>
+                    <td>Hukuman Sosial</td>
+                </tr>
+                <tr>
+                    <td>16(7)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="16(7)" data-tindak="Pelecehan seksual"></td>
+                    <td style="text-align: left;">Pelecehan seksual</td>
+                    <td>6000</td>
+                    <td>30</td>
                 </tr>
             </tbody>
         </table>
+
+        <table>
+            <thead class="narkoba">
+                <tr>
+                    <th colspan="5">TINDAK PIDANA BARANG ILEGAL DAN NARKOBA</th>
+                </tr>
+                <tr>
+                    <th>Pasal (Ayat)</th>
+                    <th>Ceklis</th>
+                    <th>Pelanggaran</th>
+                    <th>Denda</th>
+                    <th>Massa Tahanan</th>
+                </tr>
+            </thead>
+            <tbody id="narkobaTable">
+                <tr>
+                    <td>17(1)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="17(1)" data-tindak="Penyalahgunaan barang netral"></td>
+                    <td style="text-align: left;">Penyalahgunaan barang netral</td>
+                    <td>5000</td>
+                    <td>15</td>
+                </tr>
+                <tr>
+                    <td>17(2)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="17(2)" data-tindak="Memiliki/menyimpan cocaine/kanabis"></td>
+                    <td style="text-align: left;">Memiliki/menyimpan cocaine/kanabis</td>
+                    <td>10000</td>
+                    <td>25</td>
+                </tr>
+                <tr>
+                    <td>17(3)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="17(3)" data-tindak="Melakukan penjualan cocaine/kanabis"></td>
+                    <td style="text-align: left;">Melakukan penjualan cocaine/kanabis</td>
+                    <td>25000</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td>17(4)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="17(4)" data-tindak="Memproduksi cocaine/kanabis"></td>
+                    <td style="text-align: left;">Memproduksi cocaine/kanabis</td>
+                    <td>70000</td>
+                    <td>80</td>
+                </tr>
+                <tr>
+                    <td>17(5)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="17(5)" data-tindak="Mengonsumsi cocaine/kanabis"></td>
+                    <td style="text-align: left;">Mengonsumsi cocaine/kanabis</td>
+                    <td>15000</td>
+                    <td>20</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <table>
+            <thead class="aparatur">
+                <tr>
+                    <th colspan="5">TINDAK PIDANA TERHADAP APARATUR NEGARA</th>
+                </tr>
+                <tr>
+                    <th>Pasal (Ayat)</th>
+                    <th>Ceklis</th>
+                    <th>Pelanggaran</th>
+                    <th>Denda</th>
+                    <th>Massa Tahanan</th>
+                </tr>
+            </thead>
+            <tbody id="aparaturTable">
+                <tr>
+                    <td>18(1)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="18(1)" data-tindak="Menghalangi tugas pemerintah"></td>
+                    <td style="text-align: left;">Menghalangi tugas pemerintah</td>
+                    <td>400</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>18(2)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="18(2)" data-tindak="Menolak surat tilang/perintah resmi"></td>
+                    <td style="text-align: left;">Menolak surat tilang/perintah resmi</td>
+                    <td>1000</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>18(3)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="18(3)" data-tindak="Melarikan diri saat hendak ditangkap"></td>
+                    <td style="text-align: left;">Melarikan diri saat hendak ditangkap</td>
+                    <td>4000</td>
+                    <td>10</td>
+                </tr>
+                <tr>
+                    <td>18(4)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="18(4)" data-tindak="Membahayakan petugas"></td>
+                    <td style="text-align: left;">Membahayakan petugas</td>
+                    <td>6500</td>
+                    <td>40</td>
+                </tr>
+                <tr>
+                    <td>18(5)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="18(5)" data-tindak="Menyerang petugas dengan kekerasan"></td>
+                    <td style="text-align: left;">Menyerang petugas dengan kekerasan</td>
+                    <td>5000</td>
+                    <td>60</td>
+                </tr>
+                <tr>
+                    <td>18(6)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="18(6)" data-tindak="Menyuap aparat pemerintah"></td>
+                    <td style="text-align: left;">Menyuap aparat pemerintah</td>
+                    <td>6000</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>18(7)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="18(7)" data-tindak="Pencemaran nama baik instansi"></td>
+                    <td style="text-align: left;">Pencemaran nama baik instansi</td>
+                    <td>3000</td>
+                    <td>10</td>
+                </tr>
+            </tbody>
+        </table>                               
+
+        <table>
+            <thead class="terorisme">
+                <tr>
+                    <th colspan="5">TINDAK PIDANA TERORISME DAN HUKUMAN MATI</th>
+                </tr>
+                <tr>
+                    <th>Pasal (Ayat)</th>
+                    <th>Ceklis</th>
+                    <th>Pelanggaran</th>
+                    <th>Denda</th>
+                    <th>Massa Tahanan</th>
+                </tr>
+            </thead>
+            <tbody id="terorismeTable">
+                <tr>
+                    <td>19(1)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="19(1)" data-tindak="Terorisme"></td>
+                    <td style="text-align: left;">Terorisme</td>
+                    <td>150000</td>
+                    <td>Hukuman Mati</td>
+                </tr>
+                <tr>
+                    <td>19(2)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="19(2)" data-tindak="Penembakan diarea kantor hukum"></td>
+                    <td style="text-align: left;">Penembakan diarea kantor hukum</td>
+                    <td>120000</td>
+                    <td>Hukuman Mati</td>
+                </tr>
+                <tr>
+                    <td>19(3)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="19(3)" data-tindak="Penyanderaan skala besar"></td>
+                    <td style="text-align: left;">Penyanderaan skala besar</td>
+                    <td>120000</td>
+                    <td>Hukuman Mati</td>
+                </tr>
+                <tr>
+                    <td>19(4)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="19(4)" data-tindak="Penyanderaan instansi"></td>
+                    <td style="text-align: left;">Penyanderaan instansi</td>
+                    <td>120000</td>
+                    <td>Hukuman Mati</td>
+                </tr>
+                <tr>
+                    <td>19(5)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="19(5)" data-tindak="Tindakan mengakibatkan kota siaga 3"></td>
+                    <td style="text-align: left;">Tindakan mengakibatkan kota siaga 3</td>
+                    <td>130000</td>
+                    <td>Hukuman Mati</td>
+                </tr>
+                <tr>
+                    <td>19(6)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="19(6)" data-tindak="Menggangu proses jalan peleburan"></td>
+                    <td style="text-align: left;">Menggangu proses jalan peleburan</td>
+                    <td>140000</td>
+                    <td>Hukuman Mati</td>
+                </tr>
+                <tr>
+                    <td>19(7)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="19(7)" data-tindak="Catatan criminal sebanyak 7 kali"></td>
+                    <td style="text-align: left;">Catatan criminal sebanyak 7 kali</td>
+                    <td>120000</td>
+                    <td>Hukuman Mati</td>
+                </tr>
+            </tbody>
+        </table>        
 
         <button id="submit" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Submit</button>
         <button id="kirim-discord" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Kirimkan Ke Discord</button>
@@ -1106,7 +985,7 @@
         // Handle search filtering
         document.getElementById("searchInput").addEventListener("keyup", function() {
             const filter = this.value.toLowerCase();
-            const tables = ['ringanTable', 'sedangTable', 'beratTable'];
+            const tables = ['keamananTable', 'aparaturTable', 'hartabendaTable', 'narkobaTable', 'senjataTable', 'nyawaTable', 'terorismeTable'];
 
             tables.forEach(tableId => {
                 const table = document.getElementById(tableId);
@@ -1148,10 +1027,10 @@ document.getElementById("submit").addEventListener("click", () => {
             const penjaraText = checkbox.closest('tr').cells[4].textContent;
 
             // Handle specific cases for penalty text
-            if (penjaraText === "HUKUMAN MATI") {
-                penjaraTextGlobal = "HUKUMAN MATI"; // Set the global variable to "HUKUMAN MATI"
-                totalPenjara = "HUKUMAN MATI"; // We don't sum anything, just mark it
-            } else if (penjaraText === "HUKUMAN SOSIAL" || penjaraText === "TIDAK ADA" || penjaraText === "PERINGATAN PERTAMA") {
+            if (penjaraText === "Hukuman Mati") {
+                penjaraTextGlobal = "Hukuman Mati"; // Set the global variable to "HUKUMAN MATI"
+                totalPenjara = "Hukuman Mati"; // We don't sum anything, just mark it
+            } else if (penjaraText === "Hukuman Sosial") {
                 // Set to 0 for these cases
                 totalPenjara += 0;
             } else {
@@ -1162,7 +1041,7 @@ document.getElementById("submit").addEventListener("click", () => {
         });
 
         // Determine Lokasi based on totalPenjara
-        if (totalPenjara === "HUKUMAN MATI") {
+        if (totalPenjara === "Hukuman Mati") {
             lokasi = "Federal"; // For "HUKUMAN MATI", location is Federal
         } else if (totalPenjara <= 60) {
             lokasi = "Kantor Pusat"; // If totalPenjara is less than or equal to 60, location is Kantor Pusat
@@ -1250,8 +1129,8 @@ document.getElementById("submit").addEventListener("click", () => {
 // Fungsi untuk mengirim ke webhook yang sesuai berdasarkan lokasi penahanan
 function sendToDiscordWebhook(laporan, lokasiPenahanan) {
     const webhookURLs = {
-        "Federal": "https://discord.com/api/webhooks/1335227184180363356/3G1SCPsqO8WKbRX1oYKCTuCw20FH3UtDY4oEkQKNp-7ZZYfNtdVFcP09mcEmMo4xnERf",
-        "Kantor Pusat": "https://discord.com/api/webhooks/1335228644276174858/u1Fmr29mLJbG0OQ1o6vqTiF9XkPxqxwzAVfwgiSrXD9BE2umlEwwKGf8gwOR9RiAAxJe"
+        "Federal": "https://discord.com/api/webhooks/1334878460652421160/1bzMmbjZz23gdeeERvtC39lLeE9z8sf8jowAqUwEEFdd69gvqeJkFOD6OBBULwDGGsQO",
+        "Kantor Pusat": "https://discord.com/api/webhooks/1334878658246217788/1yxfh0G4_35BIyy5YOxWzQ5EamtmxNcjf6Pmrse7kiYx7cK3FxrVEvpov4uj25asQIgj"
     };
 
     fetch(webhookURLs[lokasiPenahanan], {
@@ -1390,7 +1269,7 @@ document.getElementById("kirim-discord").addEventListener("click", () => {
                         const jumlahBarangBukti = result.value;
 
                         // Tentukan lokasi penahanan berdasarkan total penjara
-                        const lokasiPenahanan = totalPenjara === "HUKUMAN MATI" ? "Federal" : (totalPenjara > 60 ? "Federal" : "Kantor Pusat");
+                        const lokasiPenahanan = totalPenjara === "Hukuman Mati" ? "Federal" : (totalPenjara > 60 ? "Federal" : "Kantor Pusat");
 
                         // Ambil data login petugas
                         const petugasNama = localStorage.getItem("username");
@@ -1417,10 +1296,8 @@ document.getElementById("kirim-discord").addEventListener("click", () => {
                         const formattedDenda = totalDenda.toLocaleString();
                         
                         const hukumanMasaTahanan = [
-                            "HUKUMAN MATI", 
-                            "HUKUMAN SOSIAL", 
-                            "TIDAK ADA", 
-                            "PERINGATAN PERTAMA"
+                            "Hukuman Mati", 
+                            "Hukuman Sosial"
                         ].includes(totalPenjara) ? totalPenjara : `${totalPenjara} bulan`;
                         
                         // Siapkan data laporan untuk dikirim ke Discord
