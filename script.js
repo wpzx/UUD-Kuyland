@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { name: "Kora Syahputra", rank: "Sekretaris Jenderal Polisi", division: "Samapta Bhayangkara" },
         { name: "Bagas Ravendra", rank: "Ajun Komisaris Besar Polisi", division: "Samapta Bhayangkara" },
         { name: "Bonar Sitorus", rank: "Komisaris Polisi", division: "Samapta Bhayangkara" },
+        { name: "Eko Sebastian", rank: "Komisaris Polisi", division: "Samapta Bhayangkara" },
         { name: "Bahar Kamarudin", rank: "Ajun Komisaris Polisi", division: "Samapta Bhayangkara" },
         { name: "Ardana Angkasa", rank: "Inspektur Polisi Satu", division: "Samapta Bhayangkara" },
         { name: "Allya Rebelions", rank: "Brigadir Polisi Dua", division: "Satuan Lalu Lintas" },
