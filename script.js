@@ -36,6 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { name: "Luther Einsberg", rank: "Ajun Brigadir Polisi", division: "Samapta Bhayangkara" },
     ];
 
+    const correctPassword = "polku123";  // Password yang benar
+
     loginButton.addEventListener("click", (event) => {
         event.preventDefault(); // Mencegah submit form default
 
@@ -44,6 +46,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!username) {
             showNotification("Masukkan nama!", true);
+            return;
+        }
+
+        if (!password) {
+            showNotification("Masukkan Password!", true); // Pesan jika password kosong
+            return;
+        }
+
+        if (password !== correctPassword) {
+            showNotification("Password salah!", true);
             return;
         }
 
@@ -70,6 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
 
 // Fungsi untuk menampilkan pop-up pilihan
 function showOptionsPopup() {
