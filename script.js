@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { name: "Shiro Vasquez", rank: "Anggota Brigadir Polisi", division: "Satuan Lalu Lintas" },
         { name: "Luther Einsberg", rank: "Ajun Brigadir Polisi", division: "Samapta Bhayangkara" },
         { name: "Kenny Bramasta", rank: "Ajun Brigadir Polisi", division: "Samapta Bhayangkara" },
+        { name: "Leon Alexon", rank: "Ajun Brigadir Polisi", division: "Samapta Bhayangkara" },
     ];
 
     const correctPassword = "polku123";  // Password yang benar
