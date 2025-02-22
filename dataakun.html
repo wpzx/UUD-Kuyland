@@ -206,6 +206,42 @@
                 margin: 5px auto !important;
             }
         }
+        @media (max-width: 768px) {
+        .mobile-swal-container {
+            padding: 0.5rem;
+        }
+
+        .mobile-swal-popup {
+            font-size: 0.9rem !important;
+            padding: 1rem !important;
+            width: 90% !important;
+            margin: 0.5rem auto !important;
+        }
+
+        .mobile-swal-input {
+            font-size: 1rem !important;
+            height: 2.5rem !important;
+            margin: 0.5rem 0 !important;
+        }
+
+        .swal2-title {
+            font-size: 1.2rem !important;
+            padding: 0.5rem 0 !important;
+        }
+
+        .swal2-html-container {
+            margin: 0.5rem 0 !important;
+        }
+
+        .swal2-actions {
+            margin: 1rem 0 0 !important;
+        }
+
+        .swal2-confirm, .swal2-deny, .swal2-cancel {
+            font-size: 0.9rem !important;
+            padding: 0.5rem 1rem !important;
+        }
+    }
     </style>
 </head>
 <body>
@@ -417,198 +453,268 @@
             }
         }
         
-        // Request edit function
-        async function requestEdit(name, currentRank, currentDivision) {
-            const isMobile = window.innerWidth <= 768;
-            const result = await Swal.fire({
-                title: 'Request Edit Data',
-                html: `
-                    <input id="swal-name" class="swal2-input" placeholder="Nama Baru" value="${name}">
-                    <input id="swal-rank" class="swal2-input" placeholder="Pangkat Baru" value="${currentRank}">
-                    <input id="swal-division" class="swal2-input" placeholder="Divisi Baru" value="${currentDivision}">
-                `,
-                focusConfirm: false,
-                showDenyButton: true,
-                showCancelButton: true,
-                confirmButtonText: 'Kirim Request',
-                denyButtonText: 'Minta Hapus',
-                denyButtonColor: '#ef4444',
-                cancelButtonText: 'Batal',
-                grow: isMobile ? 'fullscreen' : false,
-                preConfirm: () => {
-                    return {
-                        name: document.getElementById('swal-name').value,
-                        newRank: document.getElementById('swal-rank').value,
-                        newDivision: document.getElementById('swal-division').value
-                    }
-                }
-            });
-        
-            if (result.isConfirmed) {
-                // Handle edit request
-                await sendWebhookMessage({
-                    type: 'edit',
-                    title: '📋 Request Edit Data Kepolisian',
-                    oldData: { name, rank: currentRank, division: currentDivision },
-                    newData: result.value
-                });
-            } else if (result.isDenied) {
-                // Handle delete request
-                const deleteConfirm = await Swal.fire({
-                    title: 'Konfirmasi Hapus',
-                    text: `Apakah anda yakin ingin menghapus data ${name}?`,
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#ef4444',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Ya, Hapus!',
-                    cancelButtonText: 'Batal',
-                    grow: isMobile ? 'fullscreen' : false
-                });
-        
-                if (deleteConfirm.isConfirmed) {
-                    await sendWebhookMessage({
-                        type: 'delete',
-                        title: '🗑️ Request Hapus Data Kepolisian',
-                        data: { name, rank: currentRank, division: currentDivision }
-                    });
-                }
+// Fungsi untuk mendapatkan konfigurasi SweetAlert yang sesuai untuk mobile/desktop
+function getSwalConfig(config) {
+    const isMobile = window.innerWidth <= 768;
+    
+    // Konfigurasi dasar untuk mobile
+    const mobileConfig = {
+        width: '90%',
+        padding: '1rem',
+        customClass: {
+            container: 'mobile-swal-container',
+            popup: 'mobile-swal-popup',
+            input: 'mobile-swal-input'
+        }
+    };
+
+    // Jika mobile, gabungkan konfigurasi mobile dengan konfigurasi yang diberikan
+    return isMobile ? { ...config, ...mobileConfig } : config;
+}
+
+// Modifikasi fungsi requestEdit
+async function requestEdit(name, currentRank, currentDivision) {
+    const swalConfig = getSwalConfig({
+        title: 'Request Edit Data',
+        html: `
+            <input id="swal-name" class="swal2-input" placeholder="Nama Baru" value="${name}">
+            <input id="swal-rank" class="swal2-input" placeholder="Pangkat Baru" value="${currentRank}">
+            <input id="swal-division" class="swal2-input" placeholder="Divisi Baru" value="${currentDivision}">
+        `,
+        focusConfirm: false,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Kirim Request',
+        denyButtonText: 'Minta Hapus',
+        denyButtonColor: '#ef4444',
+        cancelButtonText: 'Batal',
+        preConfirm: () => {
+            return {
+                name: document.getElementById('swal-name').value,
+                newRank: document.getElementById('swal-rank').value,
+                newDivision: document.getElementById('swal-division').value
             }
         }
-        
-        // Show add user form
-        async function showAddUserForm() {
-            const isMobile = window.innerWidth <= 768;
-            const { value: formValues } = await Swal.fire({
-                title: 'Minta Tambah User Baru',
-                html: `
-                    <input id="swal-name" class="swal2-input" placeholder="Nama">
-                    <input id="swal-rank" class="swal2-input" placeholder="Pangkat">
-                    <input id="swal-division" class="swal2-input" placeholder="Divisi">
-                `,
-                focusConfirm: false,
-                showCancelButton: true,
-                confirmButtonText: 'Kirim Request',
-                cancelButtonText: 'Batal',
-                grow: isMobile ? 'fullscreen' : false,
-                preConfirm: () => {
-                    return {
-                        name: document.getElementById('swal-name').value,
-                        rank: document.getElementById('swal-rank').value,
-                        division: document.getElementById('swal-division').value
-                    }
-                }
+    });
+
+    const result = await Swal.fire(swalConfig);
+
+    if (result.isConfirmed) {
+        await sendWebhookMessage({
+            type: 'edit',
+            title: '📋 Request Edit Data Kepolisian',
+            oldData: { name, rank: currentRank, division: currentDivision },
+            newData: result.value
+        });
+    } else if (result.isDenied) {
+        const deleteConfirm = await Swal.fire(getSwalConfig({
+            title: 'Konfirmasi Hapus',
+            text: `Apakah anda yakin ingin menghapus data ${name}?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+        }));
+
+        if (deleteConfirm.isConfirmed) {
+            await sendWebhookMessage({
+                type: 'delete',
+                title: '🗑️ Request Hapus Data Kepolisian',
+                data: { name, rank: currentRank, division: currentDivision }
             });
-        
-            if (formValues) {
-                await sendWebhookMessage({
-                    type: 'add',
-                    title: '➕ Request Tambah User Baru',
-                    data: formValues
-                });
+        }
+    }
+}
+
+// Modifikasi fungsi showAddUserForm
+async function showAddUserForm() {
+    const { value: formValues } = await Swal.fire(getSwalConfig({
+        title: 'Minta Tambah User Baru',
+        html: `
+            <input id="swal-name" class="swal2-input" placeholder="Nama">
+            <input id="swal-rank" class="swal2-input" placeholder="Pangkat">
+            <input id="swal-division" class="swal2-input" placeholder="Divisi">
+        `,
+        focusConfirm: false,
+        showCancelButton: true,
+        confirmButtonText: 'Kirim Request',
+        cancelButtonText: 'Batal',
+        preConfirm: () => {
+            return {
+                name: document.getElementById('swal-name').value,
+                rank: document.getElementById('swal-rank').value,
+                division: document.getElementById('swal-division').value
             }
         }
+    }));
+
+    if (formValues) {
+        await sendWebhookMessage({
+            type: 'add',
+            title: '➕ Request Tambah User Baru',
+            data: formValues
+        });
+    }
+}
+
+const newStyles = `
+    /* SweetAlert Mobile Styles */
+    @media (max-width: 768px) {
+        .mobile-swal-container {
+            padding: 0.5rem;
+        }
+
+        .mobile-swal-popup {
+            font-size: 0.9rem !important;
+            padding: 1rem !important;
+            width: 90% !important;
+            margin: 0.5rem auto !important;
+        }
+
+        .mobile-swal-input {
+            font-size: 1rem !important;
+            height: 2.5rem !important;
+            margin: 0.5rem 0 !important;
+        }
+
+        .swal2-title {
+            font-size: 1.2rem !important;
+            padding: 0.5rem 0 !important;
+        }
+
+        .swal2-html-container {
+            margin: 0.5rem 0 !important;
+        }
+
+        .swal2-actions {
+            margin: 1rem 0 0 !important;
+        }
+
+        .swal2-confirm, .swal2-deny, .swal2-cancel {
+            font-size: 0.9rem !important;
+            padding: 0.5rem 1rem !important;
+        }
+    }
+`;
         
-        // Send webhook message to Discord
-        async function sendWebhookMessage({ type, title, oldData, newData, data }) {
-            try {
-                let fields = [];
-                let code = '';
-        
-                switch (type) {
-                    case 'edit':
-                        fields = [
-                            {
-                                name: 'Data sebelumnya',
-                                value: `Nama : ${oldData.name}\nPangkat Lama : ${oldData.rank}\nDivisi Lama : ${oldData.division}`,
-                                inline: false
-                            },
-                            {
-                                name: 'Data diperbarui',
-                                value: `Nama Baru : ${newData.name}\nPangkat Baru : ${newData.newRank}\nDivisi Baru : ${newData.newDivision}`,
-                                inline: false
-                            }
-                        ];
-                        code = `{ "name": "${newData.name}", "rank": "${newData.newRank}", "division": "${newData.newDivision}" }`;
-                        break;
-                    case 'delete':
-                        fields = [
-                            {
-                                name: 'Data yang akan dihapus',
-                                value: `Nama : ${data.name}\nPangkat : ${data.rank}\nDivisi : ${data.division}`,
-                                inline: false
-                            }
-                        ];
-                        code = `{ "name": "${data.name}", "rank": "${data.rank}", "division": "${data.division}" }`;
-                        break;
-                    case 'add':
-                        fields = [
-                            {
-                                name: 'Data User Baru',
-                                value: `Nama : ${data.name}\nPangkat : ${data.rank}\nDivisi : ${data.division}`,
-                                inline: false
-                            }
-                        ];
-                        code = `{ "name": "${data.name}", "rank": "${data.rank}", "division": "${data.division}" }`;
-                        break;
-                }
-        
-                fields.push({
-                    name: 'Code',
-                    value: `\`\`\`${code}\`\`\``,
-                    inline: false
-                });
-        
-                const message = {
-                    embeds: [{
-                        title: title,
-                        color: type === 'delete' ? 0xFF0000 : type === 'add' ? 0x00FF00 : 0x2B87FF,
-                        fields: fields,
-                        timestamp: new Date().toISOString()
-                    }]
-                };
-        
-                const response = await fetch(DISCORD_WEBHOOK_URLS[type], {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
+// Send webhook message to Discord
+async function sendWebhookMessage({ type, title, oldData, newData, data }) {
+    try {
+        let fields = [];
+        let code = '';
+
+        switch (type) {
+            case 'edit':
+                fields = [
+                    {
+                        name: 'Data sebelumnya',
+                        value: `Nama : ${oldData.name}\nPangkat Lama : ${oldData.rank}\nDivisi Lama : ${oldData.division}`,
+                        inline: false
                     },
-                    body: JSON.stringify(message)
-                });
-        
-                if (!response.ok) throw new Error('Failed to send to Discord');
-        
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil',
-                    text: type === 'delete' ? 'Request hapus telah dikirim ke admin!' : 
-                          type === 'add' ? 'Request tambah user telah dikirim ke admin!' :
-                          'Request edit telah dikirim ke admin!',
-                    grow: window.innerWidth <= 768 ? 'fullscreen' : false
-                });
-            } catch (error) {
-                console.error('Error sending to Discord:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Gagal mengirim request!',
-                    grow: window.innerWidth <= 768 ? 'fullscreen' : false
-                });
+                    {
+                        name: 'Data diperbarui',
+                        value: `Nama Baru : ${newData.name}\nPangkat Baru : ${newData.newRank}\nDivisi Baru : ${newData.newDivision}`,
+                        inline: false
+                    }
+                ];
+                code = `{ "name": "${newData.name}", "rank": "${newData.newRank}", "division": "${newData.newDivision}" }`;
+                break;
+            case 'delete':
+                fields = [
+                    {
+                        name: 'Data yang akan dihapus',
+                        value: `Nama : ${data.name}\nPangkat : ${data.rank}\nDivisi : ${data.division}`,
+                        inline: false
+                    }
+                ];
+                code = `{ "name": "${data.name}", "rank": "${data.rank}", "division": "${data.division}" }`;
+                break;
+            case 'add':
+                fields = [
+                    {
+                        name: 'Data User Baru',
+                        value: `Nama : ${data.name}\nPangkat : ${data.rank}\nDivisi : ${data.division}`,
+                        inline: false
+                    }
+                ];
+                code = `{ "name": "${data.name}", "rank": "${data.rank}", "division": "${data.division}" }`;
+                break;
+        }
+
+        fields.push({
+            name: 'Code',
+            value: `\`\`\`${code}\`\`\``,
+            inline: false
+        });
+
+        const message = {
+            embeds: [{
+                title: title,
+                color: type === 'delete' ? 0xFF0000 : type === 'add' ? 0x00FF00 : 0x2B87FF,
+                fields: fields,
+                timestamp: new Date().toISOString()
+            }]
+        };
+
+        const response = await fetch(DISCORD_WEBHOOK_URLS[type], {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(message)
+        });
+
+        if (!response.ok) throw new Error('Failed to send to Discord');
+
+        // Modified success alert for better mobile experience
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: type === 'delete' ? 'Request hapus telah dikirim ke admin!' : 
+                  type === 'add' ? 'Request tambah user telah dikirim ke admin!' :
+                  'Request edit telah dikirim ke admin!',
+            width: window.innerWidth <= 768 ? '90%' : '32rem',
+            padding: window.innerWidth <= 768 ? '0.5rem' : '1.25rem',
+            customClass: {
+                container: 'mobile-swal-container',
+                popup: 'mobile-swal-popup'
             }
+        });
+    } catch (error) {
+        console.error('Error sending to Discord:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Gagal mengirim request!',
+            width: window.innerWidth <= 768 ? '90%' : '32rem',
+            padding: window.innerWidth <= 768 ? '0.5rem' : '1.25rem',
+            customClass: {
+                container: 'mobile-swal-container',
+                popup: 'mobile-swal-popup'
+            }
+        });
+    }
+}
+
+// Modified refresh data function
+function refreshData() {
+    loadUsers();
+    Swal.fire({
+        icon: 'success',
+        title: 'Refreshed!',
+        text: 'Data telah diperbarui',
+        timer: 1500,
+        showConfirmButton: false,
+        width: window.innerWidth <= 768 ? '90%' : '32rem',
+        padding: window.innerWidth <= 768 ? '0.5rem' : '1.25rem',
+        customClass: {
+            container: 'mobile-swal-container',
+            popup: 'mobile-swal-popup'
         }
-        
-        // Refresh data function
-        function refreshData() {
-            loadUsers();
-            Swal.fire({
-                icon: 'success',
-                title: 'Refreshed!',
-                text: 'Data telah diperbarui',
-                timer: 1500,
-                showConfirmButton: false,
-                grow: window.innerWidth <= 768 ? 'fullscreen' : false
-            });
-        }
+    });
+}
         </script>
 </body>
 </html>
