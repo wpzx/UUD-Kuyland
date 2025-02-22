@@ -15,7 +15,7 @@
 
         body {
             background: #f5f5f5;
-            padding: 20px;
+            padding: 10px;
         }
 
         .container {
@@ -24,68 +24,137 @@
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            padding: 15px;
         }
 
         h1 {
             text-align: center;
             margin-bottom: 20px;
             color: #1f2937;
+            font-size: 24px;
         }
 
         .header-actions {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
             margin-bottom: 20px;
+        }
+
+        .view-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 10px 20px;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
         .search-container {
             display: flex;
+            flex-wrap: wrap;
             gap: 10px;
             margin-bottom: 20px;
         }
 
         .search-input {
-            flex-grow: 1;
+            flex: 1;
+            min-width: 200px;
             padding: 8px;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
 
-        .refresh-btn {
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .refresh-btn, .add-btn, .back-btn {
             padding: 8px 16px;
-            background-color: #3b82f6;
-            color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            white-space: nowrap;
         }
 
-        .refresh-btn:hover {
-            background-color: #2563eb;
+        .refresh-btn {
+            background-color: #3b82f6;
+            color: white;
         }
 
-        .users-table {
+        .add-btn {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .back-btn {
+            background-color: #1f2937;
+            color: white;
+        }
+
+        /* Desktop Table Styles */
+        .desktop-view .users-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
 
-        .users-table th,
-        .users-table td {
+        .desktop-view .users-table th,
+        .desktop-view .users-table td {
             padding: 12px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
 
-        .users-table th {
+        .desktop-view .users-table th {
             background-color: #1f2937;
             color: white;
         }
 
-        .users-table tr:hover {
-            background-color: #f5f5f5;
+        /* Mobile Card Styles */
+        .mobile-view .users-table {
+            display: none;
+        }
+
+        .mobile-view .user-cards {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .user-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .user-card-header {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+
+        .user-card-content {
+            margin-bottom: 15px;
+        }
+
+        .user-card-content p {
+            margin: 5px 0;
+            color: #4b5563;
+        }
+
+        .user-card-actions {
+            display: flex;
+            justify-content: flex-end;
         }
 
         .edit-request-btn {
@@ -97,59 +166,50 @@
             cursor: pointer;
         }
 
-        .edit-request-btn:hover {
-            background-color: #d97706;
+        /* Responsive SweetAlert Styles */
+        .swal2-popup {
+            font-size: 0.9em !important;
         }
 
-        .back-btn {
-            background-color: #1f2937;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        .swal2-input {
+            margin: 10px auto !important;
         }
 
-        .back-btn:hover {
-            background-color: #374151;
-        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
 
-        #mainContainer {
-            display: none;
-        }
+            h1 {
+                font-size: 20px;
+            }
 
-        .add-btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-            background-color: #10b981;
-            color: white;
-            margin-left: 10px;
-        }
+            .search-container {
+                flex-direction: column;
+            }
 
-        .add-btn:hover {
-            background-color: #059669;
-        }
+            .button-group {
+                width: 100%;
+                justify-content: space-between;
+            }
 
-        .delete-btn {
-            background-color: #ef4444;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
+            .refresh-btn, .add-btn, .back-btn {
+                padding: 8px 12px;
+                font-size: 0.9em;
+            }
 
-        .delete-btn:hover {
-            background-color: #dc2626;
+            .swal2-popup {
+                padding: 0.5em;
+            }
+
+            .swal2-input {
+                margin: 5px auto !important;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container" id="mainContainer">
+    <div class="container desktop-view" id="mainContainer">
         <div class="header-actions">
             <button class="back-btn" onclick="window.location.href='index.html'">Kembali ke Login</button>
         </div>
@@ -158,14 +218,17 @@
         
         <div class="search-container">
             <input type="text" id="searchInput" class="search-input" placeholder="Cari nama...">
-            <button class="refresh-btn" onclick="refreshData()">
-                Refresh Data
-            </button>
-            <button class="add-btn" onclick="showAddUserForm()">
-                Minta Tambah User
-            </button>
+            <div class="button-group">
+                <button class="refresh-btn" onclick="refreshData()">
+                    Refresh Data
+                </button>
+                <button class="add-btn" onclick="showAddUserForm()">
+                    Minta Tambah User
+                </button>
+            </div>
         </div>
 
+        <!-- Desktop Table View -->
         <table class="users-table">
             <thead>
                 <tr>
@@ -179,111 +242,184 @@
                 <!-- Users will be loaded here -->
             </tbody>
         </table>
+
+        <!-- Mobile Card View -->
+        <div class="user-cards" id="userCards">
+            <!-- Users will be loaded here as cards -->
+        </div>
     </div>
+
+    <!-- View Toggle Button -->
+    <button class="view-toggle" id="viewToggle" onclick="toggleView()">
+        Switch to Mobile View
+    </button>
     <script>
-// Ganti dengan Discord webhook URL Anda
-const DISCORD_WEBHOOK_URLS = {
+        // Discord webhook URLs configuration
+        const DISCORD_WEBHOOK_URLS = {
             edit: 'https://discord.com/api/webhooks/1334878658246217788/1yxfh0G4_35BIyy5YOxWzQ5EamtmxNcjf6Pmrse7kiYx7cK3FxrVEvpov4uj25asQIgj',
             delete: 'https://discord.com/api/webhooks/1334878658246217788/1yxfh0G4_35BIyy5YOxWzQ5EamtmxNcjf6Pmrse7kiYx7cK3FxrVEvpov4uj25asQIgj',
             add: 'https://discord.com/api/webhooks/1334878658246217788/1yxfh0G4_35BIyy5YOxWzQ5EamtmxNcjf6Pmrse7kiYx7cK3FxrVEvpov4uj25asQIgj'
         };
-
-// Check password on page load
-document.addEventListener('DOMContentLoaded', () => {
-    if (!sessionStorage.getItem('isAuthenticated')) {
-        promptPassword();
-    } else {
-        showMainContent();
-    }
-
-    // Add search functionality
-    document.getElementById('searchInput').addEventListener('input', filterUsers);
-});
-
-// Password prompt
-function promptPassword() {
-    Swal.fire({
-        title: 'Enter Password',
-        input: 'password',
-        inputPlaceholder: 'Enter password',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        inputValidator: (value) => {
-            if (!value) {
-                return 'Password is required!';
-            }
-            if (value !== 'polku123') {
-                return 'Incorrect password!';
-            }
-        }
-    }).then((result) => {
-        if (result.value === 'polku123') {
-            sessionStorage.setItem('isAuthenticated', 'true');
-            showMainContent();
-        } else {
-            promptPassword();
-        }
-    });
-}
-
-// Show main content
-function showMainContent() {
-    document.getElementById('mainContainer').style.display = 'block';
-    loadUsers();
-}
-
-// Load users from default-users.json
-async function loadUsers() {
-    try {
-        const response = await fetch('default-users.json');
-        if (!response.ok) throw new Error('Failed to load users data');
         
-        const users = await response.json();
-        displayUsers(users);
-    } catch (error) {
-        console.error('Error loading users:', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Gagal memuat data users!'
+        // View state
+        let isMobileView = false;
+        
+        // Check password and initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!sessionStorage.getItem('isAuthenticated')) {
+                promptPassword();
+            } else {
+                showMainContent();
+            }
+        
+            // Add search functionality
+            document.getElementById('searchInput').addEventListener('input', filterUsers);
+            
+            // Check if should default to mobile view
+            if (window.innerWidth <= 768) {
+                toggleView();
+            }
         });
-    }
-}
-
-// Display users in table
-function displayUsers(users) {
-    const tableBody = document.getElementById('usersTableBody');
-    tableBody.innerHTML = '';
-
-    users.forEach(user => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${user.name}</td>
-            <td>${user.rank}</td>
-            <td>${user.division}</td>
-            <td>
-                <button class="edit-request-btn" onclick="requestEdit('${user.name}', '${user.rank}', '${user.division}')">
-                    Minta Edit
-                </button>
-            </td>
-        `;
-        tableBody.appendChild(row);
-    });
-}
-
-// Filter users based on search input
-function filterUsers() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-    const rows = document.getElementById('usersTableBody').getElementsByTagName('tr');
-
-    Array.from(rows).forEach(row => {
-        const name = row.cells[0].textContent.toLowerCase();
-        row.style.display = name.includes(searchTerm) ? '' : 'none';
-    });
-}
-
-// Request edit function with updated Discord message format
-async function requestEdit(name, currentRank, currentDivision) {
+        
+        // Password prompt function
+        function promptPassword() {
+            Swal.fire({
+                title: 'Enter Password',
+                input: 'password',
+                inputPlaceholder: 'Enter password',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                grow: window.innerWidth <= 768 ? 'fullscreen' : false,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Password is required!';
+                    }
+                    if (value !== 'polku123') {
+                        return 'Incorrect password!';
+                    }
+                }
+            }).then((result) => {
+                if (result.value === 'polku123') {
+                    sessionStorage.setItem('isAuthenticated', 'true');
+                    showMainContent();
+                } else {
+                    promptPassword();
+                }
+            });
+        }
+        
+        // Show main content function
+        function showMainContent() {
+            document.getElementById('mainContainer').style.display = 'block';
+            loadUsers();
+        }
+        
+        // Toggle between mobile and desktop views
+        function toggleView() {
+            const container = document.getElementById('mainContainer');
+            const toggleButton = document.getElementById('viewToggle');
+            isMobileView = !isMobileView;
+        
+            if (isMobileView) {
+                container.classList.remove('desktop-view');
+                container.classList.add('mobile-view');
+                toggleButton.textContent = 'Switch to Desktop View';
+            } else {
+                container.classList.remove('mobile-view');
+                container.classList.add('desktop-view');
+                toggleButton.textContent = 'Switch to Mobile View';
+            }
+        
+            loadUsers();
+        }
+        
+        // Load users from JSON file
+        async function loadUsers() {
+            try {
+                const response = await fetch('default-users.json');
+                if (!response.ok) throw new Error('Failed to load users data');
+                
+                const users = await response.json();
+                displayUsers(users);
+            } catch (error) {
+                console.error('Error loading users:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Gagal memuat data users!',
+                    grow: window.innerWidth <= 768 ? 'fullscreen' : false
+                });
+            }
+        }
+        
+        // Display users in both table and card format
+        function displayUsers(users) {
+            // Update table view
+            const tableBody = document.getElementById('usersTableBody');
+            tableBody.innerHTML = '';
+        
+            // Update card view
+            const cardsContainer = document.getElementById('userCards');
+            cardsContainer.innerHTML = '';
+        
+            users.forEach(user => {
+                // Create table row
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.name}</td>
+                    <td>${user.rank}</td>
+                    <td>${user.division}</td>
+                    <td>
+                        <button class="edit-request-btn" onclick="requestEdit('${user.name}', '${user.rank}', '${user.division}')">
+                            Minta Edit
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+        
+                // Create card for mobile view
+                const card = document.createElement('div');
+                card.className = 'user-card';
+                card.innerHTML = `
+                    <div class="user-card-header">${user.name}</div>
+                    <div class="user-card-content">
+                        <p><strong>Pangkat:</strong> ${user.rank}</p>
+                        <p><strong>Divisi:</strong> ${user.division}</p>
+                    </div>
+                    <div class="user-card-actions">
+                        <button class="edit-request-btn" onclick="requestEdit('${user.name}', '${user.rank}', '${user.division}')">
+                            Minta Edit
+                        </button>
+                    </div>
+                `;
+                cardsContainer.appendChild(card);
+            });
+        }
+        
+        // Filter users based on search input
+        function filterUsers() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            if (isMobileView) {
+                // Filter cards
+                const cards = document.querySelectorAll('.user-card');
+                cards.forEach(card => {
+                    const name = card.querySelector('.user-card-header').textContent.toLowerCase();
+                    card.style.display = name.includes(searchTerm) ? '' : 'none';
+                });
+            } else {
+                // Filter table rows
+                const rows = document.getElementById('usersTableBody').getElementsByTagName('tr');
+                Array.from(rows).forEach(row => {
+                    const name = row.cells[0].textContent.toLowerCase();
+                    row.style.display = name.includes(searchTerm) ? '' : 'none';
+                });
+            }
+        }
+        
+        // Request edit function
+        async function requestEdit(name, currentRank, currentDivision) {
+            const isMobile = window.innerWidth <= 768;
             const result = await Swal.fire({
                 title: 'Request Edit Data',
                 html: `
@@ -298,6 +434,7 @@ async function requestEdit(name, currentRank, currentDivision) {
                 denyButtonText: 'Minta Hapus',
                 denyButtonColor: '#ef4444',
                 cancelButtonText: 'Batal',
+                grow: isMobile ? 'fullscreen' : false,
                 preConfirm: () => {
                     return {
                         name: document.getElementById('swal-name').value,
@@ -306,7 +443,7 @@ async function requestEdit(name, currentRank, currentDivision) {
                     }
                 }
             });
-
+        
             if (result.isConfirmed) {
                 // Handle edit request
                 await sendWebhookMessage({
@@ -316,7 +453,7 @@ async function requestEdit(name, currentRank, currentDivision) {
                     newData: result.value
                 });
             } else if (result.isDenied) {
-                // Handle delete request with confirmation
+                // Handle delete request
                 const deleteConfirm = await Swal.fire({
                     title: 'Konfirmasi Hapus',
                     text: `Apakah anda yakin ingin menghapus data ${name}?`,
@@ -325,9 +462,10 @@ async function requestEdit(name, currentRank, currentDivision) {
                     confirmButtonColor: '#ef4444',
                     cancelButtonColor: '#3085d6',
                     confirmButtonText: 'Ya, Hapus!',
-                    cancelButtonText: 'Batal'
+                    cancelButtonText: 'Batal',
+                    grow: isMobile ? 'fullscreen' : false
                 });
-
+        
                 if (deleteConfirm.isConfirmed) {
                     await sendWebhookMessage({
                         type: 'delete',
@@ -337,8 +475,10 @@ async function requestEdit(name, currentRank, currentDivision) {
                 }
             }
         }
-
+        
+        // Show add user form
         async function showAddUserForm() {
+            const isMobile = window.innerWidth <= 768;
             const { value: formValues } = await Swal.fire({
                 title: 'Minta Tambah User Baru',
                 html: `
@@ -350,6 +490,7 @@ async function requestEdit(name, currentRank, currentDivision) {
                 showCancelButton: true,
                 confirmButtonText: 'Kirim Request',
                 cancelButtonText: 'Batal',
+                grow: isMobile ? 'fullscreen' : false,
                 preConfirm: () => {
                     return {
                         name: document.getElementById('swal-name').value,
@@ -358,7 +499,7 @@ async function requestEdit(name, currentRank, currentDivision) {
                     }
                 }
             });
-
+        
             if (formValues) {
                 await sendWebhookMessage({
                     type: 'add',
@@ -367,12 +508,13 @@ async function requestEdit(name, currentRank, currentDivision) {
                 });
             }
         }
-
+        
+        // Send webhook message to Discord
         async function sendWebhookMessage({ type, title, oldData, newData, data }) {
             try {
                 let fields = [];
                 let code = '';
-
+        
                 switch (type) {
                     case 'edit':
                         fields = [
@@ -410,13 +552,13 @@ async function requestEdit(name, currentRank, currentDivision) {
                         code = `{ "name": "${data.name}", "rank": "${data.rank}", "division": "${data.division}" }`;
                         break;
                 }
-
+        
                 fields.push({
                     name: 'Code',
                     value: `\`\`\`${code}\`\`\``,
                     inline: false
                 });
-
+        
                 const message = {
                     embeds: [{
                         title: title,
@@ -425,7 +567,7 @@ async function requestEdit(name, currentRank, currentDivision) {
                         timestamp: new Date().toISOString()
                     }]
                 };
-
+        
                 const response = await fetch(DISCORD_WEBHOOK_URLS[type], {
                     method: 'POST',
                     headers: {
@@ -433,39 +575,40 @@ async function requestEdit(name, currentRank, currentDivision) {
                     },
                     body: JSON.stringify(message)
                 });
-
+        
                 if (!response.ok) throw new Error('Failed to send to Discord');
-
+        
                 Swal.fire({
                     icon: 'success',
                     title: 'Berhasil',
                     text: type === 'delete' ? 'Request hapus telah dikirim ke admin!' : 
                           type === 'add' ? 'Request tambah user telah dikirim ke admin!' :
-                          'Request edit telah dikirim ke admin!'
+                          'Request edit telah dikirim ke admin!',
+                    grow: window.innerWidth <= 768 ? 'fullscreen' : false
                 });
             } catch (error) {
                 console.error('Error sending to Discord:', error);
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'Gagal mengirim request!'
+                    text: 'Gagal mengirim request!',
+                    grow: window.innerWidth <= 768 ? 'fullscreen' : false
                 });
             }
         }
-
-
-
-// Refresh data
-function refreshData() {
-    loadUsers();
-    Swal.fire({
-        icon: 'success',
-        title: 'Refreshed!',
-        text: 'Data telah diperbarui',
-        timer: 1500,
-        showConfirmButton: false
-    }); 
-}
-    </script>
+        
+        // Refresh data function
+        function refreshData() {
+            loadUsers();
+            Swal.fire({
+                icon: 'success',
+                title: 'Refreshed!',
+                text: 'Data telah diperbarui',
+                timer: 1500,
+                showConfirmButton: false,
+                grow: window.innerWidth <= 768 ? 'fullscreen' : false
+            });
+        }
+        </script>
 </body>
 </html>
