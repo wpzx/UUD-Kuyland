@@ -4,47 +4,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputPassword = document.querySelector(".form-container.sign-in input[type='password']");
     const loginButton = document.querySelector(".form-container.sign-in button");
 
-    // Database user (simulasi)
-    const userData = [
-        { name: "Iyan Antasari", rank: "Jenderal Polisi", division: "All" },
-        { name: "Mariono Senopati", rank: "Komisaris Jenderal Polisi", division: "Brigade Mobil" },
-        { name: "Mario Santa", rank: "Komisaris Jenderal Polisi", division: "Badan Reserse Kriminal" },
-        { name: "Marcio Zelensky", rank: "Inspektur Jenderal Polisi", division: "Satuan Lalu Lintas" },
-        { name: "Vincentzo Lacozta", rank: "Brigadir Jenderal Polisi", division: "Satuan Lalu Lintas" },
-        { name: "Kora Syahputra", rank: "Sekretaris Jenderal Polisi", division: "Samapta Bhayangkara" },
-        { name: "Bagas Ravendra", rank: "Ajun Komisaris Besar Polisi", division: "Samapta Bhayangkara" },
-        { name: "Bonar Sitorus", rank: "Komisaris Polisi", division: "Samapta Bhayangkara" },
-        { name: "Eko Sebastian", rank: "Komisaris Polisi", division: "Samapta Bhayangkara" },
-        { name: "Bahar Kamarudin", rank: "Ajun Komisaris Polisi", division: "Samapta Bhayangkara" },
-        { name: "Ardana Angkasa", rank: "Inspektur Polisi Satu", division: "Samapta Bhayangkara" },
-        { name: "Allya Rebelions", rank: "Brigadir Polisi Dua", division: "Satuan Lalu Lintas" },
-        { name: "Depvano Ravendra", rank: "Brigadir Polisi Dua", division: "Samapta Bhayangkara" },
-        { name: "Ahsan Norseth", rank: "Brigadir Polisi", division: "Samapta Bhayangkara" },
-        { name: "Binn Hook", rank: "Brigadir Polisi", division: "Satuan Lalu Lintas" },
-        { name: "Oktoy Deadly", rank: "Brigadir Polisi", division: "Samapta Bhayangkara" },
-        { name: "Tengku Khasyim", rank: "Brigadir Polisi Dua", division: "Samapta Bhayangkara" },
-        { name: "Yanz Karl", rank: "Brigadir Polisi Dua", division: "Satuan Lalu Lintas" },
-        { name: "Jeki Norseth", rank: "Anggota Brigadir Polisi", division: "Samapta Bhayangkara" },
-        { name: "Emilio Vargas", rank: "Anggota Brigadir Polisi", division: "Satuan Lalu Lintas" },
-        { name: "Jennie Cathlyn", rank: "Anggota Brigadir Polisi", division: "Samapta Bhayangkara" },
-        { name: "Jater Bambang", rank: "Anggota Brigadir Polisi", division: "Satuan Lalu Lintas" },
-        { name: "Chiro Ignatius", rank: "Anggota Brigadir Polisi", division: "Satuan Lalu Lintas" },
-        { name: "Argan Rebellions", rank: "Anggota Brigadir Polisi", division: "Satuan Lalu Lintas" },
-        { name: "Twyne Brown", rank: "Anggota Brigadir Polisi", division: "Satuan Lalu Lintas" },
-        { name: "Goteng Warsed", rank: "Anggota Brigadir Polisi", division: "Samapta Bhayangkara" },
-        { name: "Ubeed Ignacio", rank: "Anggota Brigadir Polisi", division: "Samapta Bhayangkara" },
-        { name: "Shiro Vasquez", rank: "Anggota Brigadir Polisi", division: "Satuan Lalu Lintas" },
-        { name: "Luther Einsberg", rank: "Ajun Brigadir Polisi", division: "Samapta Bhayangkara" },
-        { name: "Kenny Bramasta", rank: "Ajun Brigadir Polisi", division: "Samapta Bhayangkara" },
-        { name: "Leon Alexon", rank: "Ajun Brigadir Polisi", division: "Samapta Bhayangkara" },
-    ];
-
-    const correctPassword = "polku123";  // Password yang benar
+    const correctPassword = "polku123";
 
     loginButton.addEventListener("click", (event) => {
-        event.preventDefault(); // Mencegah submit form default
+        event.preventDefault();
 
-        const username = inputName.value.trim(); // Hapus spasi awal/akhir
+        const username = inputName.value.trim();
         const password = inputPassword.value.trim();
 
         if (!username) {
@@ -53,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (!password) {
-            showNotification("Masukkan Password!", true); // Pesan jika password kosong
+            showNotification("Masukkan Password!", true);
             return;
         }
 
@@ -62,29 +27,30 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Cek apakah user ada di database
-        const user = userData.find(u => u.name.toLowerCase() === username.toLowerCase());
+        // Ambil data user dari localStorage
+        const users = JSON.parse(localStorage.getItem('userData') || '[]');
+        const user = users.find(u => u.name.toLowerCase() === username.toLowerCase());
 
         if (user) {
-            // Simpan data user ke localStorage
+            // Simpan data user yang login
             localStorage.setItem("username", user.name);
             localStorage.setItem("rank", user.rank);
             localStorage.setItem("division", user.division);
 
-            // Tampilkan pop-up modern
             Swal.fire({
                 title: `Halo, ${user.name}!`,
-                text: `Pangkat: ${user.rank},\nDivisi: ${user.division}`,
+                text: `Pangkat: ${user.rank}\nDivisi: ${user.division}`,
                 icon: "success",
                 confirmButtonText: "Lanjut"
             }).then(() => {
-                showOptionsPopup(); // Tampilkan pop-up pilihan
+                showOptionsPopup();
             });
         } else {
             showNotification("Nama tidak ditemukan!", true);
         }
     });
 });
+
 
 
 // Fungsi untuk menampilkan pop-up pilihan
