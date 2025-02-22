@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Kepolisian - Polisi Kuyland</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+
+        .header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .refresh-btn {
+            padding: 8px 16px;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .refresh-btn:hover {
+            background-color: #2563eb;
+        }
+
+        .users-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .users-table th,
+        .users-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .users-table th {
+            background-color: #1f2937;
+            color: white;
+        }
+
+        .users-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .edit-request-btn {
+            padding: 8px 16px;
+            background-color: #f59e0b;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .edit-request-btn:hover {
+            background-color: #d97706;
+        }
+
+        .back-btn {
+            background-color: #1f2937;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background-color: #374151;
+        }
+
+        #mainContainer {
+            display: none;
+        }
+
+        .add-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            background-color: #10b981;
+            color: white;
+            margin-left: 10px;
+        }
+
+        .add-btn:hover {
+            background-color: #059669;
+        }
+
+        .delete-btn {
+            background-color: #ef4444;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .delete-btn:hover {
+            background-color: #dc2626;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <div class="header-actions">
+            <button class="back-btn" onclick="window.location.href='index.html'">Kembali ke Login</button>
+        </div>
+        
+        <h1>Data Kepolisian Polisi Kuyland</h1>
+        
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Cari nama...">
+            <button class="refresh-btn" onclick="refreshData()">
+                Refresh Data
+            </button>
+            <button class="add-btn" onclick="showAddUserForm()">
+                Minta Tambah User
+            </button>
+        </div>
+
+        <table class="users-table">
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Pangkat</th>
+                    <th>Divisi</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="usersTableBody">
+                <!-- Users will be loaded here -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+// Ganti dengan Discord webhook URL Anda
+const DISCORD_WEBHOOK_URLS = {
+            edit: 'https://discord.com/api/webhooks/1334878658246217788/1yxfh0G4_35BIyy5YOxWzQ5EamtmxNcjf6Pmrse7kiYx7cK3FxrVEvpov4uj25asQIgj',
+            delete: 'https://discord.com/api/webhooks/1334878658246217788/1yxfh0G4_35BIyy5YOxWzQ5EamtmxNcjf6Pmrse7kiYx7cK3FxrVEvpov4uj25asQIgj',
+            add: 'https://discord.com/api/webhooks/1334878658246217788/1yxfh0G4_35BIyy5YOxWzQ5EamtmxNcjf6Pmrse7kiYx7cK3FxrVEvpov4uj25asQIgj'
+        };
+
+// Check password on page load
+document.addEventListener('DOMContentLoaded', () => {
+    if (!sessionStorage.getItem('isAuthenticated')) {
+        promptPassword();
+    } else {
+        showMainContent();
+    }
+
+    // Add search functionality
+    document.getElementById('searchInput').addEventListener('input', filterUsers);
+});
+
+// Password prompt
+function promptPassword() {
+    Swal.fire({
+        title: 'Enter Password',
+        input: 'password',
+        inputPlaceholder: 'Enter password',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        inputValidator: (value) => {
+            if (!value) {
+                return 'Password is required!';
+            }
+            if (value !== 'polku123') {
+                return 'Incorrect password!';
+            }
+        }
+    }).then((result) => {
+        if (result.value === 'polku123') {
+            sessionStorage.setItem('isAuthenticated', 'true');
+            showMainContent();
+        } else {
+            promptPassword();
+        }
+    });
+}
+
+// Show main content
+function showMainContent() {
+    document.getElementById('mainContainer').style.display = 'block';
+    loadUsers();
+}
+
+// Load users from default-users.json
+async function loadUsers() {
+    try {
+        const response = await fetch('default-users.json');
+        if (!response.ok) throw new Error('Failed to load users data');
+        
+        const users = await response.json();
+        displayUsers(users);
+    } catch (error) {
+        console.error('Error loading users:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Gagal memuat data users!'
+        });
+    }
+}
+
+// Display users in table
+function displayUsers(users) {
+    const tableBody = document.getElementById('usersTableBody');
+    tableBody.innerHTML = '';
+
+    users.forEach(user => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${user.name}</td>
+            <td>${user.rank}</td>
+            <td>${user.division}</td>
+            <td>
+                <button class="edit-request-btn" onclick="requestEdit('${user.name}', '${user.rank}', '${user.division}')">
+                    Minta Edit
+                </button>
+            </td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+// Filter users based on search input
+function filterUsers() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const rows = document.getElementById('usersTableBody').getElementsByTagName('tr');
+
+    Array.from(rows).forEach(row => {
+        const name = row.cells[0].textContent.toLowerCase();
+        row.style.display = name.includes(searchTerm) ? '' : 'none';
+    });
+}
+
+// Request edit function with updated Discord message format
+async function requestEdit(name, currentRank, currentDivision) {
+            const result = await Swal.fire({
+                title: 'Request Edit Data',
+                html: `
+                    <input id="swal-name" class="swal2-input" placeholder="Nama Baru" value="${name}">
+                    <input id="swal-rank" class="swal2-input" placeholder="Pangkat Baru" value="${currentRank}">
+                    <input id="swal-division" class="swal2-input" placeholder="Divisi Baru" value="${currentDivision}">
+                `,
+                focusConfirm: false,
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Kirim Request',
+                denyButtonText: 'Minta Hapus',
+                denyButtonColor: '#ef4444',
+                cancelButtonText: 'Batal',
+                preConfirm: () => {
+                    return {
+                        name: document.getElementById('swal-name').value,
+                        newRank: document.getElementById('swal-rank').value,
+                        newDivision: document.getElementById('swal-division').value
+                    }
+                }
+            });
+
+            if (result.isConfirmed) {
+                // Handle edit request
+                await sendWebhookMessage({
+                    type: 'edit',
+                    title: '📋 Request Edit Data Kepolisian',
+                    oldData: { name, rank: currentRank, division: currentDivision },
+                    newData: result.value
+                });
+            } else if (result.isDenied) {
+                // Handle delete request with confirmation
+                const deleteConfirm = await Swal.fire({
+                    title: 'Konfirmasi Hapus',
+                    text: `Apakah anda yakin ingin menghapus data ${name}?`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#ef4444',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal'
+                });
+
+                if (deleteConfirm.isConfirmed) {
+                    await sendWebhookMessage({
+                        type: 'delete',
+                        title: '🗑️ Request Hapus Data Kepolisian',
+                        data: { name, rank: currentRank, division: currentDivision }
+                    });
+                }
+            }
+        }
+
+        async function showAddUserForm() {
+            const { value: formValues } = await Swal.fire({
+                title: 'Minta Tambah User Baru',
+                html: `
+                    <input id="swal-name" class="swal2-input" placeholder="Nama">
+                    <input id="swal-rank" class="swal2-input" placeholder="Pangkat">
+                    <input id="swal-division" class="swal2-input" placeholder="Divisi">
+                `,
+                focusConfirm: false,
+                showCancelButton: true,
+                confirmButtonText: 'Kirim Request',
+                cancelButtonText: 'Batal',
+                preConfirm: () => {
+                    return {
+                        name: document.getElementById('swal-name').value,
+                        rank: document.getElementById('swal-rank').value,
+                        division: document.getElementById('swal-division').value
+                    }
+                }
+            });
+
+            if (formValues) {
+                await sendWebhookMessage({
+                    type: 'add',
+                    title: '➕ Request Tambah User Baru',
+                    data: formValues
+                });
+            }
+        }
+
+        async function sendWebhookMessage({ type, title, oldData, newData, data }) {
+            try {
+                let fields = [];
+                let code = '';
+
+                switch (type) {
+                    case 'edit':
+                        fields = [
+                            {
+                                name: 'Data sebelumnya',
+                                value: `Nama : ${oldData.name}\nPangkat Lama : ${oldData.rank}\nDivisi Lama : ${oldData.division}`,
+                                inline: false
+                            },
+                            {
+                                name: 'Data diperbarui',
+                                value: `Nama Baru : ${newData.name}\nPangkat Baru : ${newData.newRank}\nDivisi Baru : ${newData.newDivision}`,
+                                inline: false
+                            }
+                        ];
+                        code = `{ "name": "${newData.name}", "rank": "${newData.newRank}", "division": "${newData.newDivision}" }`;
+                        break;
+                    case 'delete':
+                        fields = [
+                            {
+                                name: 'Data yang akan dihapus',
+                                value: `Nama : ${data.name}\nPangkat : ${data.rank}\nDivisi : ${data.division}`,
+                                inline: false
+                            }
+                        ];
+                        code = `{ "name": "${data.name}", "rank": "${data.rank}", "division": "${data.division}" }`;
+                        break;
+                    case 'add':
+                        fields = [
+                            {
+                                name: 'Data User Baru',
+                                value: `Nama : ${data.name}\nPangkat : ${data.rank}\nDivisi : ${data.division}`,
+                                inline: false
+                            }
+                        ];
+                        code = `{ "name": "${data.name}", "rank": "${data.rank}", "division": "${data.division}" }`;
+                        break;
+                }
+
+                fields.push({
+                    name: 'Code',
+                    value: `\`\`\`${code}\`\`\``,
+                    inline: false
+                });
+
+                const message = {
+                    embeds: [{
+                        title: title,
+                        color: type === 'delete' ? 0xFF0000 : type === 'add' ? 0x00FF00 : 0x2B87FF,
+                        fields: fields,
+                        timestamp: new Date().toISOString()
+                    }]
+                };
+
+                const response = await fetch(DISCORD_WEBHOOK_URLS[type], {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(message)
+                });
+
+                if (!response.ok) throw new Error('Failed to send to Discord');
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: type === 'delete' ? 'Request hapus telah dikirim ke admin!' : 
+                          type === 'add' ? 'Request tambah user telah dikirim ke admin!' :
+                          'Request edit telah dikirim ke admin!'
+                });
+            } catch (error) {
+                console.error('Error sending to Discord:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Gagal mengirim request!'
+                });
+            }
+        }
+
+
+
+// Refresh data
+function refreshData() {
+    loadUsers();
+    Swal.fire({
+        icon: 'success',
+        title: 'Refreshed!',
+        text: 'Data telah diperbarui',
+        timer: 1500,
+        showConfirmButton: false
+    }); 
+}
+    </script>
+</body>
+</html>
