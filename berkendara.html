@@ -788,11 +788,11 @@
             document.getElementById("hukuman-summary").textContent = '';
         });
 
-            // Mengambil username dari localStorage dan menampilkan di navbar
-            const username = localStorage.getItem("username");
-            if (username) {
-                document.getElementById("user-name").textContent = username;
-            }
+        // Get username from sessionStorage and display in navbar
+        const username = sessionStorage.getItem("username");
+        if (username) {
+            document.getElementById("user-name").textContent = username;
+        }
 
             // Toggle profile menu saat foto profil diklik
             const userInfo = document.getElementById("user-info");
@@ -823,15 +823,56 @@
             });
 
             document.getElementById("openProfile").addEventListener("click", function() {
-                document.getElementById("profileModal").style.display = "flex";
-                document.getElementById("petugasNama").textContent = localStorage.getItem("username") || "Nama Polisi";
-                document.getElementById("petugasDivisi").textContent = localStorage.getItem("division") || "-";
-                document.getElementById("petugasJabatan").textContent = localStorage.getItem("rank") || "-";
-            });
+        document.getElementById("profileModal").style.display = "flex";
+        document.getElementById("petugasNama").textContent = sessionStorage.getItem("username") || "Nama Polisi";
+        document.getElementById("petugasDivisi").textContent = sessionStorage.getItem("division") || "-";
+        document.getElementById("petugasJabatan").textContent = sessionStorage.getItem("rank") || "-";
+    });
 
-            document.getElementById("closeProfile").addEventListener("click", function() {
-                document.getElementById("profileModal").style.display = "none";
+    document.getElementById("closeProfile").addEventListener("click", function() {
+        document.getElementById("profileModal").style.display = "none";
+    });
+
+        // Load users data function (similar to login script)
+        async function loadUsers() {
+        try {
+            const response = await fetch('default-users.json');
+            if (!response.ok) throw new Error('Failed to load users data');
+            return await response.json();
+        } catch (error) {
+            console.error('Error loading users:', error);
+            Swal.fire({
+                title: 'Error!',
+                text: 'Gagal memuat data users!',
+                icon: 'error',
+                confirmButtonText: 'OK'
             });
+            return [];
+        }
+    }
+
+    // Check if user is logged in when page loads
+    window.addEventListener('load', async () => {
+        const username = sessionStorage.getItem("username");
+        if (!username) {
+            // Redirect to login page if no session exists
+            window.location.href = "index.html";
+            return;
+        }
+
+        // Verify user exists in default-users.json
+        const users = await loadUsers();
+        const user = users.find(u => u.name === username);
+        if (!user) {
+            // Clear invalid session and redirect to login
+            sessionStorage.clear();
+            window.location.href = "index.html";
+            return;
+        }
+
+        // Update UI with user information
+        document.getElementById("user-name").textContent = username;
+    });
     </script>
 </body>
 </html>
