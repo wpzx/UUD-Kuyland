@@ -6,7 +6,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const correctPassword = "polku123";
 
-    loginButton.addEventListener("click", (event) => {
+    // Fungsi untuk memuat data users dari JSON file
+    async function loadUsers() {
+        try {
+            const response = await fetch('default-users.json');
+            if (!response.ok) throw new Error('Failed to load users data');
+            return await response.json();
+        } catch (error) {
+            console.error('Error loading users:', error);
+            showNotification("Gagal memuat data users!", true);
+            return [];
+        }
+    }
+
+    loginButton.addEventListener("click", async (event) => {
         event.preventDefault();
 
         const username = inputName.value.trim();
@@ -27,15 +40,15 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Ambil data user dari localStorage
-        const users = JSON.parse(localStorage.getItem('userData') || '[]');
+        // Load users data from JSON file
+        const users = await loadUsers();
         const user = users.find(u => u.name.toLowerCase() === username.toLowerCase());
 
         if (user) {
-            // Simpan data user yang login
-            localStorage.setItem("username", user.name);
-            localStorage.setItem("rank", user.rank);
-            localStorage.setItem("division", user.division);
+            // Simpan data user yang login ke sessionStorage (lebih aman dari localStorage)
+            sessionStorage.setItem("username", user.name);
+            sessionStorage.setItem("rank", user.rank);
+            sessionStorage.setItem("division", user.division);
 
             Swal.fire({
                 title: `Halo, ${user.name}!`,
@@ -51,14 +64,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-
-
 // Fungsi untuk menampilkan pop-up pilihan
 function showOptionsPopup() {
-    // Cek apakah elemen pop-up sudah ada
     let popup = document.querySelector(".options-popup");
     if (!popup) {
-        // Buat elemen pop-up baru
         popup = document.createElement("div");
         popup.className = "options-popup";
         popup.innerHTML = `
@@ -72,77 +81,33 @@ function showOptionsPopup() {
         `;
         document.body.appendChild(popup);
 
-        // Tambahkan event listener ke tombol
         document.getElementById("uudButton").addEventListener("click", () => {
-            window.location.href = "undang.html"; // Ganti ke halaman undang.html
+            window.location.href = "undang.html";
         });
 
         document.getElementById("sopButton").addEventListener("click", () => {
-            window.location.href = "sop.html"; // Ganti ke halaman sop.html
+            window.location.href = "sop.html";
         });
     }
 }
 
-    // Fungsi untuk menampilkan notifikasi
-    function showNotification(message, isError = false, callback = null) {
-        // Cek apakah elemen notifikasi sudah ada
-        let notification = document.querySelector(".notification");
-        if (!notification) {
-            // Buat elemen notifikasi baru
-            notification = document.createElement("div");
-            notification.className = "notification";
-            document.body.appendChild(notification); // Menambahkan di body
-        }
-
-        // Tambahkan pesan dan styling
-        notification.textContent = message;
-        notification.style.backgroundColor = isError ? "#ff4d4d" : "#4caf50";
-
-        // Hilangkan notifikasi setelah beberapa saat
-        setTimeout(() => {
-            notification.style.animation = "fadeOut 0.5s forwards"; // Tambahkan animasi keluar
-            setTimeout(() => {
-                notification.remove(); // Hapus notifikasi setelah animasi selesai
-                if (callback) callback(); // Panggil callback jika ada
-            }, 500);
-        }, 3000); // Hilangkan setelah 3 detik
+// Fungsi untuk menampilkan notifikasi
+function showNotification(message, isError = false, callback = null) {
+    let notification = document.querySelector(".notification");
+    if (!notification) {
+        notification = document.createElement("div");
+        notification.className = "notification";
+        document.body.appendChild(notification);
     }
 
-document.getElementById("submit").addEventListener("click", () => {
-    const checkboxes = document.querySelectorAll(".checkbox:checked");
-    const summaryTable = document.getElementById("summary-table");
-    const tbody = summaryTable.querySelector("tbody");
-    let totalDenda = 0;
-    let totalPenjara = 0;
+    notification.textContent = message;
+    notification.style.backgroundColor = isError ? "#ff4d4d" : "#4caf50";
 
-    // Reset table body
-    tbody.innerHTML = "";
-
-    checkboxes.forEach((checkbox) => {
-        const uu = checkbox.dataset.uu;
-        const tindak = checkbox.closest("tr").children[2].textContent;
-        const denda = parseInt(checkbox.dataset.denda);
-        const penjara = isNaN(parseInt(checkbox.dataset.penjara))
-            ? 0
-            : parseInt(checkbox.dataset.penjara);
-
-        totalDenda += denda;
-        totalPenjara += penjara;
-
-        // Tambahkan baris ke tabel ringkasan
-        const row = `<tr>
-            <td>${uu}</td>
-            <td>${tindak}</td>
-            <td>${denda}</td>
-            <td>${penjara}</td>
-        </tr>`;
-        tbody.insertAdjacentHTML("beforeend", row);
-    });
-
-    // Update total
-    document.getElementById("total-denda").textContent = totalDenda;
-    document.getElementById("total-penjara").textContent = totalPenjara;
-
-    // Tampilkan tabel ringkasan
-    summaryTable.style.display = "table";
-});
+    setTimeout(() => {
+        notification.style.animation = "fadeOut 0.5s forwards";
+        setTimeout(() => {
+            notification.remove();
+            if (callback) callback();
+        }, 500);
+    }, 3000);
+}
