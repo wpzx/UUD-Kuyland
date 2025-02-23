@@ -384,7 +384,7 @@
     <nav class="navbar">
         <ul class="nav-links">
             <li class="logo">
-                <img src="foto/logo polisi.png" alt="Logo Polisi">
+                <img src="logo polisi.png" alt="Logo Polisi">
                 <span>Polisi Kuyland</span>
             </li>
             <li class="nav-link">
@@ -400,7 +400,7 @@
         </ul>
         <div class="user-info" id="user-info">
             <span id="user-name">Silahkan Login terlebih dahulu!!</span>
-            <img src="foto/profile.png" alt="User" id="user-img">
+            <img src="profile.png" alt="User" id="user-img">
             <div class="profile-menu" id="profile-menu">
                 <a href="#" id="openProfile">Profil</a>
                 <a href="index.html">Logout</a>
@@ -413,7 +413,7 @@
         <div class="modal-content">
             <span class="close" id="closeProfile">&times;</span>
             <div class="profile-container">
-                <img src="foto/profile.png" alt="Profile Picture" class="profile-img">
+                <img src="profile.png" alt="Profile Picture" class="profile-img">
                 <h2 class="profile-name" id="petugasNama">Nama Polisi</h2>
                 <p class="profile-info"><strong>Pangkat:</strong> <span id="petugasJabatan">-</span></p>
                 <p class="profile-info"><strong>Divisi:</strong> <span id="petugasDivisi">-</span></p>
@@ -961,190 +961,163 @@
 
 
     <script>
+// Get username from sessionStorage and display in navbar
+const username = sessionStorage.getItem("username");
+if (username) {
+    document.getElementById("user-name").textContent = username;
+}
 
-            // Mengambil username dari localStorage dan menampilkan di navbar
-            const username = localStorage.getItem("username");
-            if (username) {
-                document.getElementById("user-name").textContent = username;
+// Toggle profile menu when profile photo is clicked
+const userInfo = document.getElementById("user-info");
+const profileMenu = document.getElementById("profile-menu");
+
+userInfo.addEventListener("click", function() {
+    profileMenu.style.display = (profileMenu.style.display === "block") ? "none" : "block";
+});
+
+// Toggle UUD menu when clicked
+const servicesLink = document.querySelector(".services");
+const servicesDropdown = document.querySelector(".services .drop-down");
+
+servicesLink.addEventListener("click", function(event) {
+    servicesDropdown.style.display = (servicesDropdown.style.display === "block") ? "none" : "block";
+});
+
+// Close menu if clicked outside profile area
+document.addEventListener("click", function(event) {
+    if (!userInfo.contains(event.target)) {
+        profileMenu.style.display = "none";
+    }
+    if (!servicesLink.contains(event.target)) {
+        servicesDropdown.style.display = "none";
+    }
+});
+
+// Handle search filtering
+document.getElementById("searchInput").addEventListener("keyup", function() {
+    const filter = this.value.toLowerCase();
+    const tables = ['keamananTable', 'aparaturTable', 'hartabendaTable', 'narkobaTable', 'senjataTable', 'nyawaTable', 'terorismeTable'];
+
+    tables.forEach(tableId => {
+        const table = document.getElementById(tableId);
+        const rows = table.getElementsByTagName("tr");
+        for (let i = 0; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName("td");
+            let rowContainsKeyword = false;
+            for (let j = 0; j < cells.length; j++) {
+                const cellText = cells[j].textContent.toLowerCase();
+                if (cellText.includes(filter)) {
+                    rowContainsKeyword = true;
+                    break;
+                }
             }
+            rows[i].style.display = (i === 0 || rowContainsKeyword) ? "" : "none";
+        }
+    });
+});
 
-            // Toggle profile menu saat foto profil diklik
-            const userInfo = document.getElementById("user-info");
-            const profileMenu = document.getElementById("profile-menu");
+document.getElementById("openProfile").addEventListener("click", function() {
+        document.getElementById("profileModal").style.display = "flex";
+        document.getElementById("petugasNama").textContent = sessionStorage.getItem("username") || "Nama Polisi";
+        document.getElementById("petugasDivisi").textContent = sessionStorage.getItem("division") || "-";
+        document.getElementById("petugasJabatan").textContent = sessionStorage.getItem("rank") || "-";
+    });
 
-            userInfo.addEventListener("click", function() {
-                // Toggle menu profile
-                profileMenu.style.display = (profileMenu.style.display === "block") ? "none" : "block";
-            });
-
-            // Toggle menu UUD saat diklik
-            const servicesLink = document.querySelector(".services");
-            const servicesDropdown = document.querySelector(".services .drop-down");
-
-            servicesLink.addEventListener("click", function(event) {
-                // Tidak mencegah default action pada UUD, hanya toggle dropdown
-                servicesDropdown.style.display = (servicesDropdown.style.display === "block") ? "none" : "block";
-            });
-
-            // Menutup menu jika klik di luar area profil
-            document.addEventListener("click", function(event) {
-                if (!userInfo.contains(event.target)) {
-                    profileMenu.style.display = "none";
-                }
-                if (!servicesLink.contains(event.target)) {
-                    servicesDropdown.style.display = "none";
-                }
-            });
-
-        // Handle search filtering
-        document.getElementById("searchInput").addEventListener("keyup", function() {
-            const filter = this.value.toLowerCase();
-            const tables = ['keamananTable', 'aparaturTable', 'hartabendaTable', 'narkobaTable', 'senjataTable', 'nyawaTable', 'terorismeTable'];
-
-            tables.forEach(tableId => {
-                const table = document.getElementById(tableId);
-                const rows = table.getElementsByTagName("tr");
-                for (let i = 0; i < rows.length; i++) {
-                    const cells = rows[i].getElementsByTagName("td");
-                    let rowContainsKeyword = false;
-                    for (let j = 0; j < cells.length; j++) {
-                        const cellText = cells[j].textContent.toLowerCase();
-                        if (cellText.includes(filter)) {
-                            rowContainsKeyword = true;
-                            break;
-                        }
-                    }
-                    rows[i].style.display = (i === 0 || rowContainsKeyword) ? "" : "none";
-                }
-            });
-        });
+    document.getElementById("closeProfile").addEventListener("click", function() {
+        document.getElementById("profileModal").style.display = "none";
+    });
 
 // Handle submit button action 
 document.getElementById("submit").addEventListener("click", () => {
-        const checkboxes = document.querySelectorAll(".checkbox:checked");
-        let totalDenda = 0;
-        let totalPenjara = 0;
-        const uuSummary = [];
-        const tindakSummary = [];
-        let penjaraTextGlobal = ''; // To store the global penjara value
-        let lokasi = ''; // Variable for location (Lokasi)
+    const checkboxes = document.querySelectorAll(".checkbox:checked");
+    let totalDenda = 0;
+    let totalPenjara = 0;
+    const uuSummary = [];
+    const tindakSummary = [];
+    let penjaraTextGlobal = '';
+    let lokasi = '';
 
-        checkboxes.forEach((checkbox) => {
-            uuSummary.push(checkbox.dataset.uu);
-            tindakSummary.push(checkbox.dataset.tindak);
+    checkboxes.forEach((checkbox) => {
+        uuSummary.push(checkbox.dataset.uu);
+        tindakSummary.push(checkbox.dataset.tindak);
 
-            // Denda
-            const denda = parseInt(checkbox.closest('tr').cells[3].textContent);
-            totalDenda += denda;
+        // Denda
+        const denda = parseInt(checkbox.closest('tr').cells[3].textContent);
+        totalDenda += denda;
 
-            // Penjara
-            const penjaraText = checkbox.closest('tr').cells[4].textContent;
+        // Penjara
+        const penjaraText = checkbox.closest('tr').cells[4].textContent;
 
-            // Handle specific cases for penalty text
-            if (penjaraText === "Hukuman Mati") {
-                penjaraTextGlobal = "Hukuman Mati"; // Set the global variable to "HUKUMAN MATI"
-                totalPenjara = "Hukuman Mati"; // We don't sum anything, just mark it
-            } else if (penjaraText === "Hukuman Sosial") {
-                // Set to 0 for these cases
-                totalPenjara += 0;
-            } else {
-                // For other valid numeric values, add it as a number
-                const penjara = parseInt(penjaraText);
-                totalPenjara += penjara;
-            }
-        });
-
-        // Determine Lokasi based on totalPenjara
-        if (totalPenjara === "Hukuman Mati") {
-            lokasi = "Federal"; // For "HUKUMAN MATI", location is Federal
-        } else if (totalPenjara <= 60) {
-            lokasi = "Kantor Pusat"; // If totalPenjara is less than or equal to 60, location is Kantor Pusat
+        if (penjaraText === "Hukuman Mati") {
+            penjaraTextGlobal = "Hukuman Mati";
+            totalPenjara = "Hukuman Mati";
+        } else if (penjaraText === "Hukuman Sosial") {
+            totalPenjara += 0;
         } else {
-            lokasi = "Federal"; // If totalPenjara is greater than 60, location is Federal
+            const penjara = parseInt(penjaraText);
+            totalPenjara += penjara;
         }
+    });
 
-        // Display summary
-        if (checkboxes.length > 0) {
-            document.getElementById("summary-table").style.display = 'table';
-            document.getElementById("uu-summary").textContent = uuSummary.join(", ");
-            document.getElementById("tindak-summary").textContent = tindakSummary.join(", ");
-            document.getElementById("denda-summary").textContent = totalDenda;
+    // Determine Lokasi based on totalPenjara
+    if (totalPenjara === "Hukuman Mati") {
+        lokasi = "Federal";
+    } else if (totalPenjara <= 60) {
+        lokasi = "Kantor Pusat";
+    } else {
+        lokasi = "Federal";
+    }
 
-            // If "HUKUMAN MATI" exists, we display it, otherwise show the total penalty
-            document.getElementById("penjara-summary").textContent = penjaraTextGlobal || totalPenjara;
+    // Display summary
+    if (checkboxes.length > 0) {
+        document.getElementById("summary-table").style.display = 'table';
+        document.getElementById("uu-summary").textContent = uuSummary.join(", ");
+        document.getElementById("tindak-summary").textContent = tindakSummary.join(", ");
+        document.getElementById("denda-summary").textContent = totalDenda;
+        document.getElementById("penjara-summary").textContent = penjaraTextGlobal || totalPenjara;
+        document.getElementById("lokasi-summary").textContent = lokasi;
+    }
 
-            // Display Lokasi
-            document.getElementById("lokasi-summary").textContent = lokasi;
-        }
+    // Handle copy buttons
+    const copyButtons = {
+        "copy-uu": "uu-summary",
+        "copy-tindak": "tindak-summary",
+        "copy-denda": "denda-summary",
+        "copy-penjara": "penjara-summary",
+        "copy-lokasi": "lokasi-summary"
+    };
 
-        // Handle salin button actions
-        document.getElementById("copy-uu").addEventListener("click", () => {
-            const uuText = document.getElementById("uu-summary").textContent;
-            if (uuText) {
-                navigator.clipboard.writeText(uuText).catch(err => {
-                    console.error("Gagal menyalin UU: " + err);
-                });
-            }
-        });
-
-        document.getElementById("copy-tindak").addEventListener("click", () => {
-            const tindakText = document.getElementById("tindak-summary").textContent;
-            if (tindakText) {
-                navigator.clipboard.writeText(tindakText).catch(err => {
-                    console.error("Gagal menyalin Tindak Pidana: " + err);
-                });
-            }
-        });
-
-        document.getElementById("copy-denda").addEventListener("click", () => {
-            const dendaText = document.getElementById("denda-summary").textContent;
-            if (dendaText) {
-                navigator.clipboard.writeText(dendaText).catch(err => {
-                    console.error("Gagal menyalin Denda: " + err);
-                });
-            }
-        });
-
-        document.getElementById("copy-penjara").addEventListener("click", () => {
-            const penjaraText = document.getElementById("penjara-summary").textContent;
-            if (penjaraText) {
-                navigator.clipboard.writeText(penjaraText).catch(err => {
-                    console.error("Gagal menyalin Penjara: " + err);
-                });
-            }
-        });
-
-        document.getElementById("copy-lokasi").addEventListener("click", () => {
-            const lokasiText = document.getElementById("lokasi-summary").textContent;
-            if (lokasiText) {
-                navigator.clipboard.writeText(lokasiText).catch(err => {
-                    console.error("Gagal menyalin Lokasi: " + err);
+    Object.entries(copyButtons).forEach(([buttonId, summaryId]) => {
+        document.getElementById(buttonId).addEventListener("click", () => {
+            const text = document.getElementById(summaryId).textContent;
+            if (text) {
+                navigator.clipboard.writeText(text).catch(err => {
+                    console.error(`Failed to copy ${summaryId}: ${err}`);
                 });
             }
         });
     });
+});
 
-        // Handle reset button action
-        document.getElementById("reset").addEventListener("click", () => {
-            // Uncheck all checkboxes
-            const checkboxes = document.querySelectorAll(".checkbox");
-            checkboxes.forEach((checkbox) => {
-                checkbox.checked = false;
-            });
+// Handle reset button action
+document.getElementById("reset").addEventListener("click", () => {
+    const checkboxes = document.querySelectorAll(".checkbox");
+    checkboxes.forEach((checkbox) => {
+        checkbox.checked = false;
+    });
 
-            // Clear the summary table
-            document.getElementById("summary-table").style.display = 'none';
-            document.getElementById("uu-summary").textContent = '';
-            document.getElementById("tindak-summary").textContent = '';
-            document.getElementById("denda-summary").textContent = '';
-            document.getElementById("penjara-summary").textContent = '';
-        });
+    document.getElementById("summary-table").style.display = 'none';
+    document.getElementById("uu-summary").textContent = '';
+    document.getElementById("tindak-summary").textContent = '';
+    document.getElementById("denda-summary").textContent = '';
+    document.getElementById("penjara-summary").textContent = '';
+});
 
-// Fungsi untuk mengirim ke webhook yang sesuai berdasarkan lokasi penahanan
+// Function to send to appropriate webhook based on detention location
 function sendToDiscordWebhook(laporan, lokasiPenahanan) {
     const webhookURLs = {
-        "Federal": "https://discord.com/api/webhooks/1335227184180363356/3G1SCPsqO8WKbRX1oYKCTuCw20FH3UtDY4oEkQKNp-7ZZYfNtdVFcP09mcEmMo4xnERf",
-        "Kantor Pusat": "https://discord.com/api/webhooks/1335228644276174858/u1Fmr29mLJbG0OQ1o6vqTiF9XkPxqxwzAVfwgiSrXD9BE2umlEwwKGf8gwOR9RiAAxJe"
+        "Federal": "https://discord.com/api/webhooks/1334878658246217788/1yxfh0G4_35BIyy5YOxWzQ5EamtmxNcjf6Pmrse7kiYx7cK3FxrVEvpov4uj25asQIgj",
+        "Kantor Pusat": "https://discord.com/api/webhooks/1334878658246217788/1yxfh0G4_35BIyy5YOxWzQ5EamtmxNcjf6Pmrse7kiYx7cK3FxrVEvpov4uj25asQIgj"
     };
 
     fetch(webhookURLs[lokasiPenahanan], {
@@ -1186,7 +1159,7 @@ document.getElementById("kirim-discord").addEventListener("click", () => {
     const tindakSummary = document.getElementById("tindak-summary").textContent.trim();
     const uuSummary = document.getElementById("uu-summary").textContent.trim();
 
-    // Validasi jika Denda, Pasal, Hukuman/Masa Tahanan, atau Deskripsi Pelanggaran kosong
+    // Validate if required fields are empty
     if (!totalDenda || !uuSummary || !totalPenjara || !tindakSummary) {
         Swal.fire({
             title: 'Gagal!',
@@ -1197,7 +1170,7 @@ document.getElementById("kirim-discord").addEventListener("click", () => {
         return;
     }
 
-    // Ambil data yang dimasukkan melalui pop-up
+    // Get data through pop-up
     Swal.fire({
         title: 'Masukkan Nama Tersangka:',
         input: 'text',
@@ -1206,7 +1179,6 @@ document.getElementById("kirim-discord").addEventListener("click", () => {
         cancelButtonText: 'Kembali'
     }).then(result => {
         if (result.isDismissed) return;
-
         const namaTersangka = result.value.trim();
         if (!namaTersangka) {
             Swal.fire({
@@ -1218,126 +1190,127 @@ document.getElementById("kirim-discord").addEventListener("click", () => {
             return;
         }
 
-        Swal.fire({
+        return Swal.fire({
             title: 'Masukkan Nomor Handphone Tersangka:',
             input: 'text',
             inputPlaceholder: 'Nomor Handphone',
             showCancelButton: true,
             cancelButtonText: 'Kembali'
+        });
+    }).then(result => {
+        if (!result || result.isDismissed) return;
+        const noHpTersangka = result.value.trim();
+        if (!noHpTersangka) {
+            throw new Error('Nomor Handphone Tersangka tidak boleh kosong!');
+        }
+        return { noHpTersangka, ...result };
+    }).then(data => {
+        return Swal.fire({
+            title: 'Apakah Ada Foto KTP?',
+            input: 'select',
+            inputOptions: {
+                'Ada': 'Ada',
+                'Tidak': 'Tidak'
+            },
+            showCancelButton: true,
+            cancelButtonText: 'Kembali'
         }).then(result => {
             if (result.isDismissed) return;
+            return { ...data, fotoKtp: result.value };
+        });
+    }).then(data => {
+        if (!data) return;
+        return Swal.fire({
+            title: 'Masukkan Deskripsi Barang Bukti:',
+            input: 'text',
+            inputPlaceholder: 'Deskripsi Barang Bukti',
+            showCancelButton: true,
+            cancelButtonText: 'Kembali'
+        }).then(result => {
+            if (result.isDismissed) return;
+            return { ...data, deskripsiBarangBukti: result.value };
+        });
+    }).then(data => {
+        if (!data) return;
+        return Swal.fire({
+            title: 'Masukkan Jumlah Barang Bukti:',
+            input: 'text',
+            inputPlaceholder: 'Jumlah Barang Bukti',
+            showCancelButton: true,
+            cancelButtonText: 'Kembali'
+        }).then(result => {
+            if (result.isDismissed) return;
+            return { ...data, jumlahBarangBukti: result.value };
+        });
+    }).then(finalData => {
+        if (!finalData) return;
 
-            const noHpTersangka = result.value.trim();
-            if (!noHpTersangka) {
-                Swal.fire({
-                    title: 'Gagal!',
-                    text: 'Nomor Handphone Tersangka tidak boleh kosong!',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-                return;
-            }
+        const lokasiPenahanan = totalPenjara === "Hukuman Mati" ? "Federal" : (totalPenjara > 60 ? "Federal" : "Kantor Pusat");
+        
+        const petugasNama = sessionStorage.getItem("username");
+        const petugasDivisi = sessionStorage.getItem("division");
+        const petugasJabatan = sessionStorage.getItem("rank");
 
-            Swal.fire({
-                title: 'Apakah Ada Foto KTP?',
-                input: 'select',
-                inputOptions: {
-                    'Ada': 'Ada',
-                    'Tidak': 'Tidak'
-                },
-                showCancelButton: true,
-                cancelButtonText: 'Kembali'
-            }).then(result => {
-                if (result.isDismissed) return;
+        if (!petugasNama || !petugasDivisi || !petugasJabatan) {
+            throw new Error('Data petugas tidak lengkap! Pastikan nama, divisi, dan jabatan petugas sudah terisi.');
+        }
 
-                const fotoKtp = result.value;
-                Swal.fire({ 
-                    title: 'Masukkan Deskripsi Barang Bukti:',
-                    input: 'text',
-                    inputPlaceholder: 'Deskripsi Barang Bukti',
-                    showCancelButton: true,
-                    cancelButtonText: 'Kembali'
-                }).then(result => {
-                    if (result.isDismissed) return;
+        const laporan = {
+            content: `**LAPORAN PENAHANAN**\n\n**I. Informasi Penahanan:**\n- Nomor Laporan Penahanan: ${Math.floor(Math.random() * 10000)}\n- Tanggal dan Waktu Penahanan: ${new Date().toLocaleString()}\n- Lokasi Penahanan: ${lokasiPenahanan}\n- Deskripsi Pelanggaran: ${tindakSummary}\n\n**II. Informasi Tersangka:**\n- Nama Tersangka: ${finalData.namaTersangka}\n- Nomor Handphone: ${finalData.noHpTersangka}\n- Hukuman/Masa Tahanan: ${totalPenjara}\n- Pasal: ${uuSummary}\n- Denda: $${totalDenda.toLocaleString()}\n- Foto KTP: ${finalData.fotoKtp}\n\n**III. Identitas Petugas yang Menahan:**\n- Nama Petugas: ${petugasNama}\n- Divisi: ${petugasDivisi}\n- Jabatan: ${petugasJabatan}\n- Rekan: Semua Anggota yang Membantu\n\n**IV. Barang Bukti yang Disita:**\n- Deskripsi Barang Bukti: ${finalData.deskripsiBarangBukti}\n- Jumlah Barang Bukti: ${finalData.jumlahBarangBukti}`
+        };
 
-                    const deskripsiBarangBukti = result.value.trim();
-                    if (!deskripsiBarangBukti) {
-                        Swal.fire({
-                            title: 'Gagal!',
-                            text: 'Deskripsi Barang Bukti tidak boleh kosong!',
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        });
-                        return;
-                    }
-
-                    Swal.fire({
-                        title: 'Masukkan Jumlah Barang Bukti:',
-                        input: 'text',
-                        inputPlaceholder: 'Jumlah Barang Bukti',
-                        showCancelButton: true,
-                        cancelButtonText: 'Kembali'
-                    }).then(result => {
-                        if (result.isDismissed) return;
-
-                        const jumlahBarangBukti = result.value;
-
-                        // Tentukan lokasi penahanan berdasarkan total penjara
-                        const lokasiPenahanan = totalPenjara === "Hukuman Mati" ? "Federal" : (totalPenjara > 60 ? "Federal" : "Kantor Pusat");
-
-                        // Ambil data login petugas
-                        const petugasNama = localStorage.getItem("username");
-                        const petugasDivisi = localStorage.getItem("division");
-                        const petugasJabatan = localStorage.getItem("rank");
-
-                        // Validasi data petugas
-                        if (!petugasNama || !petugasDivisi || !petugasJabatan) {
-                            Swal.fire({
-                                title: 'Gagal!',
-                                text: 'Data petugas tidak lengkap! Pastikan nama, divisi, dan jabatan petugas sudah terisi.',
-                                icon: 'error',
-                                confirmButtonText: 'OK'
-                            });
-                            return;
-                        }
-
-                        // Format total penjara (hilangkan 'bulan' jika angka bulat)
-                        const formattedPenjara = totalPenjara.includes("bulan") ?
-                            (parseInt(totalPenjara) ? `${parseInt(totalPenjara)}` : totalPenjara) :
-                            totalPenjara;
-
-                        // Format denda dengan titik
-                        const formattedDenda = totalDenda.toLocaleString();
-                        
-                        const hukumanMasaTahanan = [
-                            "Hukuman Mati", 
-                            "Hukuman Sosial"
-                        ].includes(totalPenjara) ? totalPenjara : `${totalPenjara} bulan`;
-                        
-                        // Siapkan data laporan untuk dikirim ke Discord
-                        const laporan = {
-                            content: `**LAPORAN PENAHANAN**\n\n**I. Informasi Penahanan:**\n- Nomor Laporan Penahanan: ${Math.floor(Math.random() * 10000)}\n- Tanggal dan Waktu Penahanan: ${new Date().toLocaleString()}\n- Lokasi Penahanan: ${lokasiPenahanan}\n- Deskripsi Pelanggaran: ${tindakSummary}\n\n**II. Informasi Tersangka:**\n- Nama Tersangka: ${namaTersangka}\n- Nomor Handphone: ${noHpTersangka}\n- Hukuman/Masa Tahanan: ${hukumanMasaTahanan}\n- Pasal: ${uuSummary}\n- Denda: $${totalDenda.toLocaleString()}\n- Foto KTP: ${fotoKtp}\n\n**III. Identitas Petugas yang Menahan:**\n- Nama Petugas: ${petugasNama}\n- Divisi: ${petugasDivisi}\n- Jabatan: ${petugasJabatan}\n- Rekan: Semua Anggota yang Membantu\n\n**IV. Barang Bukti yang Disita:**\n- Deskripsi Barang Bukti: ${deskripsiBarangBukti}\n- Jumlah Barang Bukti: ${jumlahBarangBukti}`
-                        };
-
-                        // Kirim laporan ke webhook sesuai lokasi penahanan
-                        sendToDiscordWebhook(laporan, lokasiPenahanan);
-                    });
-                });
-            });
+        // Panggil fungsi untuk mengirim ke Discord
+        sendToDiscordWebhook(laporan, lokasiPenahanan);
+    }).catch(error => {
+        Swal.fire({
+            title: 'Gagal!',
+            text: error.message || 'Terjadi kesalahan dalam memproses data',
+            icon: 'error',
+            confirmButtonText: 'OK'
         });
     });
-});
 
-document.getElementById("openProfile").addEventListener("click", function() {
-        document.getElementById("profileModal").style.display = "flex";
-        document.getElementById("petugasNama").textContent = localStorage.getItem("username") || "Nama Polisi";
-        document.getElementById("petugasDivisi").textContent = localStorage.getItem("division") || "-";
-        document.getElementById("petugasJabatan").textContent = localStorage.getItem("rank") || "-";
+    // Load users data function (similar to login script)
+    async function loadUsers() {
+        try {
+            const response = await fetch('default-users.json');
+            if (!response.ok) throw new Error('Failed to load users data');
+            return await response.json();
+        } catch (error) {
+            console.error('Error loading users:', error);
+            Swal.fire({
+                title: 'Error!',
+                text: 'Gagal memuat data users!',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return [];
+        }
+    }
+
+    // Check if user is logged in when page loads
+    window.addEventListener('load', async () => {
+        const username = sessionStorage.getItem("username");
+        if (!username) {
+            // Redirect to login page if no session exists
+            window.location.href = "index.html";
+            return;
+        }
+
+        // Verify user exists in default-users.json
+        const users = await loadUsers();
+        const user = users.find(u => u.name === username);
+        if (!user) {
+            // Clear invalid session and redirect to login
+            sessionStorage.clear();
+            window.location.href = "index.html";
+            return;
+        }
+
+        // Update UI with user information
+        document.getElementById("user-name").textContent = username;
     });
-    
-    document.getElementById("closeProfile").addEventListener("click", function() {
-        document.getElementById("profileModal").style.display = "none";
-    });
+});
     </script>
 </body>
 </html>
