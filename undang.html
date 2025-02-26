@@ -1059,6 +1059,12 @@ document.getElementById("submit").addEventListener("click", () => {
         }
     });
 
+    // Format totalPenjara untuk tampilan dengan menambahkan "Bulan" jika berupa angka
+    let displayPenjara = totalPenjara;
+    if (typeof totalPenjara === 'number') {
+        displayPenjara = `${totalPenjara} Bulan`;
+    }
+
     // Determine Lokasi based on totalPenjara
     if (totalPenjara === "Hukuman Mati") {
         lokasi = "Federal";
@@ -1074,7 +1080,7 @@ document.getElementById("submit").addEventListener("click", () => {
         document.getElementById("uu-summary").textContent = uuSummary.join(", ");
         document.getElementById("tindak-summary").textContent = tindakSummary.join(", ");
         document.getElementById("denda-summary").textContent = totalDenda;
-        document.getElementById("penjara-summary").textContent = penjaraTextGlobal || totalPenjara;
+        document.getElementById("penjara-summary").textContent = displayPenjara;
         document.getElementById("lokasi-summary").textContent = lokasi;
     }
 
@@ -1116,8 +1122,8 @@ document.getElementById("reset").addEventListener("click", () => {
 // Function to send to appropriate webhook based on detention location
 function sendToDiscordWebhook(laporan, lokasiPenahanan) {
     const webhookURLs = {
-        "Federal": "https://discord.com/api/webhooks/1335227184180363356/3G1SCPsqO8WKbRX1oYKCTuCw20FH3UtDY4oEkQKNp-7ZZYfNtdVFcP09mcEmMo4xnERf",
-        "Kantor Pusat": "https://discord.com/api/webhooks/1335228644276174858/u1Fmr29mLJbG0OQ1o6vqTiF9XkPxqxwzAVfwgiSrXD9BE2umlEwwKGf8gwOR9RiAAxJe"
+        "Federal": "https://discord.com/api/webhooks/1334878658246217788/1yxfh0G4_35BIyy5YOxWzQ5EamtmxNcjf6Pmrse7kiYx7cK3FxrVEvpov4uj25asQIgj",
+        "Kantor Pusat": "https://discord.com/api/webhooks/1334878658246217788/1yxfh0G4_35BIyy5YOxWzQ5EamtmxNcjf6Pmrse7kiYx7cK3FxrVEvpov4uj25asQIgj"
     };
 
     fetch(webhookURLs[lokasiPenahanan], {
@@ -1170,6 +1176,13 @@ document.getElementById("kirim-discord").addEventListener("click", () => {
         return;
     }
 
+    // Variabel untuk menyimpan data tersangka
+    let namaTersangka = '';
+    let noHpTersangka = '';
+    let fotoKtp = '';
+    let deskripsiBarangBukti = '';
+    let jumlahBarangBukti = '';
+
     // Get data through pop-up
     Swal.fire({
         title: 'Masukkan Nama Tersangka:',
@@ -1179,7 +1192,7 @@ document.getElementById("kirim-discord").addEventListener("click", () => {
         cancelButtonText: 'Kembali'
     }).then(result => {
         if (result.isDismissed) return;
-        const namaTersangka = result.value.trim();
+        namaTersangka = result.value.trim();
         if (!namaTersangka) {
             Swal.fire({
                 title: 'Gagal!',
@@ -1187,7 +1200,7 @@ document.getElementById("kirim-discord").addEventListener("click", () => {
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
-            return;
+            return Promise.reject('Nama Tersangka tidak boleh kosong!');
         }
 
         return Swal.fire({
@@ -1198,13 +1211,18 @@ document.getElementById("kirim-discord").addEventListener("click", () => {
             cancelButtonText: 'Kembali'
         });
     }).then(result => {
-        if (!result || result.isDismissed) return;
-        const noHpTersangka = result.value.trim();
+        if (!result || result.isDismissed) return Promise.reject('Dibatalkan');
+        noHpTersangka = result.value.trim();
         if (!noHpTersangka) {
-            throw new Error('Nomor Handphone Tersangka tidak boleh kosong!');
+            Swal.fire({
+                title: 'Gagal!',
+                text: 'Nomor Handphone Tersangka tidak boleh kosong!',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return Promise.reject('Nomor Handphone Tersangka tidak boleh kosong!');
         }
-        return { noHpTersangka, ...result };
-    }).then(data => {
+
         return Swal.fire({
             title: 'Apakah Ada Foto KTP?',
             input: 'select',
@@ -1214,38 +1232,36 @@ document.getElementById("kirim-discord").addEventListener("click", () => {
             },
             showCancelButton: true,
             cancelButtonText: 'Kembali'
-        }).then(result => {
-            if (result.isDismissed) return;
-            return { ...data, fotoKtp: result.value };
         });
-    }).then(data => {
-        if (!data) return;
+    }).then(result => {
+        if (!result || result.isDismissed) return Promise.reject('Dibatalkan');
+        fotoKtp = result.value;
+        
         return Swal.fire({
             title: 'Masukkan Deskripsi Barang Bukti:',
             input: 'text',
             inputPlaceholder: 'Deskripsi Barang Bukti',
             showCancelButton: true,
             cancelButtonText: 'Kembali'
-        }).then(result => {
-            if (result.isDismissed) return;
-            return { ...data, deskripsiBarangBukti: result.value };
         });
-    }).then(data => {
-        if (!data) return;
+    }).then(result => {
+        if (!result || result.isDismissed) return Promise.reject('Dibatalkan');
+        deskripsiBarangBukti = result.value.trim();
+        
         return Swal.fire({
             title: 'Masukkan Jumlah Barang Bukti:',
             input: 'text',
             inputPlaceholder: 'Jumlah Barang Bukti',
             showCancelButton: true,
             cancelButtonText: 'Kembali'
-        }).then(result => {
-            if (result.isDismissed) return;
-            return { ...data, jumlahBarangBukti: result.value };
         });
-    }).then(finalData => {
-        if (!finalData) return;
-
-        const lokasiPenahanan = totalPenjara === "Hukuman Mati" ? "Federal" : (totalPenjara > 60 ? "Federal" : "Kantor Pusat");
+    }).then(result => {
+        if (!result || result.isDismissed) return Promise.reject('Dibatalkan');
+        jumlahBarangBukti = result.value.trim();
+        
+        // Mengumpulkan semua data
+        const lokasiPenahanan = totalPenjara.includes("Hukuman Mati") ? "Federal" : 
+                               (parseInt(totalPenjara) > 60 ? "Federal" : "Kantor Pusat");
         
         const petugasNama = sessionStorage.getItem("username");
         const petugasDivisi = sessionStorage.getItem("division");
@@ -1255,61 +1271,66 @@ document.getElementById("kirim-discord").addEventListener("click", () => {
             throw new Error('Data petugas tidak lengkap! Pastikan nama, divisi, dan jabatan petugas sudah terisi.');
         }
 
+        // Format hukuman untuk laporan
+        let displayHukuman = totalPenjara;
+
         const laporan = {
-            content: `**LAPORAN PENAHANAN**\n\n**I. Informasi Penahanan:**\n- Nomor Laporan Penahanan: ${Math.floor(Math.random() * 10000)}\n- Tanggal dan Waktu Penahanan: ${new Date().toLocaleString()}\n- Lokasi Penahanan: ${lokasiPenahanan}\n- Deskripsi Pelanggaran: ${tindakSummary}\n\n**II. Informasi Tersangka:**\n- Nama Tersangka: ${finalData.namaTersangka}\n- Nomor Handphone: ${finalData.noHpTersangka}\n- Hukuman/Masa Tahanan: ${totalPenjara}\n- Pasal: ${uuSummary}\n- Denda: $${totalDenda.toLocaleString()}\n- Foto KTP: ${finalData.fotoKtp}\n\n**III. Identitas Petugas yang Menahan:**\n- Nama Petugas: ${petugasNama}\n- Divisi: ${petugasDivisi}\n- Jabatan: ${petugasJabatan}\n- Rekan: Semua Anggota yang Membantu\n\n**IV. Barang Bukti yang Disita:**\n- Deskripsi Barang Bukti: ${finalData.deskripsiBarangBukti}\n- Jumlah Barang Bukti: ${finalData.jumlahBarangBukti}`
+            content: `**LAPORAN PENAHANAN**\n\n**I. Informasi Penahanan:**\n- Nomor Laporan Penahanan: ${Math.floor(Math.random() * 10000)}\n- Tanggal dan Waktu Penahanan: ${new Date().toLocaleString()}\n- Lokasi Penahanan: ${lokasiPenahanan}\n- Deskripsi Pelanggaran: ${tindakSummary}\n\n**II. Informasi Tersangka:**\n- Nama Tersangka: ${namaTersangka}\n- Nomor Handphone: ${noHpTersangka}\n- Hukuman/Masa Tahanan: ${displayHukuman}\n- Pasal: ${uuSummary}\n- Denda: $${totalDenda.toLocaleString()}\n- Foto KTP: ${fotoKtp}\n\n**III. Identitas Petugas yang Menahan:**\n- Nama Petugas: ${petugasNama}\n- Divisi: ${petugasDivisi}\n- Jabatan: ${petugasJabatan}\n- Rekan: Semua Anggota yang Membantu\n\n**IV. Barang Bukti yang Disita:**\n- Deskripsi Barang Bukti: ${deskripsiBarangBukti}\n- Jumlah Barang Bukti: ${jumlahBarangBukti}`
         };
 
         // Panggil fungsi untuk mengirim ke Discord
         sendToDiscordWebhook(laporan, lokasiPenahanan);
     }).catch(error => {
-        Swal.fire({
-            title: 'Gagal!',
-            text: error.message || 'Terjadi kesalahan dalam memproses data',
-            icon: 'error',
-            confirmButtonText: 'OK'
-        });
-    });
-
-    // Load users data function (similar to login script)
-    async function loadUsers() {
-        try {
-            const response = await fetch('default-users.json');
-            if (!response.ok) throw new Error('Failed to load users data');
-            return await response.json();
-        } catch (error) {
-            console.error('Error loading users:', error);
+        if (error !== 'Dibatalkan') {
             Swal.fire({
-                title: 'Error!',
-                text: 'Gagal memuat data users!',
+                title: 'Gagal!',
+                text: error || 'Terjadi kesalahan dalam memproses data',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
-            return [];
         }
+    });
+});
+
+// Load users data function (similar to login script)
+async function loadUsers() {
+    try {
+        const response = await fetch('default-users.json');
+        if (!response.ok) throw new Error('Failed to load users data');
+        return await response.json();
+    } catch (error) {
+        console.error('Error loading users:', error);
+        Swal.fire({
+            title: 'Error!',
+            text: 'Gagal memuat data users!',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+        return [];
+    }
+}
+
+// Check if user is logged in when page loads
+window.addEventListener('load', async () => {
+    const username = sessionStorage.getItem("username");
+    if (!username) {
+        // Redirect to login page if no session exists
+        window.location.href = "index.html";
+        return;
     }
 
-    // Check if user is logged in when page loads
-    window.addEventListener('load', async () => {
-        const username = sessionStorage.getItem("username");
-        if (!username) {
-            // Redirect to login page if no session exists
-            window.location.href = "index.html";
-            return;
-        }
+    // Verify user exists in default-users.json
+    const users = await loadUsers();
+    const user = users.find(u => u.name === username);
+    if (!user) {
+        // Clear invalid session and redirect to login
+        sessionStorage.clear();
+        window.location.href = "index.html";
+        return;
+    }
 
-        // Verify user exists in default-users.json
-        const users = await loadUsers();
-        const user = users.find(u => u.name === username);
-        if (!user) {
-            // Clear invalid session and redirect to login
-            sessionStorage.clear();
-            window.location.href = "index.html";
-            return;
-        }
-
-        // Update UI with user information
-        document.getElementById("user-name").textContent = username;
-    });
+    // Update UI with user information
+    document.getElementById("user-name").textContent = username;
 });
     </script>
 </body>
