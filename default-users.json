@@ -30,5 +30,7 @@
   { "name": "Luther Einsberg", "rank": "Brigadir Polisi", "division": "Badan Reserse Kriminal" },
   { "name": "Kenny Bramasta", "rank": "Tamtama", "division": "Sabhara" },
   { "name": "Bahar Khamarudin", "rank": "Inspektur Polisi Dua", "division": "Satlantas" },
-  { "name": "Leon Alexon", "rank": "Ajun Brigadir Polisi", "division": "Bareskrim" }
+  { "name": "Leon Alexon", "rank": "Ajun Brigadir Polisi", "division": "Bareskrim" },
+  { "name": "Yamagata Nakashima", "rank": "Ajun Brigadir Polisi", "division": "Satlantas" },
+  { "name": "Lukas Tyzoon", "rank": "Ajun Brigadir Polisi", "division": "Satlantas" }
 ]
