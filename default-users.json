@@ -5,7 +5,6 @@
   { "name": "Marcio Zelensky", "rank": "Inspektur Jenderal Polisi", "division": "Satuan Lalu Lintas" },
   { "name": "Vincentzo Lacozta", "rank": "Brigadir Jenderal Polisi", "division": "Satuan Lalu Lintas" },
   { "name": "Kora Syahputra", "rank": "Sekretaris Jenderal Polisi", "division": "Samapta Bhayangkara" },
-  { "name": "Bagas Ravendra", "rank": "Ajun Komisaris Besar Polisi", "division": "Samapta Bhayangkara" },
   { "name": "Bonar Sitorus", "rank": "Komisaris Polisi", "division": "Samapta Bhayangkara" },
   { "name": "Eko Sebastian", "rank": "Komisaris Polisi", "division": "Samapta Bhayangkara" },
   { "name": "Bahar Kamarudin", "rank": "Ajun Komisaris Polisi", "division": "Samapta Bhayangkara" },
@@ -21,16 +20,16 @@
   { "name": "Emilio Vargas", "rank": "Anggota Brigadir Polisi", "division": "Satuan Lalu Lintas" },
   { "name": "Jennie Cathlyn", "rank": "Anggota Brigadir Polisi", "division": "Samapta Bhayangkara" },
   { "name": "Jater Bambang", "rank": "Anggota Brigadir Polisi", "division": "Satuan Lalu Lintas" },
-  { "name": "Chiro Ignatius", "rank": "Anggota Brigadir Polisi", "division": "Satuan Lalu Lintas" },
   { "name": "Argan Rebellions", "rank": "Anggota Brigadir Polisi", "division": "Satuan Lalu Lintas" },
   { "name": "Twyne Brown", "rank": "Anggota Brigadir Polisi", "division": "Satuan Lalu Lintas" },
   { "name": "Goteng Warsed", "rank": "Anggota Brigadir Polisi", "division": "Samapta Bhayangkara" },
   { "name": "Ubeed Ignacio", "rank": "Anggota Brigadir Polisi", "division": "Samapta Bhayangkara" },
-  { "name": "Shiro Vasquez", "rank": "Anggota Brigadir Polisi", "division": "Satuan Lalu Lintas" },
   { "name": "Luther Einsberg", "rank": "Brigadir Polisi", "division": "Badan Reserse Kriminal" },
   { "name": "Kenny Bramasta", "rank": "Tamtama", "division": "Sabhara" },
   { "name": "Bahar Khamarudin", "rank": "Inspektur Polisi Dua", "division": "Satlantas" },
   { "name": "Leon Alexon", "rank": "Ajun Brigadir Polisi", "division": "Bareskrim" },
   { "name": "Yamagata Nakashima", "rank": "Ajun Brigadir Polisi", "division": "Satlantas" },
-  { "name": "Lukas Tyzoon", "rank": "Ajun Brigadir Polisi", "division": "Satlantas" }
+  { "name": "Angga Victoria", "rank": "Ajun Brigadir Polisi ", "division": "Satlantas " },
+  { "name": "Lukas Tyzoon", "rank": "Ajun Brigadir Polisi", "division": "Satlantas" },
+  { "name": "Noval Demarco", "rank": " Brigadir Polisi", "division": "Satlantas" }
 ]
