@@ -69,6 +69,10 @@
             background-color: #f8d7da;
             color: #721c24;
         }
+        .uangmerah {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
         .terorisme {
             background-color: #f8d7da;
             color: #721c24;
@@ -858,6 +862,44 @@
         </table>                               
 
         <table>
+            <thead class="uangmerah">
+                <tr>
+                    <th colspan="5">TINDAK PIDANA UANG MERAH</th>
+                </tr>
+                <tr>
+                    <th>Pasal (Ayat)</th>
+                    <th>Ceklis</th>
+                    <th>Pelanggaran</th>
+                    <th>Denda</th>
+                    <th>Massa Tahanan</th>
+                </tr>
+            </thead>
+            <tbody id="uangmerahTable">
+                <tr>
+                    <td>19(1)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="19(1)" data-tindak="Memiliki uang merah 1k-20k"></td>
+                    <td style="text-align: left;">Memiliki uang merah 1k-20k</td>
+                    <td>10000</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>19(2)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="19(2)" data-tindak="Memiliki uang merah 21k-50k"></td>
+                    <td style="text-align: left;">Memiliki uang merah 21k-50k</td>
+                    <td>20000</td>
+                    <td>40</td>
+                </tr>
+                <tr>
+                    <td>19(3)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="19(3)" data-tindak="Memiliki uang merah 51k-100k"></td>
+                    <td style="text-align: left;">Memiliki uang merah 51k-100k</td>
+                    <td>30000</td>
+                    <td>40</td>
+                </tr>
+            </tbody>
+        </table>        
+
+        <table>
             <thead class="terorisme">
                 <tr>
                     <th colspan="5">TINDAK PIDANA TERORISME DAN HUKUMAN MATI</th>
@@ -872,50 +914,50 @@
             </thead>
             <tbody id="terorismeTable">
                 <tr>
-                    <td>19(1)</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="19(1)" data-tindak="Terorisme"></td>
+                    <td>20(1)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="20(1)" data-tindak="Terorisme"></td>
                     <td style="text-align: left;">Terorisme</td>
                     <td>150000</td>
                     <td>Hukuman Mati</td>
                 </tr>
                 <tr>
-                    <td>19(2)</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="19(2)" data-tindak="Penembakan diarea kantor hukum"></td>
+                    <td>20(2)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="20(2)" data-tindak="Penembakan diarea kantor hukum"></td>
                     <td style="text-align: left;">Penembakan diarea kantor hukum</td>
                     <td>120000</td>
                     <td>Hukuman Mati</td>
                 </tr>
                 <tr>
-                    <td>19(3)</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="19(3)" data-tindak="Penyanderaan skala besar"></td>
+                    <td>20(3)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="20(3)" data-tindak="Penyanderaan skala besar"></td>
                     <td style="text-align: left;">Penyanderaan skala besar</td>
                     <td>120000</td>
                     <td>Hukuman Mati</td>
                 </tr>
                 <tr>
-                    <td>19(4)</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="19(4)" data-tindak="Penyanderaan instansi"></td>
+                    <td>20(4)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="20(4)" data-tindak="Penyanderaan instansi"></td>
                     <td style="text-align: left;">Penyanderaan instansi</td>
                     <td>120000</td>
                     <td>Hukuman Mati</td>
                 </tr>
                 <tr>
-                    <td>19(5)</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="19(5)" data-tindak="Tindakan mengakibatkan kota siaga 3"></td>
+                    <td>20(5)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="20(5)" data-tindak="Tindakan mengakibatkan kota siaga 3"></td>
                     <td style="text-align: left;">Tindakan mengakibatkan kota siaga 3</td>
                     <td>130000</td>
                     <td>Hukuman Mati</td>
                 </tr>
                 <tr>
-                    <td>19(6)</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="19(6)" data-tindak="Menggangu proses jalan peleburan"></td>
+                    <td>20(6)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="20(6)" data-tindak="Menggangu proses jalan peleburan"></td>
                     <td style="text-align: left;">Menggangu proses jalan peleburan</td>
                     <td>140000</td>
                     <td>Hukuman Mati</td>
                 </tr>
                 <tr>
-                    <td>19(7)</td>
-                    <td><input type="checkbox" class="checkbox" data-uu="19(7)" data-tindak="Catatan criminal sebanyak 7 kali"></td>
+                    <td>20(7)</td>
+                    <td><input type="checkbox" class="checkbox" data-uu="20(7)" data-tindak="Catatan criminal sebanyak 7 kali"></td>
                     <td style="text-align: left;">Catatan criminal sebanyak 7 kali</td>
                     <td>120000</td>
                     <td>Hukuman Mati</td>
@@ -996,7 +1038,7 @@ document.addEventListener("click", function(event) {
 // Handle search filtering
 document.getElementById("searchInput").addEventListener("keyup", function() {
     const filter = this.value.toLowerCase();
-    const tables = ['keamananTable', 'aparaturTable', 'hartabendaTable', 'narkobaTable', 'senjataTable', 'nyawaTable', 'terorismeTable'];
+    const tables = ['keamananTable', 'aparaturTable', 'hartabendaTable', 'narkobaTable', 'senjataTable', 'nyawaTable', 'terorismeTable', 'uangmerahTable'];
 
     tables.forEach(tableId => {
         const table = document.getElementById(tableId);
